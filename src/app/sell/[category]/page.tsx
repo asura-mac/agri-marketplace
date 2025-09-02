@@ -8,6 +8,8 @@ import { testAuthAndDatabase } from "@/lib/supabase";
 import type { ListingFormData } from "@/lib/listings-utils";
 import Breadcrumb from "@/components/Breadcrumb";
 import ImageUpload from "@/components/ImageUpload";
+import { INDIAN_STATES_AND_UTS } from "@/lib/constants";
+import { detectUserLocation, extractIndianState } from "@/lib/location-utils";
 
 const categoryLabels: Record<string, string> = {
   grains: "Grains",
@@ -57,6 +59,8 @@ export default function CategorySellPage() {
 
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [detecting, setDetecting] = useState(false);
+  const [locationError, setLocationError] = useState<string | null>(null);
 
   // Check if user is authenticated
   useEffect(() => {
@@ -207,6 +211,58 @@ export default function CategorySellPage() {
     // Clear error when user starts typing
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }));
+    }
+    
+    // Clear location error when user types in state or district
+    if ((field === 'state' || field === 'district') && locationError) {
+      setLocationError(null);
+    }
+  };
+
+  const handleLocationDetection = async () => {
+    if (!navigator.geolocation) {
+      setLocationError('Geolocation is not supported by this browser');
+      return;
+    }
+
+    setDetecting(true);
+    setLocationError(null);
+
+    try {
+      const result = await detectUserLocation();
+      
+      // Auto-fill form fields if data is available
+      const updates: Partial<typeof formData> = {};
+      
+      // Auto-fill state if detected and matches Indian states
+      if (result.state) {
+        const indianState = extractIndianState(result);
+        if (indianState && (INDIAN_STATES_AND_UTS as readonly string[]).includes(indianState)) {
+          updates.state = indianState;
+        }
+      }
+      
+      // Auto-fill district if available
+      if (result.district) {
+        updates.district = result.district;
+      }
+      
+      setFormData(prev => ({ ...prev, ...updates }));
+      
+      // Clear any existing errors for auto-filled fields
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        if (updates.state) delete newErrors.state;
+        if (updates.district) delete newErrors.district;
+        return newErrors;
+      });
+      
+    } catch (error) {
+      console.error('Location detection failed:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Failed to detect location';
+      setLocationError(errorMessage);
+    } finally {
+      setDetecting(false);
     }
   };
 
@@ -367,24 +423,76 @@ export default function CategorySellPage() {
               LOCATION & CONTACT DETAILS
             </h2>
 
+            <div className="space-y-4">
+              {/* Location Detection Button */}
+              <div className="flex items-center justify-between">
+                <div className="text-sm font-medium text-gray-700">
+                  Auto-fill location details
+                </div>
+                <button
+                  type="button"
+                  onClick={handleLocationDetection}
+                  disabled={detecting}
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white text-sm font-medium rounded-md transition-colors disabled:cursor-not-allowed"
+                >
+                  {detecting ? (
+                    <span className="flex items-center gap-2">
+                      <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Detecting...
+                    </span>
+                  ) : (
+                    "📍 Detect Location"
+                  )}
+                </button>
+              </div>
+              
+              {/* Show error */}
+              {locationError && (
+                <div className="p-3 bg-red-50 border border-red-200 rounded-md">
+                  <div className="flex items-start gap-2">
+                    <span className="text-red-600 mt-0.5">❌</span>
+                    <div className="flex-1">
+                      <div className="text-sm font-medium text-red-800">Location detection failed</div>
+                      <div className="text-sm text-red-700 mt-1">{locationError}</div>
+                      <div className="text-xs text-red-600 mt-1">
+                        Please fill the fields manually or try again.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Location */}
+              {/* State */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   State *
                 </label>
-                <input
-                  type="text"
+                <select
                   value={formData.state}
                   onChange={(e) => handleInputChange('state', e.target.value)}
-                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    errors.location ? 'border-red-500' : 'border-gray-300'
+                  className={`w-full h-11 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    errors.state ? 'border-red-500' : 'border-gray-300'
                   }`}
-                  placeholder="Enter your state"
-                />
+                  required
+                >
+                  <option value="" disabled>Select your state</option>
+                  {INDIAN_STATES_AND_UTS.map((state) => (
+                    <option key={state} value={state}>
+                      {state}
+                    </option>
+                  ))}
+                </select>
                 {errors.state && (
                   <p className="mt-1 text-sm text-red-600">{errors.state}</p>
                 )}
+                <p className="mt-1 text-xs text-gray-500">
+                  Select your state or Union Territory
+                </p>
               </div>
 
               {/* District */}

@@ -141,13 +141,15 @@ export default function ListingDetailPage() {
               {/* State and District */}
               <div className="mb-6 flex items-center gap-2">
                 <MapPinIcon className="w-5 h-5 text-gray-500" />
-                <span className="text-gray-700">{listing.state},{listing.district}</span>
+                <span className="text-gray-700">
+                  {[listing.state, listing.district].filter(Boolean).join(', ') || 'Location not specified'}
+                </span>
               </div>
 
               {/* Contact Buttons */}
               <div className="mb-8 flex gap-3">
                 <CallIcon phone={listing.contact_phone} />
-                <DirectionsIcon />
+                {/* <DirectionsIcon /> */}
                 <WhatsappIcon phone={listing.whatsapp_number} />
               </div>
             </div>
@@ -302,7 +304,9 @@ export default function ListingDetailPage() {
           {/* Location */}
           <div className="p-4 border-b flex items-center gap-2">
             <MapPinIcon className="w-4 h-4 text-gray-500" />
-            <span className="text-sm text-gray-700">{listing.state},{listing.district}</span>
+            <span className="text-sm text-gray-700">
+              {[listing.state, listing.district].filter(Boolean).join(', ') || 'Location not specified'}
+            </span>
           </div>
 
           {/* Contact Buttons */}

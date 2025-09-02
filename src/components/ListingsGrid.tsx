@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import { getActiveListings } from "@/lib/listings-utils";
+import { getActiveListings, searchListings } from "@/lib/listings-utils";
 import type { Listing } from "@/lib/listings-utils";
+import { useSearch } from "@/contexts/SearchContext";
 import ListingCard from "./ListingCard";
 
 type ListingsGridProps = {
@@ -10,6 +11,7 @@ type ListingsGridProps = {
 };
 
 export default function ListingsGrid({ category, itemsPerPage = 12 }: ListingsGridProps) {
+  const { searchParams, isSearchActive, isFilterActive, clearSearch, clearStateFilter } = useSearch();
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -27,7 +29,20 @@ export default function ListingsGrid({ category, itemsPerPage = 12 }: ListingsGr
       setLoading(true);
       setError(null);
       
-      const data = await getActiveListings(category);
+      // Use search functionality if search params exist, otherwise use regular fetch
+      const searchActive = Boolean(searchParams.searchQuery?.trim() || searchParams.state);
+      
+      let data: Listing[];
+      if (searchActive) {
+        data = await searchListings({
+          ...searchParams,
+          category: category || searchParams.category,
+          limit: undefined // Get all results for client-side pagination
+        });
+      } else {
+        data = await getActiveListings(category);
+      }
+      
       setListings(data);
       setHasMore(data.length > itemsPerPage);
       setCurrentPage(1);
@@ -37,7 +52,7 @@ export default function ListingsGrid({ category, itemsPerPage = 12 }: ListingsGr
     } finally {
       setLoading(false);
     }
-  }, [category, itemsPerPage]);
+  }, [category, itemsPerPage, searchParams]);
 
   useEffect(() => {
     fetchListings();
@@ -52,10 +67,38 @@ export default function ListingsGrid({ category, itemsPerPage = 12 }: ListingsGr
     }
   };
 
+  // Create search/filter status component
+  const SearchFilterStatus = () => {
+    if (!isSearchActive && !isFilterActive) return null;
+    
+    return (
+      <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <div className="flex items-center justify-between flex-wrap gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            {isSearchActive && (
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-800">
+                Search: &ldquo;{searchParams.searchQuery}&rdquo;
+              </span>
+            )}
+            {isFilterActive && (
+              <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-green-100 text-green-800">
+                State: {searchParams.state}
+              </span>
+            )}
+            <span className="text-sm text-gray-600">
+              {listings.length} listing{listings.length !== 1 ? 's' : ''} found
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   // Loading state
   if (loading) {
     return (
       <div className="space-y-6">
+        <SearchFilterStatus />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {Array.from({ length: 8 }).map((_, index) => (
             <ListingCardSkeleton key={index} />
@@ -68,19 +111,22 @@ export default function ListingsGrid({ category, itemsPerPage = 12 }: ListingsGr
   // Error state
   if (error) {
     return (
-      <div className="text-center py-12">
-        <div className="text-red-600 mb-4">
-          <svg className="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">Something went wrong</h3>
-          <p className="text-gray-600 mb-4">{error}</p>
-          <button
-            onClick={fetchListings}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-          >
-            Try Again
-          </button>
+      <div className="space-y-6">
+        <SearchFilterStatus />
+        <div className="text-center py-12">
+          <div className="text-red-600 mb-4">
+            <svg className="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Something went wrong</h3>
+            <p className="text-gray-600 mb-4">{error}</p>
+            <button
+              onClick={fetchListings}
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            >
+              Try Again
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -88,19 +134,44 @@ export default function ListingsGrid({ category, itemsPerPage = 12 }: ListingsGr
 
   // Empty state
   if (listings.length === 0) {
+    
     return (
-      <div className="text-center py-12">
-        <div className="text-gray-400 mb-4">
-          <svg className="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2M4 13h2m8-6v10M9 7l3 3 3-3" />
-          </svg>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">No listings found</h3>
-          <p className="text-gray-600 mb-4">
-            {category ? `No ${category} listings are available right now.` : 'No products are listed yet.'}
-          </p>
-          <p className="text-gray-500 text-sm">
-            Be the first to list your products!
-          </p>
+      <div className="space-y-6">
+        <SearchFilterStatus />
+        <div className="text-center py-12">
+          <div className="text-gray-400 mb-4">
+            <div className="text-6xl mb-4">🔍</div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              {isSearchActive || isFilterActive ? 'No Results Found' : 'No Listings Available'}
+            </h3>
+            <p className="text-gray-600 mb-4">
+              {isSearchActive || isFilterActive 
+                ? 'Try adjusting your search terms or filters to find what you\'re looking for.'
+                : category 
+                  ? `No ${category} listings are available right now.`
+                  : 'No products are listed yet. Be the first to list your products!'}
+            </p>
+            {(isSearchActive || isFilterActive) && (
+              <div className="flex flex-col sm:flex-row gap-2 justify-center">
+                {isSearchActive && (
+                  <button
+                    onClick={clearSearch}
+                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm"
+                  >
+                    Clear Search
+                  </button>
+                )}
+                {isFilterActive && (
+                  <button
+                    onClick={clearStateFilter}
+                    className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-md text-sm"
+                  >
+                    Clear Filter
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     );
@@ -108,6 +179,7 @@ export default function ListingsGrid({ category, itemsPerPage = 12 }: ListingsGr
 
   return (
     <div className="space-y-6">
+      <SearchFilterStatus />
       {/* Results summary */}
       <div className="flex items-center justify-between">
         <p className="text-sm text-gray-600">

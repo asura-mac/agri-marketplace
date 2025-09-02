@@ -26,10 +26,10 @@ export type Listing = {
   price_per_unit: number;
   unit: 'kg' | 'quintal' | 'ton';
   minimum_order: number;
-  state: string;
-  district: string;
+  state: string | null;
+  district: string | null;
   contact_phone: string;
-  whatsapp_number: string;
+  whatsapp_number: string | null;
   images: string[];
   status: 'active' | 'sold' | 'inactive';
   created_at: string;
@@ -245,7 +245,40 @@ export async function getUserListings(userId: string): Promise<Listing[]> {
 }
 
 /**
- * Get all active listings
+ * Search and filter parameters for listings
+ */
+export type ListingSearchParams = {
+  searchQuery?: string;
+  category?: string;
+  state?: string;
+  limit?: number;
+  offset?: number;
+};
+
+/**
+ * Utility function to safely convert a value to a searchable string
+ * Handles null, undefined, and non-string values gracefully
+ */
+function safeStringSearch(value: string | null | undefined): string {
+  if (value === null || value === undefined) {
+    return '';
+  }
+  return String(value).toLowerCase();
+}
+
+/**
+ * Safely check if a searchable field contains a search term
+ * @param field - The field value to search in (can be null/undefined)
+ * @param searchTerm - The term to search for (should be lowercase)
+ * @returns boolean indicating if the field contains the search term
+ */
+function fieldContainsSearchTerm(field: string | null | undefined, searchTerm: string): boolean {
+  const safeField = safeStringSearch(field);
+  return safeField.includes(searchTerm);
+}
+
+/**
+ * Get all active listings with search and filter capabilities
  */
 export async function getActiveListings(category?: string): Promise<Listing[]> {
   if (!supabase) {
@@ -274,6 +307,70 @@ export async function getActiveListings(category?: string): Promise<Listing[]> {
     return (data as Listing[]) || [];
   } catch (error) {
     console.error('Unexpected error fetching listings:', error);
+    return [];
+  }
+}
+
+/**
+ * Search and filter agricultural listings
+ */
+export async function searchListings(params: ListingSearchParams): Promise<Listing[]> {
+  if (!supabase) {
+    console.error('Supabase client not available');
+    return [];
+  }
+
+  try {
+    let query = supabase
+      .from('agricultural_listings')
+      .select('*')
+      .eq('status', 'active')
+      .order('created_at', { ascending: false });
+
+    // Apply category filter
+    if (params.category) {
+      query = query.eq('category', params.category);
+    }
+
+    // Apply state filter
+    if (params.state) {
+      query = query.eq('state', params.state);
+    }
+
+    // Apply limit and offset for pagination
+    if (params.limit) {
+      query = query.limit(params.limit);
+    }
+    if (params.offset) {
+      query = query.range(params.offset, params.offset + (params.limit || 10) - 1);
+    }
+
+    const { data, error } = await query;
+
+    if (error) {
+      console.error('Error searching listings:', error);
+      return [];
+    }
+
+    let results = (data as Listing[]) || [];
+
+    // Apply client-side text search across multiple fields
+    if (params.searchQuery && params.searchQuery.trim()) {
+      const searchTerm = params.searchQuery.toLowerCase().trim();
+      results = results.filter(listing => {
+        return (
+          fieldContainsSearchTerm(listing.product_name, searchTerm) ||
+          fieldContainsSearchTerm(listing.product_description, searchTerm) ||
+          fieldContainsSearchTerm(listing.category, searchTerm) ||
+          fieldContainsSearchTerm(listing.state, searchTerm) ||
+          fieldContainsSearchTerm(listing.district, searchTerm)
+        );
+      });
+    }
+
+    return results;
+  } catch (error) {
+    console.error('Unexpected error searching listings:', error);
     return [];
   }
 }
@@ -367,6 +464,34 @@ export async function fetchSellerListings(userId: string, excludeListingId?: str
 }
 
 /**
+ * Fetch all listings for a specific user (for profile management)
+ */
+export async function fetchUserListings(userId: string): Promise<Listing[]> {
+  if (!supabase) {
+    console.error('Supabase client not available');
+    return [];
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('agricultural_listings')
+      .select('*')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('Error fetching user listings:', error);
+      return [];
+    }
+
+    return (data || []) as Listing[];
+  } catch (error) {
+    console.error('Unexpected error fetching user listings:', error);
+    return [];
+  }
+}
+
+/**
  * Update listing status
  */
 export async function updateListingStatus(
@@ -379,9 +504,9 @@ export async function updateListingStatus(
   }
 
   try {
-    const { data, error } = await supabase.rpc('update_listing', {
+    const { data, error } = await supabase.rpc('update_listing_status', {
       listing_id: listingId,
-      listing_status: status
+      new_status: status
     });
 
     if (error) {
@@ -394,6 +519,59 @@ export async function updateListingStatus(
   } catch (error) {
     console.error('Unexpected error updating listing status:', error);
     return false;
+  }
+}
+
+/**
+ * Delete a listing (mark as inactive)
+ */
+export async function deleteListing(listingId: string): Promise<boolean> {
+  if (!supabase) {
+    console.error('Supabase client not available');
+    return false;
+  }
+
+  try {
+    const { data, error } = await supabase.rpc('delete_listing', {
+      listing_id: listingId
+    });
+
+    if (error) {
+      console.error('Error deleting listing:', error);
+      return false;
+    }
+
+    console.log('Listing deleted successfully');
+    return Boolean(data);
+  } catch (error) {
+    console.error('Unexpected error deleting listing:', error);
+    return false;
+  }
+}
+
+/**
+ * Get a listing for editing (user must own it)
+ */
+export async function getListingForEdit(listingId: string): Promise<Listing | null> {
+  if (!supabase) {
+    console.error('Supabase client not available');
+    return null;
+  }
+
+  try {
+    const { data, error } = await supabase.rpc('get_listing_for_edit', {
+      listing_id: listingId
+    });
+
+    if (error) {
+      console.error('Error fetching listing for edit:', error);
+      return null;
+    }
+
+    return Array.isArray(data) && data.length > 0 ? (data[0] as Listing) : null;
+  } catch (error) {
+    console.error('Unexpected error fetching listing for edit:', error);
+    return null;
   }
 }
 

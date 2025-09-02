@@ -121,7 +121,9 @@ export default function ListingCard({ listing, onClick, showContact = false }: L
         {/* Location */}
         <div className="flex items-center gap-1 text-sm text-gray-600">
           <MapPinIcon className="w-4 h-4 flex-shrink-0" />
-          <span className="truncate">{listing.state},{listing.district}</span>
+          <span className="truncate">
+            {[listing.state, listing.district].filter(Boolean).join(', ') || 'Location not specified'}
+          </span>
         </div>
 
         {/* Contact Information (conditionally shown) */}

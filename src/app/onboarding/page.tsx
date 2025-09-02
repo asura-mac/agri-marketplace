@@ -3,10 +3,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/providers";
 import { completeOnboarding, debugUserProfile } from "@/lib/auth-utils";
-
-const indianStatesAndUTs = [
-  "Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat","Haryana","Himachal Pradesh","Jharkhand","Karnataka","Kerala","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh","Uttarakhand","West Bengal","Andaman and Nicobar Islands","Chandigarh","Dadra and Nagar Haveli and Daman and Diu","Delhi","Jammu and Kashmir","Ladakh","Lakshadweep","Puducherry"
-];
+import { detectUserLocation, extractIndianState, formatAddressShort } from "@/lib/location-utils";
+import { INDIAN_STATES_AND_UTS } from "@/lib/constants";
 
 export default function OnboardingPage() {
   const router = useRouter();
@@ -20,6 +18,8 @@ export default function OnboardingPage() {
     location: "",
   });
   const [detecting, setDetecting] = useState(false);
+  const [locationError, setLocationError] = useState<string | null>(null);
+  const [detectedLocation, setDetectedLocation] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
   // Redirect if not authenticated or already completed onboarding
@@ -34,20 +34,65 @@ export default function OnboardingPage() {
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: value }));
+    
+    // Clear detected location feedback when user manually edits location
+    if (name === 'location' && detectedLocation) {
+      setDetectedLocation(null);
+      setLocationError(null);
+    }
   }
 
   async function detectLocation() {
-    if (!navigator.geolocation) return;
+    if (!navigator.geolocation) {
+      setLocationError('Geolocation is not supported by this browser');
+      return;
+    }
+
     setDetecting(true);
-    navigator.geolocation.getCurrentPosition(
-      async (pos) => {
-        const { latitude, longitude } = pos.coords;
-        setForm((f) => ({ ...f, location: `${latitude},${longitude}` }));
-        setDetecting(false);
-      },
-      () => setDetecting(false),
-      { enableHighAccuracy: true, timeout: 10000 }
-    );
+    setLocationError(null);
+    setDetectedLocation(null);
+
+    try {
+      console.log('Starting location detection...');
+      const result = await detectUserLocation();
+      
+      console.log('Location detection successful:', result);
+      
+      // Set the detected location for display
+      setDetectedLocation(result.formatted);
+      
+      // Auto-fill form fields if data is available
+      const updates: Partial<typeof form> = {
+        location: formatAddressShort(result)
+      };
+      
+      // Auto-fill state if detected and matches Indian states
+      if (result.state) {
+        const indianState = extractIndianState(result);
+        if (indianState && (INDIAN_STATES_AND_UTS as readonly string[]).includes(indianState)) {
+          updates.state = indianState;
+        }
+      }
+      
+      // Auto-fill district if available
+      if (result.district) {
+        updates.district = result.district;
+      }
+      
+      // Auto-fill pincode if available
+      if (result.pincode) {
+        updates.pincode = result.pincode;
+      }
+      
+      setForm((f) => ({ ...f, ...updates }));
+      
+    } catch (error) {
+      console.error('Location detection failed:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Failed to detect location';
+      setLocationError(errorMessage);
+    } finally {
+      setDetecting(false);
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -129,7 +174,7 @@ export default function OnboardingPage() {
             <label className="block text-sm text-gray-700 mb-1">State/UT</label>
             <select name="state" value={form.state} onChange={handleChange} className="w-full h-11 border rounded-md px-3" required>
               <option value="" disabled>Select state</option>
-              {indianStatesAndUTs.map((s) => (
+              {INDIAN_STATES_AND_UTS.map((s) => (
                 <option key={s} value={s}>{s}</option>
               ))}
             </select>
@@ -142,13 +187,75 @@ export default function OnboardingPage() {
             <label className="block text-sm text-gray-700 mb-1">Pincode</label>
             <input name="pincode" value={form.pincode} onChange={handleChange} className="w-full h-11 border rounded-md px-3" required />
           </div>
-          <div>
-            <label className="block text-sm text-gray-700 mb-1">Detected location</label>
-            <div className="flex gap-2">
-              <input name="location" value={form.location} onChange={handleChange} className="flex-1 h-11 border rounded-md px-3" placeholder="lat,long or address" />
-              <button type="button" onClick={detectLocation} className="px-3 h-11 rounded-md border text-blue-700 border-blue-300 hover:bg-blue-50">
-                {detecting ? "Detecting..." : "Detect"}
-              </button>
+          <div className="sm:col-span-2">
+            <label className="block text-sm text-gray-700 mb-1">Location</label>
+            <div className="space-y-2">
+              <div className="flex gap-2">
+                <input 
+                  name="location" 
+                  value={form.location} 
+                  onChange={handleChange} 
+                  className="flex-1 h-11 border rounded-md px-3" 
+                  placeholder="Enter your location or detect automatically" 
+                />
+                <button 
+                  type="button" 
+                  onClick={detectLocation} 
+                  disabled={detecting}
+                  className="px-4 h-11 rounded-md border text-blue-700 border-blue-300 hover:bg-blue-50 disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed font-medium whitespace-nowrap"
+                >
+                  {detecting ? (
+                    <span className="flex items-center gap-2">
+                      <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Detecting...
+                    </span>
+                  ) : (
+                    "📍 Detect"
+                  )}
+                </button>
+              </div>
+              
+              {/* Show detected location */}
+              {detectedLocation && (
+                <div className="p-3 bg-green-50 border border-green-200 rounded-md">
+                  <div className="flex items-start gap-2">
+                    <span className="text-green-600 mt-0.5">✅</span>
+                    <div className="flex-1">
+                      <div className="text-sm font-medium text-green-800">Location detected successfully!</div>
+                      <div className="text-sm text-green-700 mt-1">{detectedLocation}</div>
+                      <div className="text-xs text-green-600 mt-1">
+                        Form fields have been auto-filled. You can edit them if needed.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              {/* Show error */}
+              {locationError && (
+                <div className="p-3 bg-red-50 border border-red-200 rounded-md">
+                  <div className="flex items-start gap-2">
+                    <span className="text-red-600 mt-0.5">❌</span>
+                    <div className="flex-1">
+                      <div className="text-sm font-medium text-red-800">Location detection failed</div>
+                      <div className="text-sm text-red-700 mt-1">{locationError}</div>
+                      <div className="text-xs text-red-600 mt-1">
+                        Please enter your location manually or try again.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              {/* Help text */}
+              {!detecting && !detectedLocation && !locationError && (
+                <div className="text-xs text-gray-500">
+                  Click &ldquo;📍 Detect&rdquo; to automatically fill your location, or enter it manually.
+                </div>
+              )}
             </div>
           </div>
         </div>
