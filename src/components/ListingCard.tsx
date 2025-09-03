@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslation } from 'react-i18next';
 import { MapPinIcon } from "@heroicons/react/24/outline";
 import type { Listing } from "@/lib/listings-utils";
 
@@ -22,22 +23,9 @@ const categoryIcons: Record<string, string> = {
   equipment: "🚜",
 };
 
-// Category display names
-const categoryNames: Record<string, string> = {
-  grains: "GRAINS",
-  pulses: "PULSES", 
-  fruits: "Fruits",
-  vegetables: "VEGETABLES",
-  oilseeds: "OILSEEDS",
-  seeds: "SEEDS",
-  spices: "SPICES",
-  flowers: "FLOWERS",
-  tea: "TEA",
-  nuts: "NUTS",
-  dairy: "DAIRY",
-  fish: "FISH",
-  fertilizer: "FERTILIZER",
-  equipment: "EQUIPMENT",
+// Category display names helper
+const getCategoryName = (category: string, t: (key: string) => string): string => {
+  return t(`categories.${category}`).toUpperCase();
 };
 
 // Category colors
@@ -65,9 +53,10 @@ type ListingCardProps = {
 };
 
 export default function ListingCard({ listing, onClick, showContact = false }: ListingCardProps) {
+  const { t } = useTranslation();
   const image = listing.images?.[0] || "/next.svg";
   const categoryIcon = categoryIcons[listing.category] || "📦";
-  const categoryName = categoryNames[listing.category] || listing.category.toUpperCase();
+  const categoryName = getCategoryName(listing.category, t);
   const categoryColor = categoryColors[listing.category] || "bg-gray-100 text-gray-800";
 
   const cardContent = (
@@ -95,7 +84,7 @@ export default function ListingCard({ listing, onClick, showContact = false }: L
               {listing.product_name}
             </h3>
             <div className="text-lg font-bold text-gray-900">
-              ₹ {listing.price_per_unit}/{listing.unit.toUpperCase()}
+              ₹ {listing.price_per_unit}/{t(`units.${listing.unit}`)}
             </div>
           </div>
         </div>
@@ -103,10 +92,10 @@ export default function ListingCard({ listing, onClick, showContact = false }: L
         {/* Minimum Order */}
         <div className="mb-3">
           <div className="text-sm text-gray-600">
-            <span className="font-medium">Minimum Order Qty.</span>
+            <span className="font-medium">{t('listing.minimumOrder')}</span>
           </div>
           <div className="text-sm font-semibold text-gray-900">
-            {listing.minimum_order}{listing.unit}
+            {listing.minimum_order} {t(`units.${listing.unit}`)}
           </div>
         </div>
 
@@ -122,14 +111,14 @@ export default function ListingCard({ listing, onClick, showContact = false }: L
         <div className="flex items-center gap-1 text-sm text-gray-600">
           <MapPinIcon className="w-4 h-4 flex-shrink-0" />
           <span className="truncate">
-            {[listing.state, listing.district].filter(Boolean).join(', ') || 'Location not specified'}
+            {[listing.state, listing.district].filter(Boolean).join(', ') || t('listing.locationNotSpecified')}
           </span>
         </div>
 
         {/* Contact Information (conditionally shown) */}
         {showContact && (
           <div className="mt-2 pt-2 border-t border-gray-100">
-            <div className="text-xs text-gray-500 mb-1">Contact</div>
+            <div className="text-xs text-gray-500 mb-1">{t('listing.contact')}</div>
             <div className="text-sm font-medium text-blue-600">
               {listing.contact_phone}
             </div>

@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { getUserLocation } from "@/lib/auth-utils";
 import { useSearch } from "@/contexts/SearchContext";
 import { INDIAN_STATES_AND_UTS } from "@/lib/constants";
+import { useTranslation } from 'react-i18next';
+import LanguageSelector from './LanguageSelector';
 import { 
   MagnifyingGlassIcon, 
   FunnelIcon,
@@ -18,8 +20,9 @@ export default function Header() {
   const { user, loading } = useAuth();
   const router = useRouter();
   const { searchParams, updateSearchParams, clearSearch, clearStateFilter, isSearchActive, isFilterActive } = useSearch();
+  const { t } = useTranslation();
   
-  const [locationLabel, setLocationLabel] = useState<string>("Set location");
+  const [locationLabel, setLocationLabel] = useState<string>(t('header.setLocation'));
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
   const filterDropdownRef = useRef<HTMLDivElement>(null);
@@ -36,9 +39,9 @@ export default function Header() {
       fetchUserLocation();
     } else {
       // Reset location label when user logs out
-      setLocationLabel("Set location");
+      setLocationLabel(t('header.setLocation'));
     }
-  }, [user, fetchUserLocation]);
+  }, [user, fetchUserLocation, t]);
 
   // Handle search input
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,12 +97,15 @@ export default function Header() {
       {/* Mobile */}
       <div className="md:hidden px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Image src="/next.svg" alt="Logo" width={90} height={24} />
+          <Link href="/">
+            <Image src="/KM-LOGO-FULL.png" alt="KrushiMandi Logo" width={120} height={32} className="cursor-pointer" />
+          </Link>
         </div>
         <div className="flex items-center gap-2">
           <Link href="/sell" className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md">
-            Sell
+            {t('header.sell')}
           </Link>
+          <LanguageSelector />
           <div className="text-sm text-blue-700 font-medium truncate max-w-[80px]">
             {locationLabel}
           </div>
@@ -114,7 +120,7 @@ export default function Header() {
             <input 
               value={searchQuery}
               onChange={handleSearchChange}
-              placeholder="Search products..." 
+              placeholder={t('header.searchPlaceholderMobile')} 
               className="w-full h-10 rounded-md border pl-10 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
             />
             {isSearchActive && (
@@ -148,13 +154,13 @@ export default function Header() {
               <div className="absolute right-0 top-12 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
                 <div className="p-3 border-b border-gray-100">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-medium text-gray-900">Filter by State</h3>
+                    <h3 className="text-sm font-medium text-gray-900">{t('search.filterByState')}</h3>
                     {isFilterActive && (
                       <button
                         onClick={handleClearStateFilter}
                         className="text-xs text-blue-600 hover:text-blue-700"
                       >
-                        Clear
+                        {t('header.clearFilter')}
                       </button>
                     )}
                   </div>
@@ -181,7 +187,9 @@ export default function Header() {
       {/* Desktop */}
       <div className="hidden md:flex items-center gap-4 px-6 py-4">
         <div className="mr-auto flex items-center gap-4">
-          <Image src="/next.svg" alt="Logo" width={110} height={28} />
+          <Link href="/">
+            <Image src="/KM-LOGO-FULL.png" alt="KrushiMandi Logo" width={140} height={36} className="cursor-pointer" />
+          </Link>
           <div className="text-blue-700 font-medium">{locationLabel}</div>
         </div>
         
@@ -193,7 +201,7 @@ export default function Header() {
               <input 
                 value={searchQuery}
                 onChange={handleSearchChange}
-                placeholder="Search products, categories, locations..." 
+                placeholder={t('header.searchPlaceholder')} 
                 className="w-full h-10 rounded-md border pl-10 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
               />
               {isSearchActive && (
@@ -219,7 +227,7 @@ export default function Header() {
                 }`}
               >
                 <FunnelIcon className="h-5 w-5" />
-                <span className="text-sm font-medium">Filter</span>
+                <span className="text-sm font-medium">{t('header.filter')}</span>
                 {isFilterActive && (
                   <div className="flex items-center gap-1">
                     <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
@@ -234,19 +242,19 @@ export default function Header() {
                 <div className="absolute right-0 top-12 w-72 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
                   <div className="p-4 border-b border-gray-100">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-sm font-medium text-gray-900">Filter by State</h3>
+                      <h3 className="text-sm font-medium text-gray-900">{t('search.filterByState')}</h3>
                       {isFilterActive && (
                         <button
                           onClick={handleClearStateFilter}
                           className="text-sm text-blue-600 hover:text-blue-700 font-medium"
                         >
-                          Clear Filter
+                          {t('header.clearFilter')}
                         </button>
                       )}
                     </div>
                     {isFilterActive && (
                       <p className="text-xs text-gray-500 mt-1">
-                        Showing listings from {searchParams.state}
+                        {t('search.showingListings', { state: searchParams.state })}
                       </p>
                     )}
                   </div>
@@ -271,13 +279,14 @@ export default function Header() {
         
         <div className="flex items-center gap-4">
           <Link href="/sell" className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors">
-            Sell
+            {t('header.sell')}
           </Link>
+          <LanguageSelector />
           <div className="ml-auto">
             {!loading && user ? (
-              <Link href="/profile" className="text-blue-700 font-medium">Profile</Link>
+              <Link href="/profile" className="text-blue-700 font-medium">{t('header.profile')}</Link>
             ) : (
-              <Link href="/login" className="text-blue-700 font-medium">Login</Link>
+              <Link href="/login" className="text-blue-700 font-medium">{t('header.login')}</Link>
             )}
           </div>
         </div>

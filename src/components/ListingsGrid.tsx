@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
+import { useTranslation } from 'react-i18next';
 import { getActiveListings, searchListings } from "@/lib/listings-utils";
 import type { Listing } from "@/lib/listings-utils";
 import { useSearch } from "@/contexts/SearchContext";
@@ -11,6 +12,7 @@ type ListingsGridProps = {
 };
 
 export default function ListingsGrid({ category, itemsPerPage = 12 }: ListingsGridProps) {
+  const { t } = useTranslation();
   const { searchParams, isSearchActive, isFilterActive, clearSearch, clearStateFilter } = useSearch();
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(true);
@@ -48,11 +50,11 @@ export default function ListingsGrid({ category, itemsPerPage = 12 }: ListingsGr
       setCurrentPage(1);
     } catch (err) {
       console.error('Error fetching listings:', err);
-      setError('Failed to load listings. Please try again.');
+      setError(t('common.somethingWentWrong'));
     } finally {
       setLoading(false);
     }
-  }, [category, itemsPerPage, searchParams]);
+  }, [category, itemsPerPage, searchParams, t]);
 
   useEffect(() => {
     fetchListings();
@@ -77,16 +79,16 @@ export default function ListingsGrid({ category, itemsPerPage = 12 }: ListingsGr
           <div className="flex flex-wrap items-center gap-2">
             {isSearchActive && (
               <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 text-blue-800">
-                Search: &ldquo;{searchParams.searchQuery}&rdquo;
+                {t('search.searchResults', { query: searchParams.searchQuery })}
               </span>
             )}
             {isFilterActive && (
               <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-green-100 text-green-800">
-                State: {searchParams.state}
+                {t('search.stateFilter', { state: searchParams.state })}
               </span>
             )}
             <span className="text-sm text-gray-600">
-              {listings.length} listing{listings.length !== 1 ? 's' : ''} found
+              {t('search.listingsFound', { count: listings.length })}
             </span>
           </div>
         </div>
@@ -118,13 +120,13 @@ export default function ListingsGrid({ category, itemsPerPage = 12 }: ListingsGr
             <svg className="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Something went wrong</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('common.somethingWentWrong')}</h3>
             <p className="text-gray-600 mb-4">{error}</p>
             <button
               onClick={fetchListings}
               className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
             >
-              Try Again
+              {t('common.tryAgain')}
             </button>
           </div>
         </div>
@@ -142,14 +144,14 @@ export default function ListingsGrid({ category, itemsPerPage = 12 }: ListingsGr
           <div className="text-gray-400 mb-4">
             <div className="text-6xl mb-4">🔍</div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              {isSearchActive || isFilterActive ? 'No Results Found' : 'No Listings Available'}
+              {isSearchActive || isFilterActive ? t('search.noResultsFound') : t('search.noListingsAvailable')}
             </h3>
             <p className="text-gray-600 mb-4">
               {isSearchActive || isFilterActive 
-                ? 'Try adjusting your search terms or filters to find what you\'re looking for.'
+                ? t('search.adjustSearch')
                 : category 
-                  ? `No ${category} listings are available right now.`
-                  : 'No products are listed yet. Be the first to list your products!'}
+                  ? `${t('common.noDataFound')} ${t(`categories.${category}`)} ${t('search.noListingsAvailable').toLowerCase()}`
+                  : t('search.noListingsYet')}
             </p>
             {(isSearchActive || isFilterActive) && (
               <div className="flex flex-col sm:flex-row gap-2 justify-center">
@@ -158,7 +160,7 @@ export default function ListingsGrid({ category, itemsPerPage = 12 }: ListingsGr
                     onClick={clearSearch}
                     className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm"
                   >
-                    Clear Search
+                    {t('search.clearSearch')}
                   </button>
                 )}
                 {isFilterActive && (
@@ -166,7 +168,7 @@ export default function ListingsGrid({ category, itemsPerPage = 12 }: ListingsGr
                     onClick={clearStateFilter}
                     className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-md text-sm"
                   >
-                    Clear Filter
+                    {t('search.clearFilter')}
                   </button>
                 )}
               </div>
@@ -207,7 +209,7 @@ export default function ListingsGrid({ category, itemsPerPage = 12 }: ListingsGr
             onClick={loadMore}
             className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
           >
-            Load More ({remainingItems} remaining)
+            {t('common.loadMore', { remaining: remainingItems })}
           </button>
         </div>
       )}
@@ -215,7 +217,7 @@ export default function ListingsGrid({ category, itemsPerPage = 12 }: ListingsGr
       {/* End message */}
       {!hasMore && listings.length > itemsPerPage && (
         <div className="text-center pt-8">
-          <p className="text-gray-500">You&apos;ve reached the end of the listings</p>
+          <p className="text-gray-500">{t('common.endOfListings')}</p>
         </div>
       )}
     </div>

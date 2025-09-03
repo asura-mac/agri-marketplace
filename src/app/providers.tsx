@@ -4,6 +4,7 @@ import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
 import { checkOnboardingStatus } from '@/lib/auth-utils';
 import { SearchProvider } from '@/contexts/SearchContext';
+import I18nProvider from '@/components/I18nProvider';
 
 type AuthContextType = {
   user: User | null;
@@ -99,11 +100,13 @@ export default function Providers({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={value}>
-      <SearchProvider>
-        {children}
-      </SearchProvider>
-    </AuthContext.Provider>
+    <I18nProvider>
+      <AuthContext.Provider value={value}>
+        <SearchProvider>
+          {children}
+        </SearchProvider>
+      </AuthContext.Provider>
+    </I18nProvider>
   );
 }
 

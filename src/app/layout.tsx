@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Agri Market Platform",
-  description: "A platform for farmers and vendors to list agricultural products",
+  title: "KrushiMandi - Agricultural Marketplace",
+  description: "Empowering farmers and traders through technology. List and discover agricultural products including grains, fruits, vegetables, and more.",
 };
 
 export default function RootLayout({
@@ -29,7 +30,10 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Providers>
           <Header />
-          {children}
+          <main className="min-h-screen">
+            {children}
+          </main>
+          <Footer />
         </Providers>
       </body>
     </html>
