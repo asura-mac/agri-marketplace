@@ -133,15 +133,15 @@ export default function ListingDetailPage() {
               {/* Minimum Order */}
               <div className="mb-6">
                 <div className="bg-gray-50 rounded-lg p-4 border">
-                  <div className="text-sm text-gray-600 mb-1">Minimum Order Quantity</div>
-                  <div className="text-lg font-semibold">{listing.minimum_order}{listing.unit}</div>
+                  <div className="text-sm text-gray-800 mb-1">Minimum Order Quantity</div>
+                  <div className="text-lg font-semibold text-black">{listing.minimum_order}{listing.unit}</div>
                 </div>
               </div>
 
               {/* State and District */}
               <div className="mb-6 flex items-center gap-2">
                 <MapPinIcon className="w-5 h-5 text-gray-500" />
-                <span className="text-gray-700">
+                <span className="text-black">
                   {[listing.state, listing.district].filter(Boolean).join(', ') || 'Location not specified'}
                 </span>
               </div>
@@ -183,7 +183,7 @@ export default function ListingDetailPage() {
                 </div>
               ) : (
                 <div className="h-full min-h-96 bg-gray-100 flex items-center justify-center">
-                  <span className="text-gray-400">No images available</span>
+                  <span className="text-gray-600">No images available</span>
                 </div>
               )}
             </div>
@@ -192,7 +192,7 @@ export default function ListingDetailPage() {
           {/* Description Section */}
           <div className="p-8 border-t bg-gray-50">
             <h2 className="text-xl font-semibold text-gray-900 mb-3">Description</h2>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-black leading-relaxed">
               {listing.product_description}
             </p>
           </div>

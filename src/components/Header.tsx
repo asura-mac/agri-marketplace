@@ -121,7 +121,7 @@ export default function Header() {
               value={searchQuery}
               onChange={handleSearchChange}
               placeholder={t('header.searchPlaceholderMobile')} 
-              className="w-full h-10 rounded-md border pl-10 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+              className="w-full h-10 rounded-md border pl-10 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black" 
             />
             {isSearchActive && (
               <button
@@ -202,7 +202,7 @@ export default function Header() {
                 value={searchQuery}
                 onChange={handleSearchChange}
                 placeholder={t('header.searchPlaceholder')} 
-                className="w-full h-10 rounded-md border pl-10 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                className="w-full h-10 rounded-md border pl-10 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black" 
               />
               {isSearchActive && (
                 <button

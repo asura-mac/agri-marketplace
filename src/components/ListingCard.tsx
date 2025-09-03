@@ -91,10 +91,10 @@ export default function ListingCard({ listing, onClick, showContact = false }: L
 
         {/* Minimum Order */}
         <div className="mb-3">
-          <div className="text-sm text-gray-600">
+          <div className="text-sm text-gray-800">
             <span className="font-medium">{t('listing.minimumOrder')}</span>
           </div>
-          <div className="text-sm font-semibold text-gray-900">
+          <div className="text-sm font-semibold text-black">
             {listing.minimum_order} {t(`units.${listing.unit}`)}
           </div>
         </div>
@@ -108,7 +108,7 @@ export default function ListingCard({ listing, onClick, showContact = false }: L
         </div>
 
         {/* Location */}
-        <div className="flex items-center gap-1 text-sm text-gray-600">
+        <div className="flex items-center gap-1 text-sm text-gray-800">
           <MapPinIcon className="w-4 h-4 flex-shrink-0" />
           <span className="truncate">
             {[listing.state, listing.district].filter(Boolean).join(', ') || t('listing.locationNotSpecified')}
@@ -118,7 +118,7 @@ export default function ListingCard({ listing, onClick, showContact = false }: L
         {/* Contact Information (conditionally shown) */}
         {showContact && (
           <div className="mt-2 pt-2 border-t border-gray-100">
-            <div className="text-xs text-gray-500 mb-1">{t('listing.contact')}</div>
+            <div className="text-xs text-gray-700 mb-1">{t('listing.contact')}</div>
             <div className="text-sm font-medium text-blue-600">
               {listing.contact_phone}
             </div>

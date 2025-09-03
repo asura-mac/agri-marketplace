@@ -161,18 +161,18 @@ export default function OnboardingPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm text-gray-700 mb-1">You are</label>
-            <select name="role" value={form.role} onChange={handleChange} className="w-full h-11 border rounded-md px-3">
+            <select name="role" value={form.role} onChange={handleChange} className="w-full h-11 border rounded-md px-3 text-black">
               <option value="farmer">Farmer</option>
               <option value="trader">Trader</option>
             </select>
           </div>
           <div>
             <label className="block text-sm text-gray-700 mb-1">Contact number</label>
-            <input name="phone" value={form.phone} onChange={handleChange} className="w-full h-11 border rounded-md px-3" placeholder="10-digit phone" required />
+            <input name="phone" value={form.phone} onChange={handleChange} className="w-full h-11 border rounded-md px-3 text-black" placeholder="10-digit phone" required />
           </div>
           <div>
             <label className="block text-sm text-gray-700 mb-1">State/UT</label>
-            <select name="state" value={form.state} onChange={handleChange} className="w-full h-11 border rounded-md px-3" required>
+            <select name="state" value={form.state} onChange={handleChange} className="w-full h-11 border rounded-md px-3 text-black" required>
               <option value="" disabled>Select state</option>
               {INDIAN_STATES_AND_UTS.map((s) => (
                 <option key={s} value={s}>{s}</option>
@@ -181,11 +181,11 @@ export default function OnboardingPage() {
           </div>
           <div>
             <label className="block text-sm text-gray-700 mb-1">District</label>
-            <input name="district" value={form.district} onChange={handleChange} className="w-full h-11 border rounded-md px-3" required />
+            <input name="district" value={form.district} onChange={handleChange} className="w-full h-11 border rounded-md px-3 text-black" required />
           </div>
           <div>
             <label className="block text-sm text-gray-700 mb-1">Pincode</label>
-            <input name="pincode" value={form.pincode} onChange={handleChange} className="w-full h-11 border rounded-md px-3" required />
+            <input name="pincode" value={form.pincode} onChange={handleChange} className="w-full h-11 border rounded-md px-3 text-black" required />
           </div>
           <div className="sm:col-span-2">
             <label className="block text-sm text-gray-700 mb-1">Location</label>

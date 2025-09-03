@@ -262,7 +262,7 @@ export default function ProfilePage() {
                     type="text"
                     value={editForm?.pincode || ''}
                     onChange={(e) => setEditForm(prev => prev ? {...prev, pincode: e.target.value} : null)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                     placeholder="Enter your pincode"
                   />
                 </div>
@@ -273,7 +273,7 @@ export default function ProfilePage() {
                     type="tel"
                     value={editForm?.phone || ''}
                     onChange={(e) => setEditForm(prev => prev ? {...prev, phone: e.target.value} : null)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                     placeholder="Enter your phone number"
                   />
                 </div>
@@ -284,7 +284,7 @@ export default function ProfilePage() {
                     type="text"
                     value={editForm?.location || ''}
                     onChange={(e) => setEditForm(prev => prev ? {...prev, location: e.target.value} : null)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                     placeholder="Enter your location"
                   />
                 </div>

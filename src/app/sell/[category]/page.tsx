@@ -301,7 +301,7 @@ export default function CategorySellPage() {
                   type="text"
                   value={formData.productName}
                   onChange={(e) => handleInputChange('productName', e.target.value)}
-                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black ${
                     errors.productName ? 'border-red-500' : 'border-gray-300'
                   }`}
                   placeholder="Enter product name"
@@ -324,7 +324,7 @@ export default function CategorySellPage() {
                   value={formData.description}
                   onChange={(e) => handleInputChange('description', e.target.value)}
                   rows={4}
-                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black ${
                     errors.description ? 'border-red-500' : 'border-gray-300'
                   }`}
                   placeholder="Describe your product..."
@@ -360,7 +360,7 @@ export default function CategorySellPage() {
                     min="0"
                     value={formData.pricePerUnit || ''}
                     onChange={(e) => handleInputChange('pricePerUnit', parseFloat(e.target.value) || 0)}
-                    className={`w-full pl-8 pr-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`w-full pl-8 pr-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black ${
                       errors.pricePerUnit ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder="0.00"
@@ -379,7 +379,7 @@ export default function CategorySellPage() {
                 <select
                   value={formData.unit}
                   onChange={(e) => handleInputChange('unit', e.target.value as 'kg' | 'quintal' | 'ton')}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                 >
                   {unitOptions.map(option => (
                     <option key={option.value} value={option.value}>
@@ -504,7 +504,7 @@ export default function CategorySellPage() {
                   type="text"
                   value={formData.district}
                   onChange={(e) => handleInputChange('district', e.target.value)}
-                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black ${
                     errors.district ? 'border-red-500' : 'border-gray-300'
                   }`}
                   placeholder="Enter your district"
@@ -520,7 +520,7 @@ export default function CategorySellPage() {
                   type="tel"
                   value={formData.contactPhone}
                   onChange={(e) => handleInputChange('contactPhone', e.target.value)}
-                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black ${
                     errors.contactPhone ? 'border-red-500' : 'border-gray-300'
                   }`}
                   placeholder="Enter your phone number"
@@ -545,7 +545,7 @@ export default function CategorySellPage() {
                       type="tel"
                       value={formData.whatsappNumber}
                       onChange={(e) => handleInputChange('whatsappNumber', e.target.value)}
-                      className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black ${
                         errors.whatsappNumber ? 'border-red-500' : 'border-gray-300'
                       }`}
                       placeholder="Enter WhatsApp number (optional)"
