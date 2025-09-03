@@ -6,20 +6,22 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 // Import icons from Heroicons
-import { 
-  CubeIcon, 
-  ShoppingBagIcon, 
-  BuildingStorefrontIcon, 
-  BeakerIcon, 
-  SparklesIcon, 
-  BugAntIcon, 
-  CakeIcon, 
-  WrenchScrewdriverIcon, 
-  CircleStackIcon, 
-  CpuChipIcon, 
-  BoltIcon, 
-  PhotoIcon 
+import {   
 } from "@heroicons/react/24/outline";
+import GrainsIcon from "@/components/Icons/GrainsIcon";
+import PulsesIcon from "@/components/Icons/PulsesIcon";
+import FruitsIcon from "@/components/Icons/FruitsIcon";
+import VegetablesIcon from "@/components/Icons/VegetablesIcon";
+import OilseedsIcon from "@/components/Icons/OilseedsIcon";
+import SeedsIcon from "@/components/Icons/SeedsIcon";
+import SpicesIcon from "@/components/Icons/SpicesIcon";
+import FlowersIcon from "@/components/Icons/FlowersIcon";
+import TeaIcon from "@/components/Icons/TeaIcon";
+import NutsIcon from "@/components/Icons/NutsIcon";
+import DairyIcon from "@/components/Icons/DairyIcon";
+import FishIcon from "@/components/Icons/FishIcon";
+import FertilizerIcon from "@/components/Icons/FertilizerIcon";
+import EquipmentIcon from "@/components/Icons/EquipmentIcon";
 
 type Category = {
   key: string;
@@ -32,85 +34,85 @@ const categories: Category[] = [
   { 
     key: "grains", 
     label: "Grains", 
-    icon: <CircleStackIcon className="w-8 h-8" />, 
+    icon: <GrainsIcon className="w-8 h-8" />, 
     description: "Rice, wheat, corn, barley, and other cereals" 
   },
   { 
     key: "pulses", 
     label: "Pulses", 
-    icon: <CubeIcon className="w-8 h-8" />, 
+    icon: <PulsesIcon className="w-8 h-8" />, 
     description: "Lentils, chickpeas, beans, and legumes" 
   },
   { 
     key: "fruits", 
     label: "Fruits", 
-    icon: <ShoppingBagIcon className="w-8 h-8" />, 
+    icon: <FruitsIcon className="w-8 h-8" />, 
     description: "Fresh fruits, seasonal produce" 
   },
   { 
     key: "vegetables", 
     label: "Vegetables", 
-    icon: <BoltIcon className="w-8 h-8" />, 
+    icon: <VegetablesIcon className="w-8 h-8" />, 
     description: "Fresh vegetables, leafy greens, root vegetables" 
   },
   { 
     key: "oilseeds", 
     label: "Oilseeds", 
-    icon: <BeakerIcon className="w-8 h-8" />, 
+    icon: <OilseedsIcon className="w-8 h-8" />, 
     description: "Sunflower, mustard, sesame, and other oil seeds" 
   },
   { 
     key: "seeds", 
     label: "Seeds", 
-    icon: <CpuChipIcon className="w-8 h-8" />, 
+    icon: <SeedsIcon className="w-8 h-8" />, 
     description: "Seeds for planting and cultivation" 
   },
   { 
     key: "spices", 
     label: "Spices", 
-    icon: <SparklesIcon className="w-8 h-8" />, 
+    icon: <SpicesIcon className="w-8 h-8" />, 
     description: "Turmeric, chili, coriander, and aromatic spices" 
   },
   { 
     key: "flowers", 
     label: "Flowers", 
-    icon: <BugAntIcon className="w-8 h-8" />, 
+    icon: <FlowersIcon className="w-8 h-8" />, 
     description: "Fresh flowers, garlands, decorative flowers" 
   },
   { 
     key: "tea", 
     label: "Tea", 
-    icon: <CakeIcon className="w-8 h-8" />, 
+    icon: <TeaIcon className="w-8 h-8" />, 
     description: "Tea leaves, herbal teas, organic varieties" 
   },
   { 
     key: "nuts", 
     label: "Nuts", 
-    icon: <CpuChipIcon className="w-8 h-8" />, 
+    icon: <NutsIcon className="w-8 h-8" />, 
     description: "Almonds, cashews, walnuts, and dry fruits" 
   },
   { 
     key: "dairy", 
     label: "Dairy", 
-    icon: <BuildingStorefrontIcon className="w-8 h-8" />, 
+    icon: <DairyIcon className="w-8 h-8" />, 
     description: "Milk, cheese, butter, and dairy products" 
   },
   { 
     key: "fish", 
     label: "Fish", 
-    icon: <PhotoIcon className="w-8 h-8" />, 
+    icon: <FishIcon className="w-8 h-8" />, 
     description: "Fresh fish, seafood, aquaculture products" 
   },
   { 
     key: "fertilizer", 
     label: "Fertilizer", 
-    icon: <BeakerIcon className="w-8 h-8" />, 
+    icon: <FertilizerIcon className="w-8 h-8" />, 
     description: "Organic and chemical fertilizers, soil enhancers" 
   },
   { 
     key: "equipment", 
     label: "Equipment", 
-    icon: <WrenchScrewdriverIcon className="w-8 h-8" />, 
+    icon: <EquipmentIcon className="w-8 h-8" />, 
     description: "Farming tools, machinery, and agricultural equipment" 
   },
 ];

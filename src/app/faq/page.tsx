@@ -10,116 +10,83 @@ export default function FAQPage() {
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-4xl mx-auto px-4">
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center">Frequently Asked Questions</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center">Krushi Mandi – Frequently Asked Questions (FAQ)</h1>
           
           <div className="space-y-8">
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-4">What is Lorem Ipsum?</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-4">What is Krushi Mandi?</h2>
               <p className="text-gray-700 leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-                ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
-                ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
-                reprehenderit in voluptate velit esse cillum dolore.
+                Krushi Mandi is a digital agriculture marketplace in India by Evool Foundation. It connects farmers directly with buyers and traders without middlemen. Farmers can sell crops online, and buyers can easily find local farmers near me through the Krushi Mandi app.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-4">Why do we use Lorem Ipsum?</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-4">How does Krushi Mandi work for farmers and buyers?</h2>
               <p className="text-gray-700 leading-relaxed">
-                It is a long established fact that a reader will be distracted by the readable content 
-                of a page when looking at its layout. The point of using Lorem Ipsum is that it has a 
-                more-or-less normal distribution of letters, as opposed to using content here, making 
-                it look like readable English.
+                Farmers can list their products on the online mandi for farmers, and buyers or traders can connect with them directly through phone calls or WhatsApp. This makes it simple to buy vegetables online or purchase wholesale fruits and vegetables near me directly from farmers.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-4">Where does it come from?</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-4">What products can I buy or sell on Krushi Mandi?</h2>
               <p className="text-gray-700 leading-relaxed">
-                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a 
-                piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard 
-                McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of 
-                the more obscure Latin words, consectetur, from a Lorem Ipsum passage.
+                The platform supports a wide range of categories including grains, pulses, seeds, oilseeds, fruits, vegetables, dairy, fish, flowers, tea, spices, and nuts. Agricultural equipment companies and fertilizer suppliers can also list their products for farmers.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-4">Where can I get some Lorem Ipsum?</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-4">Can I use Krushi Mandi to find farmers near me?</h2>
               <p className="text-gray-700 leading-relaxed">
-                There are many variations of passages of Lorem Ipsum available, but the majority have 
-                suffered alteration in some form, by injected humour, or randomised words which dont 
-                look even slightly believable. If you are going to use a passage of Lorem Ipsum, you 
-                need to be sure there isnt anything embarrassing hidden.
+                Yes, Krushi Mandi allows you to connect with local farmers near me who are ready to sell farm produce directly. This makes it easier for buyers to purchase fresh produce directly from farmers at fair prices.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-4">Is it safe to use Lorem Ipsum?</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-4">Is Krushi Mandi free for farmers?</h2>
               <p className="text-gray-700 leading-relaxed">
-                All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as 
-                necessary, making this the first true generator on the Internet. It uses a dictionary 
-                of over 200 Latin words, combined with a handful of model sentence structures, to 
-                generate Lorem Ipsum which looks reasonable.
+                Yes, Krushi Mandi app is free for farmers to register and list their crops. The goal is to provide a fair price and give farmers access to more buyers without paying high commissions.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-4">How long has Lorem Ipsum been used?</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-4">Who can buy from Krushi Mandi?</h2>
               <p className="text-gray-700 leading-relaxed">
-                The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those 
-                interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero 
-                are also reproduced in their exact original form, accompanied by English versions from 
-                the 1914 translation by H. Rackham.
+                Anyone including wholesale buyers, retailers, hotels, restaurants, and traders can buy directly from farmers. Businesses searching for wholesale vegetables near me or fruits near me can use the Krushi Mandi platform.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-4">Can I customize Lorem Ipsum?</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-4">How do farmers and traders communicate?</h2>
               <p className="text-gray-700 leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt 
-                ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation 
-                ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
-                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Communication is direct through phone calls or WhatsApp. This makes Krushi Mandi a trusted farmer-to-buyer platform, helping both sides negotiate and close deals quickly.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-4">What are the benefits of Lorem Ipsum?</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-4">What makes Krushi Mandi different from traditional mandis?</h2>
               <p className="text-gray-700 leading-relaxed">
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
-                mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit 
-                voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab 
-                illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                Unlike traditional mandis with heavy middlemen charges, Krushi Mandi is an online mandi for farmers where crops go straight from farm to market. Buyers get fresh produce and farmers get fair prices without exploitation.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-4">How do I generate Lorem Ipsum?</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-4">Can agricultural equipment and fertilizer companies join Krushi Mandi?</h2>
               <p className="text-gray-700 leading-relaxed">
-                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia 
-                consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro 
-                quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed 
-                quia non numquam eius modi tempora incidunt.
+                Yes, Krushi Mandi is open to agriculture equipment manufacturers and fertilizer companies who want to showcase their products directly to farmers.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-4">What formats are available?</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-4">Is Krushi Mandi available across India?</h2>
               <p className="text-gray-700 leading-relaxed">
-                Ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis 
-                nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea 
-                commodi consequatur. Quis autem vel eum iure reprehenderit qui in ea voluptate velit 
-                esse quam nihil molestiae consequatur.
+                Yes, Krushi Mandi is accessible across India. Whether you are looking for wholesale fruits and vegetables near me, local farmers near me, or want to use an online mandi for farmers, Krushi Mandi brings everything to one platform.
               </p>
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-gray-800 mb-4">Is Lorem Ipsum copyright free?</h2>
+              <h2 className="text-xl font-semibold text-gray-800 mb-4">What is the mission of Krushi Mandi?</h2>
               <p className="text-gray-700 leading-relaxed">
-                Vel illum qui dolorem eum fugiat quo voluptas nulla pariatur. At vero eos et accusamus 
-                et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque 
-                corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, 
-                similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
+                The mission of Krushi Mandi is to empower farmers, build a sustainable agriculture marketplace in India, reduce middlemen, and strengthen the rural economy by providing fair trade opportunities.
               </p>
             </div>
           </div>
@@ -128,3 +95,17 @@ export default function FAQPage() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+// 11. What is the mission of Krushi Mandi?
+// The mission of Krushi Mandi is to empower farmers, build a sustainable agriculture marketplace in India, reduce middlemen, and strengthen the rural economy by providing fair trade opportunities.

@@ -2,8 +2,21 @@
 import { ReactNode, useState } from "react";
 import Link from "next/link";
 import { useTranslation } from 'react-i18next';
-import { CubeIcon, ShoppingBagIcon, BuildingStorefrontIcon, BeakerIcon, SparklesIcon, BugAntIcon, CakeIcon, WrenchScrewdriverIcon, CpuChipIcon, BoltIcon, PhotoIcon, ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import GrainsIcon from "./Icons/GrainsIcon";
+import PulsesIcon from "./Icons/PulsesIcon";
+import FruitsIcon from "./Icons/FruitsIcon";
+import VegetablesIcon from "./Icons/VegetablesIcon";
+import OilseedsIcon from "./Icons/OilseedsIcon";
+import SeedsIcon from "./Icons/SeedsIcon";
+import SpicesIcon from "./Icons/SpicesIcon";
+import FlowersIcon from "./Icons/FlowersIcon";
+import TeaIcon from "./Icons/TeaIcon";
+import NutsIcon from "./Icons/NutsIcon";
+import DairyIcon from "./Icons/DairyIcon";
+import FishIcon from "./Icons/FishIcon";
+import FertilizerIcon from "./Icons/FertilizerIcon";
+import EquipmentIcon from "./Icons/EquipmentIcon";
 
 type Category = {
   key: string;
@@ -13,19 +26,19 @@ type Category = {
 
 const getCategoriesData = (t: (key: string) => string): Category[] => [
   { key: "grains", label: t('categories.grains'), icon: <GrainsIcon className="w-7 h-7" /> },
-  { key: "pulses", label: t('categories.pulses'), icon: <CubeIcon className="w-7 h-7" /> },
-  { key: "fruits", label: t('categories.fruits'), icon: <ShoppingBagIcon className="w-7 h-7" /> },
-  { key: "vegetables", label: t('categories.vegetables'), icon: <BoltIcon className="w-7 h-7" /> },
-  { key: "oilseeds", label: t('categories.oilseeds'), icon: <BeakerIcon className="w-7 h-7" /> },
-  { key: "seeds", label: t('categories.seeds'), icon: <CpuChipIcon className="w-7 h-7" /> },
-  { key: "spices", label: t('categories.spices'), icon: <SparklesIcon className="w-7 h-7" /> },
-  { key: "flowers", label: t('categories.flowers'), icon: <BugAntIcon className="w-7 h-7" /> },
-  { key: "tea", label: t('categories.tea'), icon: <CakeIcon className="w-7 h-7" /> },
-  { key: "nuts", label: t('categories.nuts'), icon: <CpuChipIcon className="w-7 h-7" /> },
-  { key: "dairy", label: t('categories.dairy'), icon: <BuildingStorefrontIcon className="w-7 h-7" /> },
-  { key: "fish", label: t('categories.fish'), icon: <PhotoIcon className="w-7 h-7" /> },
-  { key: "fertilizer", label: t('categories.fertilizer'), icon: <BeakerIcon className="w-7 h-7" /> },
-  { key: "equipment", label: t('categories.equipment'), icon: <WrenchScrewdriverIcon className="w-7 h-7" /> },
+  { key: "pulses", label: t('categories.pulses'), icon: <PulsesIcon className="w-7 h-7" /> },
+  { key: "fruits", label: t('categories.fruits'), icon: <FruitsIcon className="w-7 h-7" /> },
+  { key: "vegetables", label: t('categories.vegetables'), icon: <VegetablesIcon className="w-7 h-7" /> },
+  { key: "oilseeds", label: t('categories.oilseeds'), icon: <OilseedsIcon className="w-7 h-7" /> },
+  { key: "seeds", label: t('categories.seeds'), icon: <SeedsIcon className="w-7 h-7" /> },
+  { key: "spices", label: t('categories.spices'), icon: <SpicesIcon className="w-7 h-7" /> },
+  { key: "flowers", label: t('categories.flowers'), icon: <FlowersIcon className="w-7 h-7" /> },
+  { key: "tea", label: t('categories.tea'), icon: <TeaIcon className="w-7 h-7" /> },
+  { key: "nuts", label: t('categories.nuts'), icon: <NutsIcon className="w-7 h-7" /> },
+  { key: "dairy", label: t('categories.dairy'), icon: <DairyIcon className="w-7 h-7" /> },
+  { key: "fish", label: t('categories.fish'), icon: <FishIcon className="w-7 h-7" /> },
+  { key: "fertilizer", label: t('categories.fertilizer'), icon: <FertilizerIcon className="w-7 h-7" /> },
+  { key: "equipment", label: t('categories.equipment'), icon: <EquipmentIcon className="w-7 h-7" /> },
 ];
 
 export default function CategoriesGrid() {

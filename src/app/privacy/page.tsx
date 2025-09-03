@@ -92,3 +92,33 @@ export default function PrivacyPolicyPage() {
     </div>
   );
 }
+
+// Krushi Mandi, an initiative by Evool Foundation, respects and protects the privacy of our users. This Privacy Policy explains how we collect, store, and use information when you access or use our platform.
+
+// Data We Collect
+// 	•	Basic user details provided during registration (e.g., name, phone number, business type).
+// 	•	Product information, including images, uploaded by farmers, traders, and companies.
+
+// 2. How We Store Data
+// 	•	All data, including product images, is stored securely on Supabase cloud servers.
+// 	•	We use standard security measures to protect against unauthorized access.
+
+// 3. How We Use Data
+// 	•	To connect farmers with traders, buyers, and agri-businesses.
+// 	•	To improve the functionality and user experience of the platform.
+// 	•	To display product listings publicly for buyers and traders.
+
+// 4. Sharing of Data
+// 	•	We do not sell or rent user data to third parties.
+// 	•	Data may be shared with buyers, traders, and companies only for the purpose of connecting and completing trade.
+
+// 5. Communication
+// 	•	By using our platform, you agree that other registered users (farmers, buyers, traders) can contact you via phone or WhatsApp based on your listing.
+
+// 6. No Payments on Platform
+// 	•	Krushi Mandi does not process any kind of payments. All transactions happen directly between farmers and buyers.
+// 	•	We are not responsible for any pre-payments, fraud, or disputes between buyers and sellers.
+
+// 7. Your Rights
+// 	•	You may request deletion of your data or account by contacting us.
+// 	•	We will remove your information from our active database within a reasonable time.
