@@ -28,7 +28,8 @@ export default function Footer() {
             {/* Social Media Icons */}
             <div className="flex gap-3">
               <a 
-                href="#" 
+                href="https://www.facebook.com/people/Evool-Foundation/61575736152884/" 
+                target='_blank'
                 className="w-10 h-10 bg-white rounded border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-colors"
                 aria-label="Facebook"
               >
@@ -37,7 +38,8 @@ export default function Footer() {
                 </svg>
               </a>
               <a 
-                href="#" 
+                href="https://x.com/evoolfoundation/"
+                target='_blank'
                 className="w-10 h-10 bg-white rounded border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-colors"
                 aria-label="Twitter"
               >
@@ -46,13 +48,19 @@ export default function Footer() {
                 </svg>
               </a>
               <a 
-                href="#" 
+                href="https://www.instagram.com/evoolfoundation/"
+                target='_blank'
                 className="w-10 h-10 bg-white rounded border-2 border-gray-300 flex items-center justify-center hover:bg-gray-50 transition-colors"
                 aria-label="Instagram"
               >
-                <svg className="w-5 h-5 text-pink-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987 6.62 0 11.987-5.367 11.987-11.987C24.014 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.323-1.297C4.198 14.895 3.708 13.744 3.708 12.447c0-1.297.49-2.448 1.297-3.323.875-.875 2.026-1.365 3.323-1.365 1.297 0 2.448.49 3.323 1.365.875.875 1.365 2.026 1.365 3.323 0 1.297-.49 2.448-1.365 3.323-.875.875-2.026 1.365-3.323 1.365zm7.718-9.957c-.49 0-.875-.385-.875-.875s.385-.875.875-.875.875.385.875.875-.385.875-.875.875zm0 0"/>
+                <svg className="w-9 h-7 text-pink-600" viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="5" ry="5"
+                    fill="none" stroke="currentColor" strokeWidth="2"/>
+                  <circle cx="12" cy="12" r="4.5"
+                    fill="none" stroke="currentColor" strokeWidth="2"/>
+                  <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/>
                 </svg>
+
               </a>
             </div>
 
@@ -117,12 +125,18 @@ export default function Footer() {
             </address>
             
             {/* Evool Foundation Badge */}
-            <div className="flex items-center gap-2 mt-6">
-              <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-sm">E</span>
+            <a 
+                href="https://evoolfoundation.org/"
+                target="blank"
+                className="block text-gray-700 hover:text-blue-600 transition-colors"
+            >
+              <div className="flex items-center gap-2 mt-6">
+                <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                  <img src="/evool-logo-pfp.jpg" alt="Evool Foundation" className="w-8 h-8 rounded-full object-cover" />
+                </div>
+                  <span className="text-gray-800 font-medium">{t('footer.evoolfoundation')}</span>
               </div>
-              <span className="text-gray-800 font-medium">{t('footer.evoolfoundation')}</span>
-            </div>
+            </a>
           </div>
         </div>
 

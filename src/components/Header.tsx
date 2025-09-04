@@ -13,14 +13,33 @@ import {
   MagnifyingGlassIcon, 
   FunnelIcon,
   XMarkIcon,
-  ChevronDownIcon
+  ChevronDownIcon,
+  Bars3Icon, MapPinIcon, UserIcon
 } from "@heroicons/react/24/outline";
 
 export default function Header() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+  const closeMenu = () => setIsMobileMenuOpen(false);
   const { user, loading } = useAuth();
   const router = useRouter();
   const { searchParams, updateSearchParams, clearSearch, clearStateFilter, isSearchActive, isFilterActive } = useSearch();
   const { t } = useTranslation();
+
+  const mobileMenuRef = useRef(null);
+
+  useEffect(() => {
+  const handleClickOutside = (event: MouseEvent) => {
+  if (
+    mobileMenuRef.current &&
+    !event.composedPath().includes(mobileMenuRef.current)
+  ) {
+    setIsMobileMenuOpen(false);
+  }
+};
+
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => document.removeEventListener("mousedown", handleClickOutside);
+}, []);
   
   const [locationLabel, setLocationLabel] = useState<string>(t('header.setLocation'));
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -98,30 +117,87 @@ export default function Header() {
       <div className="md:hidden px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Link href="/">
-            <Image src="/KM-LOGO-FULL.png" alt="KrushiMandi Logo" width={120} height={32} className="cursor-pointer" />
+            <Image
+              src="/KM-LOGO-FULL.png"
+              alt="KrushiMandi Logo"
+              width={120}
+              height={32}
+              className="cursor-pointer"
+            />
           </Link>
         </div>
-        <div className="flex items-center gap-2">
-          <Link href="/sell" className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md">
-            {t('header.sell')}
-          </Link>
+
+        <div className="ml-30">
           <LanguageSelector />
-          <div className="text-sm text-blue-700 font-medium truncate max-w-[80px]">
+        </div>
+
+        {/* Hamburger Button */}
+        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+          {isMobileMenuOpen ? (
+            <XMarkIcon className="w-6 h-6 text-gray-700" />
+          ) : (
+            <Bars3Icon className="w-6 h-6 text-gray-700" />
+          )}
+        </button>
+      </div>
+
+      {/* Mobile Dropdown Menu */}
+
+      {isMobileMenuOpen && (
+        <div className="md:hidden absolute top-14 left-0 w-full bg-white shadow-md flex flex-col gap-3 p-4 z-50"
+        ref={mobileMenuRef}>
+          <Link
+            href="/sell"
+            onClick={closeMenu}
+            className="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md text-center"
+          >
+            {t("header.sell")}
+          </Link>
+
+          <Link
+            href="/profile"
+            onClick={closeMenu}
+            className="flex items-center text-sm text-blue-700 font-medium truncate"
+          >   
+            <MapPinIcon className="transform h-5 w-5 text-blue-700 mr-2"/>
             {locationLabel}
+          </Link>
+
+          <div>
+            {!loading && user ? (
+              <Link href="/profile" 
+              onClick={closeMenu}
+              className="flex items-center text-sm text-blue-700 font-medium block"
+              >
+                <UserIcon className="transform h-5 w-5 text-blue-700 mr-2"/>
+                {t("header.profile")}
+              </Link>
+            ) : (
+              <Link href="/login" 
+              onClick={closeMenu}
+              className="flex items-center text-sm text-blue-700 font-medium block"
+              >
+                <UserIcon className="transform h-5 w-5 text-blue-700 mr-2"/>
+                {t("header.login")}
+              </Link>
+            )}
           </div>
         </div>
-      </div>
-      
+      )}
+
       {/* Mobile Search Bar */}
       <div className="md:hidden px-4 pb-3">
-        <form onSubmit={handleSearchSubmit} className="relative flex items-center gap-2">
+        <form
+          onSubmit={handleSearchSubmit}
+          className="relative flex items-center gap-2"
+        >
           <div className="relative flex-1">
             <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <input 
+            <input
               value={searchQuery}
               onChange={handleSearchChange}
-              placeholder={t('header.searchPlaceholderMobile')} 
-              className="w-full h-10 rounded-md border pl-10 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black" 
+              placeholder={t("header.searchPlaceholderMobile")}
+              className="w-full h-10 rounded-md border pl-10 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
             />
             {isSearchActive && (
               <button
@@ -133,34 +209,38 @@ export default function Header() {
               </button>
             )}
           </div>
-          
+
           {/* Mobile Filter Button */}
           <div className="relative" ref={filterDropdownRef}>
             <button
               type="button"
               onClick={() => setShowFilterDropdown(!showFilterDropdown)}
               className={`h-10 px-3 rounded-md border flex items-center gap-1 transition-colors ${
-                isFilterActive 
-                  ? 'bg-blue-50 border-blue-300 text-blue-700' 
-                  : 'bg-white border-gray-300 text-gray-600 hover:bg-gray-50'
+                isFilterActive
+                  ? "bg-blue-50 border-blue-300 text-blue-700"
+                  : "bg-white border-gray-300 text-gray-600 hover:bg-gray-50"
               }`}
             >
               <FunnelIcon className="h-4 w-4" />
-              {isFilterActive && <div className="w-2 h-2 bg-blue-600 rounded-full"></div>}
+              {isFilterActive && (
+                <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+              )}
             </button>
-            
+
             {/* Filter Dropdown */}
             {showFilterDropdown && (
               <div className="absolute right-0 top-12 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
                 <div className="p-3 border-b border-gray-100">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-medium text-gray-900">{t('search.filterByState')}</h3>
+                    <h3 className="text-sm font-medium text-gray-900">
+                      {t("search.filterByState")}
+                    </h3>
                     {isFilterActive && (
                       <button
                         onClick={handleClearStateFilter}
                         className="text-xs text-blue-600 hover:text-blue-700"
                       >
-                        {t('header.clearFilter')}
+                        {t("header.clearFilter")}
                       </button>
                     )}
                   </div>
@@ -171,7 +251,9 @@ export default function Header() {
                       key={state}
                       onClick={() => handleStateFilter(state)}
                       className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 ${
-                        searchParams.state === state ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                        searchParams.state === state
+                          ? "bg-blue-50 text-blue-700"
+                          : "text-gray-700"
                       }`}
                     >
                       {state}
@@ -188,21 +270,37 @@ export default function Header() {
       <div className="hidden md:flex items-center gap-4 px-6 py-4">
         <div className="mr-auto flex items-center gap-4">
           <Link href="/">
-            <Image src="/KM-LOGO-FULL.png" alt="KrushiMandi Logo" width={140} height={36} className="cursor-pointer" />
+            <Image
+              src="/KM-LOGO-FULL.png"
+              alt="KrushiMandi Logo"
+              width={140}
+              height={36}
+              className="cursor-pointer"
+            />
           </Link>
-          <div className="text-blue-700 font-medium">{locationLabel}</div>
+          <Link
+            href="/profile"
+            className="flex items-center text-sm text-blue-700 font-medium truncate"
+          >   
+            <MapPinIcon className="transform h-5 w-5 text-blue-700 mr-2"/>
+            {locationLabel}
+          </Link>
+          {/* <div className="text-blue-700 font-medium">{locationLabel}</div> */}
         </div>
-        
+
         {/* Desktop Search Bar */}
         <div className="flex-1 max-w-xl">
-          <form onSubmit={handleSearchSubmit} className="relative flex items-center gap-3">
+          <form
+            onSubmit={handleSearchSubmit}
+            className="relative flex items-center gap-3"
+          >
             <div className="relative flex-1">
               <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-              <input 
+              <input
                 value={searchQuery}
                 onChange={handleSearchChange}
-                placeholder={t('header.searchPlaceholder')} 
-                className="w-full h-10 rounded-md border pl-10 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black" 
+                placeholder={t("header.searchPlaceholder")}
+                className="w-full h-10 rounded-md border pl-10 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-black"
               />
               {isSearchActive && (
                 <button
@@ -214,47 +312,57 @@ export default function Header() {
                 </button>
               )}
             </div>
-            
+
             {/* Desktop Filter Button */}
             <div className="relative" ref={filterDropdownRef}>
               <button
                 type="button"
                 onClick={() => setShowFilterDropdown(!showFilterDropdown)}
                 className={`h-10 px-4 rounded-md border flex items-center gap-2 transition-colors ${
-                  isFilterActive 
-                    ? 'bg-blue-50 border-blue-300 text-blue-700' 
-                    : 'bg-white border-gray-300 text-gray-600 hover:bg-gray-50'
+                  isFilterActive
+                    ? "bg-blue-50 border-blue-300 text-blue-700"
+                    : "bg-white border-gray-300 text-gray-600 hover:bg-gray-50"
                 }`}
               >
                 <FunnelIcon className="h-5 w-5" />
-                <span className="text-sm font-medium">{t('header.filter')}</span>
+                <span className="text-sm font-medium">
+                  {t("header.filter")}
+                </span>
                 {isFilterActive && (
                   <div className="flex items-center gap-1">
                     <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
                     <span className="text-xs">({searchParams.state})</span>
                   </div>
                 )}
-                <ChevronDownIcon className={`h-4 w-4 transition-transform ${showFilterDropdown ? 'rotate-180' : ''}`} />
+                <ChevronDownIcon
+                  className={`h-4 w-4 transition-transform ${
+                    showFilterDropdown ? "rotate-180" : ""
+                  }`}
+                />
               </button>
-              
+
               {/* Filter Dropdown */}
               {showFilterDropdown && (
                 <div className="absolute right-0 top-12 w-72 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
                   <div className="p-4 border-b border-gray-100">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-sm font-medium text-gray-900">{t('search.filterByState')}</h3>
+                      <h3 className="text-sm font-medium text-gray-900">
+                        {t("search.filterByState")}
+                      </h3>
                       {isFilterActive && (
                         <button
                           onClick={handleClearStateFilter}
                           className="text-sm text-blue-600 hover:text-blue-700 font-medium"
                         >
-                          {t('header.clearFilter')}
+                          {t("header.clearFilter")}
                         </button>
                       )}
                     </div>
                     {isFilterActive && (
                       <p className="text-xs text-gray-500 mt-1">
-                        {t('search.showingListings', { state: searchParams.state })}
+                        {t("search.showingListings", {
+                          state: searchParams.state,
+                        })}
                       </p>
                     )}
                   </div>
@@ -264,7 +372,9 @@ export default function Header() {
                         key={state}
                         onClick={() => handleStateFilter(state)}
                         className={`w-full text-left px-4 py-3 text-sm hover:bg-gray-50 transition-colors ${
-                          searchParams.state === state ? 'bg-blue-50 text-blue-700 font-medium' : 'text-gray-700'
+                          searchParams.state === state
+                            ? "bg-blue-50 text-blue-700 font-medium"
+                            : "text-gray-700"
                         }`}
                       >
                         {state}
@@ -276,17 +386,30 @@ export default function Header() {
             </div>
           </form>
         </div>
-        
+
         <div className="flex items-center gap-4">
-          <Link href="/sell" className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors">
-            {t('header.sell')}
+          <Link
+            href="/sell"
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors"
+          >
+            {t("header.sell")}
           </Link>
           <LanguageSelector />
-          <div className="ml-auto">
+          <div>
             {!loading && user ? (
-              <Link href="/profile" className="text-blue-700 font-medium">{t('header.profile')}</Link>
+              <Link href="/profile" 
+              className="flex items-center text-sm text-blue-700 font-medium block"
+              >
+                <UserIcon className="transform h-5 w-5 text-blue-700 mr-2"/>
+                {t("header.profile")}
+              </Link>
             ) : (
-              <Link href="/login" className="text-blue-700 font-medium">{t('header.login')}</Link>
+              <Link href="/login" 
+              className="flex items-center text-sm text-blue-700 font-medium block"
+              >
+                <UserIcon className="transform h-5 w-5 text-blue-700 mr-2"/>
+                {t("header.login")}
+              </Link>
             )}
           </div>
         </div>

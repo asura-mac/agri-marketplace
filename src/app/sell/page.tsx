@@ -149,8 +149,8 @@ export default function SellPage() {
             POST YOUR AD
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Choose the category that best describes what you want to sell. 
-            This helps buyers find your products more easily.
+            Choose the category that best describes what you want to sell. This
+            helps buyers find your products more easily.
           </p>
         </div>
 
@@ -159,7 +159,7 @@ export default function SellPage() {
           <h2 className="text-xl font-semibold text-gray-900 mb-6">
             CHOOSE A CATEGORY
           </h2>
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {categories.map((category) => (
               <Link
@@ -191,11 +191,17 @@ export default function SellPage() {
             Need Help?
           </h3>
           <p className="text-blue-700 mb-4">
-            Can&apos;t find the right category? Contact our support team for assistance.
+            Can&apos;t find the right category? Contact our support team for
+            assistance.
           </p>
-          <button className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors">
-            Contact Support
-          </button>
+          <Link
+            href={`https://evoolfoundation.org/contact-us`}
+            target="_blank"
+          >
+            <button className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors">
+              Contact Support
+            </button>
+          </Link>
         </div>
       </div>
     </div>

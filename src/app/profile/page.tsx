@@ -226,7 +226,7 @@ export default function ProfilePage() {
                   <select
                     value={editForm?.role || ''}
                     onChange={(e) => setEditForm(prev => prev ? {...prev, role: e.target.value} : null)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                   >
                     <option value="">Select role</option>
                     <option value="farmer">Farmer</option>
@@ -240,7 +240,7 @@ export default function ProfilePage() {
                     type="text"
                     value={editForm?.state || ''}
                     onChange={(e) => setEditForm(prev => prev ? {...prev, state: e.target.value} : null)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                     placeholder="Enter your state"
                   />
                 </div>
@@ -251,7 +251,7 @@ export default function ProfilePage() {
                     type="text"
                     value={editForm?.district || ''}
                     onChange={(e) => setEditForm(prev => prev ? {...prev, district: e.target.value} : null)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                     placeholder="Enter your district"
                   />
                 </div>
@@ -364,14 +364,14 @@ export default function ProfilePage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
                           <div className="flex justify-between">
                             <span className="text-gray-600">Name</span>
-                            <span className="font-medium text-right truncate ml-2">
+                            <span className="font-medium text-right truncate ml-2 text-black font-medium">
                               {listing.product_name}
                             </span>
                           </div>
                           
                           <div className="flex justify-between">
                             <span className="text-gray-600">Price Per Unit</span>
-                            <span className="font-medium">
+                            <span className="font-medium text-black font-medium">
                               ₹ {listing.price_per_unit}/{listing.unit.toUpperCase()}
                             </span>
                           </div>
@@ -387,14 +387,14 @@ export default function ProfilePage() {
                           
                           <div className="flex justify-between">
                             <span className="text-gray-600">Minimum Order Qty.</span>
-                            <span className="font-medium">
+                            <span className="font-medium text-black font-medium">
                               {listing.minimum_order}{listing.unit}
                             </span>
                           </div>
                           
                           <div className="flex justify-between md:col-span-2">
                             <span className="text-gray-600">State</span>
-                            <span className="font-medium">{listing.state || 'Not specified'}</span>
+                            <span className="font-medium text-black font-medium">{listing.state || 'Not specified'}</span>
                           </div>
                         </div>
                         

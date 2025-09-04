@@ -52,7 +52,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-white">
       <div className="w-full max-w-md p-8 rounded-lg shadow border border-blue-100">
         <div className="flex items-center justify-center mb-6">
-          <Image src="/next.svg" alt="Logo" width={120} height={30} />
+          <Image src="/KM-LOGO-FULL.png" alt="Logo" width={200} height={50} />
         </div>
         <h1 className="text-2xl font-semibold text-center text-blue-700 mb-2">Welcome</h1>
         <p className="text-center text-gray-600 mb-8">Sign in with Google to continue</p>

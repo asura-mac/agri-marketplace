@@ -126,15 +126,20 @@ export default function ListingDetailPage() {
                   {listing.product_name}
                 </h1>
                 <div className="text-2xl font-bold text-gray-900">
-                  $ {listing.price_per_unit}/{listing.unit}
+                  ₹ {listing.price_per_unit}/{listing.unit}
                 </div>
               </div>
 
               {/* Minimum Order */}
               <div className="mb-6">
                 <div className="bg-gray-50 rounded-lg p-4 border">
-                  <div className="text-sm text-gray-800 mb-1">Minimum Order Quantity</div>
-                  <div className="text-lg font-semibold text-black">{listing.minimum_order}{listing.unit}</div>
+                  <div className="text-sm text-gray-800 mb-1">
+                    Minimum Order Quantity
+                  </div>
+                  <div className="text-lg font-semibold text-black">
+                    {listing.minimum_order}
+                    {listing.unit}
+                  </div>
                 </div>
               </div>
 
@@ -142,7 +147,9 @@ export default function ListingDetailPage() {
               <div className="mb-6 flex items-center gap-2">
                 <MapPinIcon className="w-5 h-5 text-gray-500" />
                 <span className="text-black">
-                  {[listing.state, listing.district].filter(Boolean).join(', ') || 'Location not specified'}
+                  {[listing.state, listing.district]
+                    .filter(Boolean)
+                    .join(", ") || "Location not specified"}
                 </span>
               </div>
 
@@ -191,7 +198,9 @@ export default function ListingDetailPage() {
 
           {/* Description Section */}
           <div className="p-8 border-t bg-gray-50">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">Description</h2>
+            <h2 className="text-xl font-semibold text-gray-900 mb-3">
+              Description
+            </h2>
             <p className="text-black leading-relaxed">
               {listing.product_description}
             </p>
@@ -201,23 +210,32 @@ export default function ListingDetailPage() {
           <div className="p-8 border-t bg-white">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-semibold text-gray-900">
-                {listing.user_profiles?.role === 'farmer' ? 'Farmer' : 'Trader'} Profile
+                {listing.user_profiles?.role === "farmer" ? "Farmer" : "Trader"}{" "}
+                Profile
               </h2>
-              <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                listing.user_profiles?.role === 'farmer' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'
-              }`}>
-                {listing.user_profiles?.role?.toUpperCase() || 'TRADER'}
+              <span
+                className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  listing.user_profiles?.role === "farmer"
+                    ? "bg-green-100 text-green-800"
+                    : "bg-blue-100 text-blue-800"
+                }`}
+              >
+                {listing.user_profiles?.role?.toUpperCase() || "TRADER"}
               </span>
             </div>
-            
+
             <div className="grid grid-cols-2 gap-6">
               <div>
                 <div className="text-gray-600 mb-1">State</div>
-                <div className="font-medium">{listing.user_profiles?.state || 'Not specified'}</div>
+                <div className="font-medium text-black">
+                  {listing.user_profiles?.state || "Not specified"}
+                </div>
               </div>
               <div>
                 <div className="text-gray-600 mb-1">Contact</div>
-                <div className="font-medium">{listing.contact_phone}</div>
+                <div className="font-medium text-black">
+                  {listing.contact_phone}
+                </div>
               </div>
             </div>
           </div>
@@ -226,54 +244,74 @@ export default function ListingDetailPage() {
           {relatedListings.length > 0 && (
             <div className="p-8 border-t bg-gray-50">
               <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-                See More Product From{' '}
+                See More Product From{" "}
                 <span className="underline">
-                  {listing.user_profiles?.role === 'farmer' ? 'Farmer' : 'Trader'}
+                  {listing.user_profiles?.role === "farmer"
+                    ? "Farmer"
+                    : "Trader"}
                 </span>
               </h2>
               <div className="grid grid-cols-2 gap-6">
                 {relatedListings.slice(0, 2).map((relatedListing) => (
-                  <div key={relatedListing.id} className="bg-white rounded-lg border p-4">
-                    <div className="relative aspect-square mb-4 rounded-lg overflow-hidden">
-                      {relatedListing.images.length > 0 ? (
-                        <Image
-                          src={relatedListing.images[0]}
-                          alt={relatedListing.product_name}
-                          fill
-                          className="object-cover"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-                          <span className="text-gray-400 text-sm">No image</span>
-                        </div>
-                      )}
-                    </div>
-                    
+                  <div
+                    key={relatedListing.id}
+                    className="bg-white rounded-lg border p-4"
+                  >
+                    <Link
+                      key={relatedListing.id}
+                      href={`/listings/${relatedListing.id}`}
+                      className="flex-shrink-0 w-48 bg-white border rounded-lg p-3"
+                    >
+                      <div className="relative aspect-square mb-4 rounded-lg overflow-hidden">
+                        {relatedListing.images.length > 0 ? (
+                          <Image
+                            src={relatedListing.images[0]}
+                            alt={relatedListing.product_name}
+                            fill
+                            className="object-cover"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                            <span className="text-gray-400 text-sm">
+                              No image
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </Link>
                     <div className="space-y-2">
                       <h3 className="font-semibold text-gray-900 text-lg">
                         {relatedListing.product_name}
                       </h3>
                       <div className="text-lg font-bold text-gray-900">
-                        ₹ {relatedListing.price_per_unit}/{relatedListing.unit.toUpperCase()}
+                        ₹ {relatedListing.price_per_unit}/
+                        {relatedListing.unit.toUpperCase()}
                       </div>
                       <div className="text-sm text-gray-600">
-                        Minimum Order Qty. {relatedListing.minimum_order}{relatedListing.unit}
+                        Minimum Order Qty. {relatedListing.minimum_order}
+                        {relatedListing.unit}
                       </div>
-                      
+
                       {/* Category Badge */}
                       <div className="flex items-center gap-2">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          relatedListing.category === 'fruits' ? 'bg-orange-100 text-orange-800' :
-                          relatedListing.category === 'grains' ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-gray-100 text-gray-800'
-                        }`}>
+                        <span
+                          className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            relatedListing.category === "fruits"
+                              ? "bg-orange-100 text-orange-800"
+                              : relatedListing.category === "grains"
+                              ? "bg-yellow-100 text-yellow-800"
+                              : "bg-gray-100 text-gray-800"
+                          }`}
+                        >
                           {relatedListing.category.toUpperCase()}
                         </span>
                       </div>
-                      
+
                       <div className="flex items-center gap-1 text-sm text-gray-500">
                         <MapPinIcon className="w-4 h-4" />
-                        <span>{relatedListing.state},{relatedListing.district}</span>
+                        <span>
+                          {relatedListing.state},{relatedListing.district}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -298,14 +336,18 @@ export default function ListingDetailPage() {
           {/* Minimum Order */}
           <div className="p-4 border-b">
             <div className="text-sm text-gray-600">Minimum Order Quantity</div>
-            <div className="font-medium">{listing.minimum_order}{listing.unit}</div>
+            <div className="font-medium">
+              {listing.minimum_order}
+              {listing.unit}
+            </div>
           </div>
 
           {/* Location */}
           <div className="p-4 border-b flex items-center gap-2">
             <MapPinIcon className="w-4 h-4 text-gray-500" />
             <span className="text-sm text-gray-700">
-              {[listing.state, listing.district].filter(Boolean).join(', ') || 'Location not specified'}
+              {[listing.state, listing.district].filter(Boolean).join(", ") ||
+                "Location not specified"}
             </span>
           </div>
 
@@ -313,7 +355,7 @@ export default function ListingDetailPage() {
           <div className="p-4 border-b">
             <div className="flex gap-2">
               <CallIcon phone={listing.contact_phone} />
-              <DirectionsIcon />
+              {/* <DirectionsIcon /> */}
               <WhatsappIcon phone={listing.whatsapp_number} />
             </div>
           </div>
@@ -354,7 +396,9 @@ export default function ListingDetailPage() {
 
           {/* Description */}
           <div className="p-4 border-b">
-            <h2 className="text-lg font-semibold text-gray-900 mb-3">Description</h2>
+            <h2 className="text-lg font-semibold text-gray-900 mb-3">
+              Description
+            </h2>
             <p className="text-gray-700 text-sm leading-relaxed">
               {listing.product_description}
             </p>
@@ -364,19 +408,25 @@ export default function ListingDetailPage() {
           <div className="p-4 border-b">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-gray-900">
-                {listing.user_profiles?.role === 'farmer' ? 'Farmer' : 'Trader'}
+                {listing.user_profiles?.role === "farmer" ? "Farmer" : "Trader"}
               </h2>
-              <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                listing.user_profiles?.role === 'farmer' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'
-              }`}>
-                {listing.user_profiles?.role?.toUpperCase() || 'TRADER'}
+              <span
+                className={`px-2 py-1 rounded-full text-xs font-medium ${
+                  listing.user_profiles?.role === "farmer"
+                    ? "bg-green-100 text-green-800"
+                    : "bg-blue-100 text-blue-800"
+                }`}
+              >
+                {listing.user_profiles?.role?.toUpperCase() || "TRADER"}
               </span>
             </div>
-            
+
             <div className="space-y-2">
               <div className="flex justify-between">
                 <span className="text-gray-600">State</span>
-                <span className="font-medium">{listing.user_profiles?.state || 'Not specified'}</span>
+                <span className="font-medium">
+                  {listing.user_profiles?.state || "Not specified"}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Contact</span>
@@ -389,14 +439,16 @@ export default function ListingDetailPage() {
           {relatedListings.length > 0 && (
             <div className="p-4">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">
-                See More Product From{' '}
+                See More Product From{" "}
                 <span className="underline">
-                  {listing.user_profiles?.role === 'farmer' ? 'Farmer' : 'Trader'}
+                  {listing.user_profiles?.role === "farmer"
+                    ? "Farmer"
+                    : "Trader"}
                 </span>
               </h2>
               <div className="flex gap-3 overflow-x-auto pb-2">
                 {relatedListings.map((relatedListing) => (
-                  <Link 
+                  <Link
                     key={relatedListing.id}
                     href={`/listings/${relatedListing.id}`}
                     className="flex-shrink-0 w-48 bg-white border rounded-lg p-3"
@@ -411,34 +463,44 @@ export default function ListingDetailPage() {
                         />
                       ) : (
                         <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-                          <span className="text-gray-400 text-xs">No image</span>
+                          <span className="text-gray-400 text-xs">
+                            No image
+                          </span>
                         </div>
                       )}
                     </div>
-                    
+
                     <div className="space-y-1">
                       <h3 className="font-semibold text-gray-900 text-sm line-clamp-2">
                         {relatedListing.product_name}
                       </h3>
                       <div className="text-sm font-bold text-gray-900">
-                        ₹ {relatedListing.price_per_unit}/{relatedListing.unit.toUpperCase()}
+                        ₹ {relatedListing.price_per_unit}/
+                        {relatedListing.unit.toUpperCase()}
                       </div>
                       <div className="text-xs text-gray-600">
-                        Min Order: {relatedListing.minimum_order}{relatedListing.unit}
+                        Min Order: {relatedListing.minimum_order}
+                        {relatedListing.unit}
                       </div>
-                      
+
                       {/* Category Badge */}
-                      <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
-                        relatedListing.category === 'fruits' ? 'bg-orange-100 text-orange-800' :
-                        relatedListing.category === 'grains' ? 'bg-yellow-100 text-yellow-800' :
-                        'bg-gray-100 text-gray-800'
-                      }`}>
+                      <span
+                        className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
+                          relatedListing.category === "fruits"
+                            ? "bg-orange-100 text-orange-800"
+                            : relatedListing.category === "grains"
+                            ? "bg-yellow-100 text-yellow-800"
+                            : "bg-gray-100 text-gray-800"
+                        }`}
+                      >
                         {relatedListing.category.toUpperCase()}
                       </span>
-                      
+
                       <div className="flex items-center gap-1 text-xs text-gray-500">
                         <MapPinIcon className="w-3 h-3" />
-                        <span className="truncate">{relatedListing.state},{relatedListing.district}</span>
+                        <span className="truncate">
+                          {relatedListing.state},{relatedListing.district}
+                        </span>
                       </div>
                     </div>
                   </Link>

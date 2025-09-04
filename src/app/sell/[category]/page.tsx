@@ -401,7 +401,7 @@ export default function CategorySellPage() {
                     min="0"
                     value={formData.minimumOrder || ''}
                     onChange={(e) => handleInputChange('minimumOrder', parseFloat(e.target.value) || 0)}
-                    className={`flex-1 px-3 py-2 border rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    className={`flex-1 px-3 py-2 border rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black ${
                       errors.minimumOrder ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder="0.00"
@@ -475,7 +475,7 @@ export default function CategorySellPage() {
                 <select
                   value={formData.state}
                   onChange={(e) => handleInputChange('state', e.target.value)}
-                  className={`w-full h-11 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  className={`w-full h-11 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black ${
                     errors.state ? 'border-red-500' : 'border-gray-300'
                   }`}
                   required

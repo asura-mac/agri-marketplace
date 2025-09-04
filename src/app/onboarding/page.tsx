@@ -195,7 +195,7 @@ export default function OnboardingPage() {
                   name="location" 
                   value={form.location} 
                   onChange={handleChange} 
-                  className="flex-1 h-11 border rounded-md px-3" 
+                  className="flex-1 h-11 border rounded-md px-3 text-black" 
                   placeholder="Enter your location or detect automatically" 
                 />
                 <button 
