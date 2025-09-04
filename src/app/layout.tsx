@@ -18,6 +18,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "KrushiMandi - Agricultural Marketplace",
   description: "Empowering farmers and traders through technology. List and discover agricultural products including grains, fruits, vegetables, and more.",
+  icons: {
+    icon: "/Favicon.png",
+    shortcut: "/Favicon.png",    
+    apple: "/Favicon.png",
+  }
 };
 
 export default function RootLayout({

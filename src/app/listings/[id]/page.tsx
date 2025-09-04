@@ -323,42 +323,6 @@ export default function ListingDetailPage() {
 
         {/* Mobile Layout */}
         <div className="lg:hidden bg-white">
-          {/* Product Header */}
-          <div className="p-4 border-b">
-            <h1 className="text-xl font-bold text-gray-900 mb-1">
-              {listing.product_name}
-            </h1>
-            <div className="text-lg font-semibold text-gray-900">
-              $ {listing.price_per_unit}/{listing.unit}
-            </div>
-          </div>
-
-          {/* Minimum Order */}
-          <div className="p-4 border-b">
-            <div className="text-sm text-gray-600">Minimum Order Quantity</div>
-            <div className="font-medium">
-              {listing.minimum_order}
-              {listing.unit}
-            </div>
-          </div>
-
-          {/* Location */}
-          <div className="p-4 border-b flex items-center gap-2">
-            <MapPinIcon className="w-4 h-4 text-gray-500" />
-            <span className="text-sm text-gray-700">
-              {[listing.state, listing.district].filter(Boolean).join(", ") ||
-                "Location not specified"}
-            </span>
-          </div>
-
-          {/* Contact Buttons */}
-          <div className="p-4 border-b">
-            <div className="flex gap-2">
-              <CallIcon phone={listing.contact_phone} />
-              {/* <DirectionsIcon /> */}
-              <WhatsappIcon phone={listing.whatsapp_number} />
-            </div>
-          </div>
 
           {/* Image Gallery */}
           <div className="relative">
@@ -393,6 +357,45 @@ export default function ListingDetailPage() {
               </div>
             )}
           </div>
+
+          {/* Product Header */}
+          <div className="p-4 border-b">
+            <h1 className="text-xl font-bold text-gray-900 mb-1">
+              {listing.product_name}
+            </h1>
+            <div className="text-lg font-semibold text-gray-900">
+              ₹ {listing.price_per_unit}/{listing.unit}
+            </div>
+          </div>
+
+          {/* Minimum Order */}
+          <div className="p-4 border-b">
+            <div className="text-sm text-gray-600">Minimum Order Quantity</div>
+            <div className="font-medium">
+              {listing.minimum_order}
+              {listing.unit}
+            </div>
+          </div>
+
+          {/* Location */}
+          <div className="p-4 border-b flex items-center gap-2">
+            <MapPinIcon className="w-4 h-4 text-gray-500" />
+            <span className="text-sm text-gray-700">
+              {[listing.state, listing.district].filter(Boolean).join(", ") ||
+                "Location not specified"}
+            </span>
+          </div>
+
+          {/* Contact Buttons */}
+          <div className="p-4 border-b">
+            <div className="flex gap-2">
+              <CallIcon phone={listing.contact_phone} />
+              {/* <DirectionsIcon /> */}
+              <WhatsappIcon phone={listing.whatsapp_number} />
+            </div>
+          </div>
+
+          
 
           {/* Description */}
           <div className="p-4 border-b">
