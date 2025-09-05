@@ -2,7 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 
-export default function faqsPage() {
+export default function FAQPage() {
   const { t } = useTranslation();
 
   return (
