@@ -140,9 +140,19 @@ export default function OnboardingPage() {
       // Debug profile after completion
       await debugUserProfile(user.id);
       
-      // Redirect to home
-      console.log('Redirecting to home...');
-      router.push("/");
+      // Check for returnTo in sessionStorage
+      const returnTo = typeof window !== 'undefined' ? sessionStorage.getItem('returnTo') : null;
+      
+      if (returnTo) {
+        // Clear returnTo from sessionStorage
+        sessionStorage.removeItem('returnTo');
+        console.log('Redirecting to returnTo:', returnTo);
+        router.push(returnTo);
+      } else {
+        // Redirect to home
+        console.log('Redirecting to home...');
+        router.push("/");
+      }
     } catch (error) {
       console.error('Unexpected error during onboarding:', error);
       alert('Error saving profile. Please check the console for details and try again.');

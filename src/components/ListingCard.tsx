@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
 import { useTranslation } from 'react-i18next';
 import { MapPinIcon } from "@heroicons/react/24/outline";
+import { useAuthProtection } from "@/hooks/useAuthProtection";
 import type { Listing } from "@/lib/listings-utils";
 
 // Category icon mapping
@@ -54,6 +54,7 @@ type ListingCardProps = {
 
 export default function ListingCard({ listing, onClick, showContact = false }: ListingCardProps) {
   const { t } = useTranslation();
+  const { navigateToListing, isLoading } = useAuthProtection();
   const image = listing.images?.[0] || "/next.svg";
   const categoryIcon = categoryIcons[listing.category] || "📦";
   const categoryName = getCategoryName(listing.category, t);
@@ -137,9 +138,12 @@ export default function ListingCard({ listing, onClick, showContact = false }: L
   }
 
   return (
-    <Link href={`/listings/${listing.id}`}>
+    <div 
+      onClick={() => navigateToListing(listing.id)}
+      className={isLoading ? 'pointer-events-none opacity-75' : ''}
+    >
       {cardContent}
-    </Link>
+    </div>
   );
 }
 

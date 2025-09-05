@@ -2,13 +2,15 @@
 import { supabase } from '@/lib/supabase';
 import { handleAuthRedirect } from '@/lib/auth-utils';
 import Image from "next/image";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslation } from 'react-i18next';
 
-export default function LoginPage() {
+function LoginContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { t } = useTranslation();
+  const returnTo = searchParams.get('returnTo');
 
   // Check if user is already authenticated
   useEffect(() => {
@@ -17,14 +19,18 @@ export default function LoginPage() {
       
       const { data: { session } } = await supabase.auth.getSession();
       if (session?.user) {
-        // Use auth utility to determine redirect
-        const redirectPath = await handleAuthRedirect(session.user);
-        router.push(redirectPath);
+        // If user is already authenticated, redirect to returnTo or use auth utility
+        if (returnTo) {
+          router.push(returnTo);
+        } else {
+          const redirectPath = await handleAuthRedirect(session.user);
+          router.push(redirectPath);
+        }
       }
     };
 
     checkUser();
-  }, [router]);
+  }, [router, returnTo]);
 
   const handleGoogleSignIn = async () => {
     if (!supabase) {
@@ -33,10 +39,16 @@ export default function LoginPage() {
     }
 
     try {
+      // Build callback URL with returnTo parameter if present
+      const callbackUrl = new URL('/auth/callback', window.location.origin);
+      if (returnTo) {
+        callbackUrl.searchParams.set('returnTo', returnTo);
+      }
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`
+          redirectTo: callbackUrl.toString()
         }
       });
       
@@ -66,6 +78,26 @@ export default function LoginPage() {
         </button>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="w-full max-w-md p-8 rounded-lg shadow border border-blue-100">
+          <div className="flex items-center justify-center mb-6">
+            <Image src="/KM-LOGO-FULL.png" alt="Logo" width={200} height={50} />
+          </div>
+          <div className="text-center">
+            <div className="text-blue-700 text-lg mb-2">Loading...</div>
+            <div className="text-gray-500">Please wait while we prepare the login page.</div>
+          </div>
+        </div>
+      </div>
+    }>
+      <LoginContent />
+    </Suspense>
   );
 }
 
