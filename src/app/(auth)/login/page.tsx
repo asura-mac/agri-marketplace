@@ -4,9 +4,11 @@ import { handleAuthRedirect } from '@/lib/auth-utils';
 import Image from "next/image";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslation } from 'react-i18next';
 
 export default function LoginPage() {
   const router = useRouter();
+  const { t } = useTranslation();
 
   // Check if user is already authenticated
   useEffect(() => {
@@ -54,13 +56,13 @@ export default function LoginPage() {
         <div className="flex items-center justify-center mb-6">
           <Image src="/KM-LOGO-FULL.png" alt="Logo" width={200} height={50} />
         </div>
-        <h1 className="text-2xl font-semibold text-center text-blue-700 mb-2">Welcome</h1>
-        <p className="text-center text-gray-600 mb-8">Sign in with Google to continue</p>
+        <h1 className="text-2xl font-semibold text-center text-blue-700 mb-2">{t("common.welcome")}</h1>
+        <p className="text-center text-gray-600 mb-8">{t("common.signInMessage")}</p>
         <button
           onClick={handleGoogleSignIn}
           className="w-full h-11 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-medium"
         >
-          Continue with Google
+          {t("common.signInBtn")}
         </button>
       </div>
     </div>

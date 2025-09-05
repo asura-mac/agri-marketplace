@@ -136,7 +136,7 @@ export default function ListingDetailPage() {
                   <div className="text-sm text-gray-800 mb-1">
                     Minimum Order Quantity
                   </div>
-                  <div className="text-lg font-semibold text-black">
+                  <div className="font-medium text-black">
                     {listing.minimum_order}
                     {listing.unit}
                   </div>
@@ -197,14 +197,14 @@ export default function ListingDetailPage() {
           </div>
 
           {/* Description Section */}
-          <div className="p-8 border-t bg-gray-50">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">
-              Description
-            </h2>
-            <p className="text-black leading-relaxed">
-              {listing.product_description}
-            </p>
-          </div>
+            <div className="p-8 border-t bg-gray-50">
+              <h2 className="text-xl font-semibold text-gray-900 mb-3">
+                Description
+              </h2>
+              <p className="text-black leading-relaxed">
+                {listing.product_description}
+              </p>
+            </div>
 
           {/* Seller Profile Section */}
           <div className="p-8 border-t bg-white">
@@ -323,7 +323,6 @@ export default function ListingDetailPage() {
 
         {/* Mobile Layout */}
         <div className="lg:hidden bg-white">
-
           {/* Image Gallery */}
           <div className="relative">
             {listing.images.length > 0 ? (
@@ -371,7 +370,7 @@ export default function ListingDetailPage() {
           {/* Minimum Order */}
           <div className="p-4 border-b">
             <div className="text-sm text-gray-600">Minimum Order Quantity</div>
-            <div className="font-medium">
+            <div className="font-medium text-black">
               {listing.minimum_order}
               {listing.unit}
             </div>
@@ -394,8 +393,6 @@ export default function ListingDetailPage() {
               <WhatsappIcon phone={listing.whatsapp_number} />
             </div>
           </div>
-
-          
 
           {/* Description */}
           <div className="p-4 border-b">
@@ -427,13 +424,15 @@ export default function ListingDetailPage() {
             <div className="space-y-2">
               <div className="flex justify-between">
                 <span className="text-gray-600">State</span>
-                <span className="font-medium">
+                <span className="font-medium text-black">
                   {listing.user_profiles?.state || "Not specified"}
                 </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Contact</span>
-                <span className="font-medium">{listing.contact_phone}</span>
+                <span className="font-medium text-black">
+                  {listing.contact_phone}
+                </span>
               </div>
             </div>
           </div>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useAuth } from "@/app/providers";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 
 // Import icons from Heroicons
 import {   
@@ -118,6 +119,7 @@ const categories: Category[] = [
 ];
 
 export default function SellPage() {
+  const { t } = useTranslation();
   const { user, loading } = useAuth();
   const router = useRouter();
 
@@ -146,7 +148,7 @@ export default function SellPage() {
         {/* Header Section */}
         <div className="text-center mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
-            POST YOUR AD
+            {t("common.postYourAd")}
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Choose the category that best describes what you want to sell. This
