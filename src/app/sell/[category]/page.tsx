@@ -32,6 +32,9 @@ const unitOptions = [
   { value: 'kg', label: 'Kilogram (kg)' },
   { value: 'quintal', label: 'Quintal' },
   { value: 'ton', label: 'Ton' },
+  { value: 'nos', label: 'Numbers (nos)' },
+  { value: 'litre', label: 'Litre' },
+  { value: 'dozen', label: 'Dozen' },
 ] as const;
 
 export default function CategorySellPage() {
@@ -378,7 +381,7 @@ export default function CategorySellPage() {
                 </label>
                 <select
                   value={formData.unit}
-                  onChange={(e) => handleInputChange('unit', e.target.value as 'kg' | 'quintal' | 'ton')}
+                  onChange={(e) => handleInputChange('unit', e.target.value as 'kg' | 'quintal' | 'ton' | 'nos' | 'litre' | 'dozen')}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                 >
                   {unitOptions.map(option => (

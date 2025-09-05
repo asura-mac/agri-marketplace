@@ -7,7 +7,7 @@ export type ListingFormData = {
   productName: string;
   description: string;
   pricePerUnit: number;
-  unit: 'kg' | 'quintal' | 'ton';
+  unit: 'kg' | 'quintal' | 'ton' | 'nos' | 'litre' | 'dozen';
   minimumOrder: number;
   state: string;
   district: string;
@@ -24,7 +24,7 @@ export type Listing = {
   product_name: string;
   product_description: string;
   price_per_unit: number;
-  unit: 'kg' | 'quintal' | 'ton';
+  unit: 'kg' | 'quintal' | 'ton' | 'nos' | 'litre' | 'dozen';
   minimum_order: number;
   state: string | null;
   district: string | null;
