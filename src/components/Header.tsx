@@ -7,14 +7,16 @@ import { useRouter } from "next/navigation";
 import { getUserLocation } from "@/lib/auth-utils";
 import { useSearch } from "@/contexts/SearchContext";
 import { INDIAN_STATES_AND_UTS } from "@/lib/constants";
-import { useTranslation } from 'react-i18next';
-import LanguageSelector from './LanguageSelector';
-import { 
-  MagnifyingGlassIcon, 
+import { useTranslation } from "react-i18next";
+import LanguageSelector from "./LanguageSelector";
+import {
+  MagnifyingGlassIcon,
   FunnelIcon,
   XMarkIcon,
   ChevronDownIcon,
-  Bars3Icon, MapPinIcon, UserIcon
+  Bars3Icon,
+  MapPinIcon,
+  UserIcon,
 } from "@heroicons/react/24/outline";
 
 export default function Header() {
@@ -22,14 +24,23 @@ export default function Header() {
   const closeMenu = () => setIsMobileMenuOpen(false);
   const { user, loading } = useAuth();
   const router = useRouter();
-  const { searchParams, updateSearchParams, clearSearch, clearStateFilter, isSearchActive, isFilterActive } = useSearch();
+  const {
+    searchParams,
+    updateSearchParams,
+    clearSearch,
+    clearStateFilter,
+    isSearchActive,
+    isFilterActive,
+  } = useSearch();
   const { t } = useTranslation();
 
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const mobileFilterDropdownRef = useRef<HTMLDivElement>(null);
   const desktopFilterDropdownRef = useRef<HTMLDivElement>(null);
-  
-  const [locationLabel, setLocationLabel] = useState<string>(t('header.setLocation'));
+
+  const [locationLabel, setLocationLabel] = useState<string>(
+    t("header.setLocation")
+  );
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
 
@@ -45,7 +56,7 @@ export default function Header() {
       fetchUserLocation();
     } else {
       // Reset location label when user logs out
-      setLocationLabel(t('header.setLocation'));
+      setLocationLabel(t("header.setLocation"));
     }
   }, [user, fetchUserLocation, t]);
 
@@ -58,7 +69,7 @@ export default function Header() {
     e.preventDefault();
     updateSearchParams({ searchQuery: searchQuery.trim() });
     // Navigate to home page to show search results
-    router.push('/');
+    router.push("/");
   };
 
   const handleClearSearch = () => {
@@ -71,7 +82,7 @@ export default function Header() {
     updateSearchParams({ state });
     setShowFilterDropdown(false);
     // Navigate to home page to show filtered results
-    router.push('/');
+    router.push("/");
   };
 
   const handleClearStateFilter = () => {
@@ -83,22 +94,26 @@ export default function Header() {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
-      
+
       // Close mobile menu if clicking outside
       if (mobileMenuRef.current && !mobileMenuRef.current.contains(target)) {
         setIsMobileMenuOpen(false);
       }
-      
+
       // Close filter dropdowns if clicking outside
-      if (mobileFilterDropdownRef.current && !mobileFilterDropdownRef.current.contains(target) &&
-          desktopFilterDropdownRef.current && !desktopFilterDropdownRef.current.contains(target)) {
+      if (
+        mobileFilterDropdownRef.current &&
+        !mobileFilterDropdownRef.current.contains(target) &&
+        desktopFilterDropdownRef.current &&
+        !desktopFilterDropdownRef.current.contains(target)
+      ) {
         setShowFilterDropdown(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -140,8 +155,10 @@ export default function Header() {
       {/* Mobile Dropdown Menu */}
 
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-14 left-0 w-full bg-white shadow-md flex flex-col gap-3 p-4 z-50"
-        ref={mobileMenuRef}>
+        <div
+          className="md:hidden absolute top-14 left-0 w-full bg-white shadow-md flex flex-col gap-3 p-4 z-50"
+          ref={mobileMenuRef}
+        >
           <Link
             href="/sell"
             onClick={closeMenu}
@@ -154,26 +171,28 @@ export default function Header() {
             href="/profile"
             onClick={closeMenu}
             className="flex items-center text-sm text-blue-700 font-medium truncate"
-          >   
-            <MapPinIcon className="transform h-5 w-5 text-blue-700 mr-2"/>
+          >
+            <MapPinIcon className="transform h-5 w-5 text-blue-700 mr-2" />
             {locationLabel}
           </Link>
 
           <div>
             {!loading && user ? (
-              <Link href="/profile" 
-              onClick={closeMenu}
-              className="flex items-center text-sm text-blue-700 font-medium"
+              <Link
+                href="/profile"
+                onClick={closeMenu}
+                className="flex items-center text-sm text-blue-700 font-medium"
               >
-                <UserIcon className="transform h-5 w-5 text-blue-700 mr-2"/>
+                <UserIcon className="transform h-5 w-5 text-blue-700 mr-2" />
                 {t("header.profile")}
               </Link>
             ) : (
-              <Link href="/login" 
-              onClick={closeMenu}
-              className="flex items-center text-sm text-blue-700 font-medium"
+              <Link
+                href="/login"
+                onClick={closeMenu}
+                className="flex items-center text-sm text-blue-700 font-medium"
               >
-                <UserIcon className="transform h-5 w-5 text-blue-700 mr-2"/>
+                <UserIcon className="transform h-5 w-5 text-blue-700 mr-2" />
                 {t("header.login")}
               </Link>
             )}
@@ -206,7 +225,7 @@ export default function Header() {
             )}
           </div>
 
-          {/* Mobile Filter Button */}
+          {/* Mobile Filter Button + Dropdown */}
           <div className="relative" ref={mobileFilterDropdownRef}>
             <button
               type="button"
@@ -218,16 +237,17 @@ export default function Header() {
               }`}
             >
               <FunnelIcon className="h-4 w-4" />
+              {/* Show selected state in mobile */}
               {isFilterActive && (
-                <div className="flex items-center gap-1">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                </div>
+                <span className="text-xs text-blue-600 ml-1">
+                  ({searchParams.state})
+                </span>
               )}
             </button>
 
-            {/* Filter Dropdown */}
             {showFilterDropdown && (
               <div className="absolute right-0 top-12 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
+                {/* Header */}
                 <div className="p-3 border-b border-gray-100">
                   <div className="flex items-center justify-between">
                     <h3 className="text-sm font-medium text-gray-900">
@@ -235,6 +255,7 @@ export default function Header() {
                     </h3>
                     {isFilterActive && (
                       <button
+                        type="button"
                         onClick={handleClearStateFilter}
                         className="text-xs text-blue-600 hover:text-blue-700"
                       >
@@ -250,14 +271,20 @@ export default function Header() {
                     </p>
                   )}
                 </div>
+
+                {/* List of States */}
                 <div className="max-h-40 overflow-y-auto">
                   {INDIAN_STATES_AND_UTS.map((state) => (
                     <button
                       key={state}
-                      onClick={() => handleStateFilter(state)}
+                      type="button" // ✅ prevents accidental form submission
+                      onClick={() => {
+                        handleStateFilter(state); // updates context
+                        setTimeout(() => setShowFilterDropdown(false), 0); // ✅ close after state updates
+                      }}
                       className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 ${
                         searchParams.state === state
-                          ? "bg-blue-50 text-blue-700"
+                          ? "bg-blue-50 text-blue-700 font-medium"
                           : "text-gray-700"
                       }`}
                     >
@@ -286,8 +313,8 @@ export default function Header() {
           <Link
             href="/profile"
             className="flex items-center text-sm text-blue-700 font-medium truncate"
-          >   
-            <MapPinIcon className="transform h-5 w-5 text-blue-700 mr-2"/>
+          >
+            <MapPinIcon className="transform h-5 w-5 text-blue-700 mr-2" />
             {locationLabel}
           </Link>
           {/* <div className="text-blue-700 font-medium">{locationLabel}</div> */}
@@ -402,17 +429,19 @@ export default function Header() {
           <LanguageSelector />
           <div>
             {!loading && user ? (
-              <Link href="/profile" 
-              className="flex items-center text-sm text-blue-700 font-medium"
+              <Link
+                href="/profile"
+                className="flex items-center text-sm text-blue-700 font-medium"
               >
-                <UserIcon className="transform h-5 w-5 text-blue-700 mr-2"/>
+                <UserIcon className="transform h-5 w-5 text-blue-700 mr-2" />
                 {t("header.profile")}
               </Link>
             ) : (
-              <Link href="/login" 
-              className="flex items-center text-sm text-blue-700 font-medium"
+              <Link
+                href="/login"
+                className="flex items-center text-sm text-blue-700 font-medium"
               >
-                <UserIcon className="transform h-5 w-5 text-blue-700 mr-2"/>
+                <UserIcon className="transform h-5 w-5 text-blue-700 mr-2" />
                 {t("header.login")}
               </Link>
             )}
@@ -422,5 +451,3 @@ export default function Header() {
     </header>
   );
 }
-
-
