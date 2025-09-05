@@ -25,26 +25,13 @@ export default function Header() {
   const { searchParams, updateSearchParams, clearSearch, clearStateFilter, isSearchActive, isFilterActive } = useSearch();
   const { t } = useTranslation();
 
-  const mobileMenuRef = useRef(null);
-
-  useEffect(() => {
-  const handleClickOutside = (event: MouseEvent) => {
-  if (
-    mobileMenuRef.current &&
-    !event.composedPath().includes(mobileMenuRef.current)
-  ) {
-    setIsMobileMenuOpen(false);
-  }
-};
-
-  document.addEventListener("mousedown", handleClickOutside);
-  return () => document.removeEventListener("mousedown", handleClickOutside);
-}, []);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const mobileFilterDropdownRef = useRef<HTMLDivElement>(null);
+  const desktopFilterDropdownRef = useRef<HTMLDivElement>(null);
   
   const [locationLabel, setLocationLabel] = useState<string>(t('header.setLocation'));
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
-  const filterDropdownRef = useRef<HTMLDivElement>(null);
 
   const fetchUserLocation = useCallback(async () => {
     if (!user) return;
@@ -92,10 +79,19 @@ export default function Header() {
     setShowFilterDropdown(false);
   };
 
-  // Close dropdown when clicking outside
+  // Handle click outside events
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (filterDropdownRef.current && !filterDropdownRef.current.contains(event.target as Node)) {
+      const target = event.target as Node;
+      
+      // Close mobile menu if clicking outside
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(target)) {
+        setIsMobileMenuOpen(false);
+      }
+      
+      // Close filter dropdowns if clicking outside
+      if (mobileFilterDropdownRef.current && !mobileFilterDropdownRef.current.contains(target) &&
+          desktopFilterDropdownRef.current && !desktopFilterDropdownRef.current.contains(target)) {
         setShowFilterDropdown(false);
       }
     };
@@ -167,7 +163,7 @@ export default function Header() {
             {!loading && user ? (
               <Link href="/profile" 
               onClick={closeMenu}
-              className="flex items-center text-sm text-blue-700 font-medium block"
+              className="flex items-center text-sm text-blue-700 font-medium"
               >
                 <UserIcon className="transform h-5 w-5 text-blue-700 mr-2"/>
                 {t("header.profile")}
@@ -175,7 +171,7 @@ export default function Header() {
             ) : (
               <Link href="/login" 
               onClick={closeMenu}
-              className="flex items-center text-sm text-blue-700 font-medium block"
+              className="flex items-center text-sm text-blue-700 font-medium"
               >
                 <UserIcon className="transform h-5 w-5 text-blue-700 mr-2"/>
                 {t("header.login")}
@@ -211,7 +207,7 @@ export default function Header() {
           </div>
 
           {/* Mobile Filter Button */}
-          <div className="relative" ref={filterDropdownRef}>
+          <div className="relative" ref={mobileFilterDropdownRef}>
             <button
               type="button"
               onClick={() => setShowFilterDropdown(!showFilterDropdown)}
@@ -223,7 +219,9 @@ export default function Header() {
             >
               <FunnelIcon className="h-4 w-4" />
               {isFilterActive && (
-                <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                <div className="flex items-center gap-1">
+                  <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                </div>
               )}
             </button>
 
@@ -244,6 +242,13 @@ export default function Header() {
                       </button>
                     )}
                   </div>
+                  {isFilterActive && (
+                    <p className="text-xs text-gray-500 mt-1">
+                      {t("search.showingListings", {
+                        state: searchParams.state,
+                      })}
+                    </p>
+                  )}
                 </div>
                 <div className="max-h-40 overflow-y-auto">
                   {INDIAN_STATES_AND_UTS.map((state) => (
@@ -314,7 +319,7 @@ export default function Header() {
             </div>
 
             {/* Desktop Filter Button */}
-            <div className="relative" ref={filterDropdownRef}>
+            <div className="relative" ref={desktopFilterDropdownRef}>
               <button
                 type="button"
                 onClick={() => setShowFilterDropdown(!showFilterDropdown)}
@@ -398,14 +403,14 @@ export default function Header() {
           <div>
             {!loading && user ? (
               <Link href="/profile" 
-              className="flex items-center text-sm text-blue-700 font-medium block"
+              className="flex items-center text-sm text-blue-700 font-medium"
               >
                 <UserIcon className="transform h-5 w-5 text-blue-700 mr-2"/>
                 {t("header.profile")}
               </Link>
             ) : (
               <Link href="/login" 
-              className="flex items-center text-sm text-blue-700 font-medium block"
+              className="flex items-center text-sm text-blue-700 font-medium"
               >
                 <UserIcon className="transform h-5 w-5 text-blue-700 mr-2"/>
                 {t("header.login")}

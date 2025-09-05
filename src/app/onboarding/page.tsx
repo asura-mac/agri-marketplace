@@ -21,6 +21,8 @@ export default function OnboardingPage() {
   const [locationError, setLocationError] = useState<string | null>(null);
   const [detectedLocation, setDetectedLocation] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [termsError, setTermsError] = useState<string | null>(null);
 
   // Redirect if not authenticated or already completed onboarding
   useEffect(() => {
@@ -98,6 +100,13 @@ export default function OnboardingPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!user) return;
+
+    // Validate terms agreement
+    setTermsError(null);
+    if (!agreedToTerms) {
+      setTermsError("You must agree to the Terms and Conditions and Privacy Policy to continue.");
+      return;
+    }
 
     setSubmitting(true);
     try {
@@ -259,11 +268,67 @@ export default function OnboardingPage() {
             </div>
           </div>
         </div>
+        
+        {/* Terms and Conditions Agreement */}
+        <div className="mt-6">
+          <div className="flex items-start gap-3">
+            <input
+              type="checkbox"
+              id="terms-agreement"
+              checked={agreedToTerms}
+              onChange={(e) => {
+                setAgreedToTerms(e.target.checked);
+                if (e.target.checked) {
+                  setTermsError(null);
+                }
+              }}
+              className={`mt-1 h-4 w-4 text-blue-600 border-2 rounded focus:ring-blue-500 focus:ring-2 ${
+                termsError ? 'border-red-500' : 'border-gray-300'
+              }`}
+            />
+            <label htmlFor="terms-agreement" className="text-sm text-gray-700 leading-relaxed">
+              I agree to the{' '}
+              <a
+                href="/terms"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-700 underline font-medium"
+              >
+                Terms and Conditions
+              </a>
+              {' '}and{' '}
+              <a
+                href="/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-700 underline font-medium"
+              >
+                Privacy Policy
+              </a>
+              . I understand that by creating an account, I am accepting these terms and the collection and use of my data as described in the Privacy Policy.
+            </label>
+          </div>
+          
+          {/* Terms Error */}
+          {termsError && (
+            <div className="mt-2 p-2 bg-red-50 border border-red-200 rounded-md">
+              <div className="flex items-start gap-2">
+                <span className="text-red-600 mt-0.5 text-sm">⚠️</span>
+                <div className="text-sm text-red-700">{termsError}</div>
+              </div>
+            </div>
+          )}
+        </div>
+
         <div className="mt-6">
           <button 
             type="submit" 
-            disabled={submitting}
-            className="w-full h-11 rounded-md bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-medium"
+            disabled={submitting || !agreedToTerms}
+            className={`w-full h-11 rounded-md font-medium text-white transition-colors ${
+              agreedToTerms && !submitting
+                ? 'bg-blue-600 hover:bg-blue-700'
+                : 'bg-gray-400 cursor-not-allowed'
+            }`}
           >
             {submitting ? "Saving..." : "Continue"}
           </button>
