@@ -138,9 +138,17 @@ export default function Header() {
           </Link>
         </div>
 
-        <div className="ml-30">
+        <Link
+            href="/sell"
+            onClick={closeMenu}
+            className="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md text-center ml-50"
+          >
+            {t("header.sell")}
+        </Link>
+
+        {/* <div className="ml-30"> */}
           <LanguageSelector />
-        </div>
+        {/* </div> */}
 
         {/* Hamburger Button */}
         <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
@@ -159,13 +167,6 @@ export default function Header() {
           className="md:hidden absolute top-14 left-0 w-full bg-white shadow-md flex flex-col gap-3 p-4 z-50"
           ref={mobileMenuRef}
         >
-          <Link
-            href="/sell"
-            onClick={closeMenu}
-            className="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md text-center"
-          >
-            {t("header.sell")}
-          </Link>
 
           <Link
             href="/profile"

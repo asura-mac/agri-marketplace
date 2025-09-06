@@ -1,6 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import { Contact } from 'lucide-react';
 
 // English translations
 const enTranslations = {
@@ -239,6 +240,12 @@ const enTranslations = {
     signInMessage: "Sign in with Google to continue",
     welcome: "Welcome",
     signInBtn: "Continue with Google",
+    freshProduct: "Fresh Products Near You",
+    chooseFromCategory: "Choose the category that best describes what you want to sell. This helps buyers find your products more easily.",
+    chooseACategory: "CHOOSE A CATEGORY",
+    needHelp: "Need Help?",
+    helpType: "Can't find the right category? Contact our support team for assistance.",
+    ContactSupport: "Contact Support",
   },
   about: {
     heading: "Krushi Mandi – An Evool Foundation Initiative",
@@ -253,26 +260,37 @@ const enTranslations = {
   },
   faqs: {
     heading: "Krushi Mandi – Frequently Asked Questions (FAQ)",
+    
     q1: "What is Krushi Mandi?",
     a1: "Krushi Mandi is a digital agriculture marketplace in India by Evool Foundation. It connects farmers directly with buyers and traders without middlemen. Farmers can sell crops online, and buyers can easily find local farmers near me through the Krushi Mandi app.",
+
     q2: "How does Krushi Mandi work for farmers and buyers?",
     a2: "Farmers can list their products on the online mandi for farmers, and buyers or traders can connect with them directly through phone calls or WhatsApp. This makes it simple to buy vegetables online or purchase wholesale fruits and vegetables near me directly from farmers.",
+
     q3: "What products can I buy or sell on Krushi Mandi?",
     a3: "The platform supports a wide range of categories including grains, pulses, seeds, oilseeds, fruits, vegetables, dairy, fish, flowers, tea, spices, and nuts. Agricultural equipment companies and fertilizer suppliers can also list their products for farmers.",
+
     q4: "Can I use Krushi Mandi to find farmers near me?",
     a4: "Yes, Krushi Mandi allows you to connect with local farmers near me who are ready to sell farm produce directly. This makes it easier for buyers to purchase fresh produce directly from farmers at fair prices.",
+
     q5: "Is Krushi Mandi free for farmers?",
     a5: "Yes, Krushi Mandi app is free for farmers to register and list their crops. The goal is to provide a fair price and give farmers access to more buyers without paying high commissions.",
+
     q6: "Who can buy from Krushi Mandi?",
     a6: "Anyone including wholesale buyers, retailers, hotels, restaurants, and traders can buy directly from farmers. Businesses searching for wholesale vegetables near me or fruits near me can use the Krushi Mandi platform.",
+
     q7: "How do farmers and traders communicate?",
     a7: "Communication is direct through phone calls or WhatsApp. This makes Krushi Mandi a trusted farmer-to-buyer platform, helping both sides negotiate and close deals quickly.",
+
     q8: "What makes Krushi Mandi different from traditional mandis?",
     a8: "Unlike traditional mandis with heavy middlemen charges, Krushi Mandi is an online mandi for farmers where crops go straight from farm to market. Buyers get fresh produce and farmers get fair prices without exploitation.",
+
     q9: "Can agricultural equipment and fertilizer companies join Krushi Mandi?",
     a9: "Yes, Krushi Mandi is open to agriculture equipment manufacturers and fertilizer companies who want to showcase their products directly to farmers.",
+
     q10: "Is Krushi Mandi available across India?",
     a10: "Yes, Krushi Mandi is accessible across India. Whether you are looking for wholesale fruits and vegetables near me, local farmers near me, or want to use an online mandi for farmers, Krushi Mandi brings everything to one platform.",
+
     q11: "What is the mission of Krushi Mandi?",
     a11: "The mission of Krushi Mandi is to empower farmers, build a sustainable agriculture marketplace in India, reduce middlemen, and strengthen the rural economy by providing fair trade opportunities.",
   },
@@ -611,9 +629,16 @@ const hiTranslations = {
     signInMessage: "जारी रखने के लिए Google से साइन इन करें",
     welcome: "स्वागत",
     signInBtn: "Google के साथ जारी रखें",
+    freshProduct: "आपके पास ताज़ा उत्पाद",
+    chooseFromCategory: "वह श्रेणी चुनें जो आपके बेचने वाले उत्पाद का सबसे अच्छा वर्णन करती हो। इससे खरीदारों को आपके उत्पाद आसानी से ढूँढने में मदद मिलेगी।",
+    chooseACategory: "श्रेणी चुनें",
+    needHelp: "मदद चाहिए?",
+    helpType: "सही श्रेणी नहीं मिल रही है? सहायता के लिए हमारी सपोर्ट टीम से संपर्क करें।",
+    ContactSupport: "सपोर्ट से संपर्क करें",
   },
   about: {
     heading: "क्रुशी मंडी - एक इवोल फाउंडेशन पहल",
+
     para1:
       "कृष्णी मंडी किसानों को सीधे व्यापारियों, ख़रीदारों और कृषि व्यवसायों से जोड़ने के लिए बनाया गया एक किसान-पहला डिजिटल प्लेटफ़ॉर्म है। इस पहल का उद्देश्य बिचौलियों को हटाना, उचित मूल्य निर्धारण सुनिश्चित करना और किसानों को वास्तविक ख़रीदारों तक बेहतर पहुंच प्रदान करना है।",
     para2:
@@ -625,26 +650,37 @@ const hiTranslations = {
   },
   faqs: {
     heading: "क्रुशी मंडी - अक्सर पूछे जाने वाले प्रश्न (एफएक्यू)",
+
     q1: "क्रुशी मंडी क्या है?",
     a1: "क्रुशी मंडी एवोल फाउंडेशन द्वारा भारत में एक डिजिटल कृषि बाज़ार है। यह बिचौलियों के बिना किसानों को सीधे ख़रीदारों और व्यापारियों से जोड़ता है। किसान ऑनलाइन फसल बेच सकते हैं, और ख़रीदार आसानी से क्रुशी मंडी ऐप के माध्यम से मेरे आस-पास के स्थानीय किसानों को ढूंढ सकते हैं।",
+
     q2: "कृष्णी मंडी किसानों और ख़रीदारों के लिए कैसे काम करती है?",
     a2: "किसान अपने उत्पादों को किसानों के लिए ऑनलाइन स्नान पर सूचीबद्ध कर सकते हैं, और ख़रीदार या व्यापारी सीधे फ़ोन कॉल या व्हाट्सएप के माध्यम से उनसे जुड़ सकते हैं। इससे ऑनलाइन सब्जियां ख़रीदना या किसानों से सीधे मेरे पास थोक फल और सब्जियां ख़रीदना आसान हो जाता है।",
+
     q3: "मैं क्रुशी मंडी पर कौन से उत्पाद ख़रीद या बेच सकता हूं?",
     a3: "मंच अनाज, दालें, बीज, तिलहन, फल, सब्जियां, डेयरी, मछली, फूल, चाय, मसाले और नट्स सहित श्रेणियों की एक विस्तृत श्रृंखला का समर्थन करता है। कृषि उपकरण कंपनियां और उर्वरक आपूर्तिकर्ता भी किसानों के लिए अपने उत्पादों को सूचीबद्ध कर सकते हैं।",
+
     q4: "क्या मैं अपने आस-पास के किसानों को खोजने के लिए क्रुशी मंडी का उपयोग कर सकता हूं?",
     a4: "हां, क्रुशी मंडी आपको मेरे आस-पास के स्थानीय किसानों से जुड़ने की अनुमति देती है जो सीधे कृषि उपज बेचने के लिए तैयार हैं। इससे ख़रीदारों के लिए किसानों से सीधे उचित क़ीमतों पर ताज़ा उपज ख़रीदना आसान हो जाता है।",
+
     q5: "क्या किसानों के लिए क्रुषी मंडी मुफ्त है?",
     a5: "हां, किसानों के लिए अपनी फसलों को पंजीकृत करने और सूचीबद्ध करने के लिए क्रुशी मंडी ऐप मुफ्त है। लक्ष्य उचित मूल्य प्रदान करना और किसानों को उच्च कमीशन का भुगतान किए बिना अधिक ख़रीदारों तक पहुंच प्रदान करना है।",
+
     q6: "कृष्णी मंडी से कौन ख़रीद सकता है?",
     a6: "थोक ख़रीदारों, खुदरा विक्रेताओं, होटल, रेस्तरां और व्यापारियों सहित कोई भी सीधे किसानों से ख़रीद सकता है। मेरे पास थोक सब्जियों या मेरे पास के फलों की तलाश करने वाले व्यवसाय क्रुशी मंडी प्लेटफ़ॉर्म का उपयोग कर सकते हैं।",
+
     q7: "किसान और व्यापारी कैसे संवाद करते हैं?",
     a7: "संचार फ़ोन कॉल या व्हाट्सएप के माध्यम से सीधा होता है। यह कृष्णी मंडी को एक विश्वसनीय किसान-से-ख़रीदार मंच बनाता है, जिससे दोनों पक्षों को बातचीत करने और जल्दी से सौदों को बंद करने में मदद मिलती है।",
+
     q8: "कृष्णी मंडी पारंपरिक मंडियों से क्या अलग बनाती है?",
     a8: "भारी बिचौलियों के आरोपों वाली पारंपरिक मंडियों के विपरीत, कृष्णी मंडी किसानों के लिए एक ऑनलाइन स्नान है जहां फसलें सीधे खेत से बाज़ार तक जाती हैं। ख़रीदारों को ताज़ा उपज मिलती है और किसानों को बिना शोषण के उचित मूल्य मिलते हैं।",
+
     q9: "क्या कृषि उपकरण और उर्वरक कंपनियां क्रुशी मंडी में शामिल हो सकती हैं?",
     a9: "हां, कृष्णी मंडी कृषि उपकरण निर्माताओं और उर्वरक कंपनियों के लिए खुली है जो अपने उत्पादों को सीधे किसानों को दिखाना चाहते हैं।",
+
     q10: "क्या पूरे भारत में कृष्णी मंडी उपलब्ध है?",
     a10: "हां, क्रुशी मंडी पूरे भारत में सुलभ है। चाहे आप मेरे पास थोक फल और सब्जियों की तलाश कर रहे हों, मेरे पास के स्थानीय किसान, या किसानों के लिए ऑनलाइन स्नान का उपयोग करना चाहते हैं, कृष्णी मंडी सब कुछ एक मंच पर लाता है।",
+
     q11: "कृष्णी मंडी का मिशन क्या है?",
     a11: "क्रुशी मंडी का मिशन किसानों को सशक्त बनाना, भारत में एक स्थायी कृषि बाज़ार का निर्माण करना, बिचौलियों को कम करना और निष्पक्ष व्यापार के अवसर प्रदान करके ग्रामीण अर्थव्यवस्था को मज़बूत करना है।",
   },
