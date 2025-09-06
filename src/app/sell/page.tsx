@@ -103,24 +103,6 @@ const categories: Category[] = [
     description: "Milk, cheese, butter, and dairy products" 
   },
   { 
-    key: "fish", 
-    label: "Fish", 
-    icon: <FishIcon className="w-8 h-8" />, 
-    description: "Fresh fish, seafood, aquaculture products" 
-  },
-  { 
-    key: "fertilizer", 
-    label: "Fertilizer", 
-    icon: <FertilizerIcon className="w-8 h-8" />, 
-    description: "Organic and chemical fertilizers, soil enhancers" 
-  },
-  { 
-    key: "equipment", 
-    label: "Equipment", 
-    icon: <EquipmentIcon className="w-8 h-8" />, 
-    description: "Farming tools, machinery, and agricultural equipment" 
-  },
-  { 
     key: "honey", 
     label: "Honey", 
     icon: <HoneyIcon className="w-8 h-8" />, 
@@ -143,6 +125,24 @@ const categories: Category[] = [
     label: "Ayurvedic", 
     icon: <AyurvedicIcon className="w-8 h-8" />, 
     description: "Ayurvedic products, herbs, and other ayurvedic products" 
+  },
+  { 
+    key: "fish", 
+    label: "Fish", 
+    icon: <FishIcon className="w-8 h-8" />, 
+    description: "Fresh fish, seafood, aquaculture products" 
+  },
+  { 
+    key: "fertilizer", 
+    label: "Fertilizer", 
+    icon: <FertilizerIcon className="w-8 h-8" />, 
+    description: "Organic and chemical fertilizers, soil enhancers" 
+  },
+  { 
+    key: "equipment", 
+    label: "Equipment", 
+    icon: <EquipmentIcon className="w-8 h-8" />, 
+    description: "Farming tools, machinery, and agricultural equipment" 
   },
 ];
 

@@ -18,12 +18,13 @@ const categoryLabels: Record<string, string> = {
   nuts: "Nuts",
   dairy: "Dairy",
   fish: "Fish",
-  fertilizer: "Fertilizer",
-  equipment: "Equipment",
   honey: "Honey",
   cattlefeed: "Cattle Feed",
-  nurseryplants: "Nursery Pla",
+  nurseryplants: "Nursery",
   ayurvedic: "Ayurvedic",
+  fertilizer: "Fertilizer",
+  equipment: "Equipment",
+  
 };
 
 export default function CategoryPage() {

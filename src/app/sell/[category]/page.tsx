@@ -23,13 +23,14 @@ const categoryLabels: Record<string, string> = {
   tea: "Tea",
   nuts: "Nuts",
   dairy: "Dairy",
-  fish: "Fish",
-  fertilizer: "Fertilizer",
-  equipment: "Equipment",
   honey: "Honey",
   cattlefeed: "Cattle Feed",
   nurseryplants: "Nursery",
-  ayurvedic: "Ayurvedic",
+  ayurvedic: "Ayurvedic",  
+  fish: "Fish",
+  fertilizer: "Fertilizer",
+  equipment: "Equipment",
+
 };
 
 const unitOptions = [

@@ -14,13 +14,14 @@ import FlowersIcon from "./Icons/FlowersIcon";
 import TeaIcon from "./Icons/TeaIcon";
 import NutsIcon from "./Icons/NutsIcon";
 import DairyIcon from "./Icons/DairyIcon";
-import FishIcon from "./Icons/FishIcon";
-import FertilizerIcon from "./Icons/FertilizerIcon";
-import EquipmentIcon from "./Icons/EquipmentIcon";
 import HoneyIcon from "./Icons/HoneyIcon";
 import CattleFoodIcon from "./Icons/CattleFoodIcon";
 import NurseryPlantIcon from "./Icons/NurseryPlantIcon";
 import AyurvedicIcon from "./Icons/AyurvedicIcon";
+import FishIcon from "./Icons/FishIcon";
+import FertilizerIcon from "./Icons/FertilizerIcon";
+import EquipmentIcon from "./Icons/EquipmentIcon";
+
 
 type Category = {
   key: string;
@@ -40,13 +41,14 @@ const getCategoriesData = (t: (key: string) => string): Category[] => [
   { key: "tea", label: t('categories.tea'), icon: <TeaIcon className="w-7 h-7" /> },
   { key: "nuts", label: t('categories.nuts'), icon: <NutsIcon className="w-7 h-7" /> },
   { key: "dairy", label: t('categories.dairy'), icon: <DairyIcon className="w-7 h-7" /> },
-  { key: "fish", label: t('categories.fish'), icon: <FishIcon className="w-7 h-7" /> },
-  { key: "fertilizer", label: t('categories.fertilizer'), icon: <FertilizerIcon className="w-7 h-7" /> },
-  { key: "equipment", label: t('categories.equipment'), icon: <EquipmentIcon className="w-7 h-7" /> },
   { key: "honey", label: t('categories.honey'), icon: <HoneyIcon className="w-7 h-7" /> },
   { key: "cattlefeed", label: t('categories.cattlefeed'), icon: <CattleFoodIcon className="w-7 h-7" /> },
   { key: "nurseryplants", label: t('categories.nurseryplants'), icon: <NurseryPlantIcon className="w-7 h-7" /> },
-  { key: "ayurvedic", label: t('categories.ayurvedic'), icon: <AyurvedicIcon className="w-7 h-7" /> },
+  { key: "ayurvedic", label: t('categories.ayurvedic'), icon: <AyurvedicIcon className="w-7 h-7" /> },  
+  { key: "fish", label: t('categories.fish'), icon: <FishIcon className="w-7 h-7" /> },
+  { key: "fertilizer", label: t('categories.fertilizer'), icon: <FertilizerIcon className="w-7 h-7" /> },
+  { key: "equipment", label: t('categories.equipment'), icon: <EquipmentIcon className="w-7 h-7" /> },
+
 ];
 
 export default function CategoriesGrid() {

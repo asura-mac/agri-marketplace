@@ -190,7 +190,7 @@ export default function Footer() {
                   />
                 </div>
                 <span className="text-gray-800 font-medium">
-                  {t("footer.evoolfoundation")}
+                  © {new Date().getFullYear()}{t("footer.evoolfoundation")}
                 </span>
               </div>
             </a>
@@ -200,7 +200,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="border-t border-gray-300 pt-6">
           <div className="bg-gray-900 text-white text-center py-3 px-4 rounded text-sm">
-            {t("footer.copyright")}
+            © {new Date().getFullYear()}{t("footer.copyright")}
           </div>
         </div>
       </div>

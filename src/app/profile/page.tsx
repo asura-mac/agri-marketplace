@@ -161,55 +161,56 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          
           {/* Left Side - Personal Information */}
           <div className="bg-white rounded-2xl p-8 shadow-sm border">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">Personal Information</h2>
-            
+            <h2 className="text-2xl font-bold text-gray-900 mb-8">
+              Personal Information
+            </h2>
+
             {!isEditing ? (
               <div className="space-y-6">
                 <div className="flex justify-between items-center py-3 border-b border-gray-100">
                   <span className="text-gray-600 font-medium">Role</span>
                   <span className="text-gray-900 font-semibold capitalize">
-                    {profile?.role || 'Not specified'}
+                    {profile?.role || "Not specified"}
                   </span>
                 </div>
-                
+
                 <div className="flex justify-between items-center py-3 border-b border-gray-100">
                   <span className="text-gray-600 font-medium">State</span>
                   <span className="text-gray-900 font-semibold">
-                    {profile?.state || 'Not specified'}
+                    {profile?.state || "Not specified"}
                   </span>
                 </div>
-                
+
                 <div className="flex justify-between items-center py-3 border-b border-gray-100">
                   <span className="text-gray-600 font-medium">District</span>
                   <span className="text-gray-900 font-semibold">
-                    {profile?.district || 'Not specified'}
+                    {profile?.district || "Not specified"}
                   </span>
                 </div>
-                
+
                 <div className="flex justify-between items-center py-3 border-b border-gray-100">
                   <span className="text-gray-600 font-medium">Pincode</span>
                   <span className="text-gray-900 font-semibold">
-                    {profile?.pincode || 'Not specified'}
+                    {profile?.pincode || "Not specified"}
                   </span>
                 </div>
-                
+
                 <div className="flex justify-between items-center py-3 border-b border-gray-100">
                   <span className="text-gray-600 font-medium">Phone</span>
                   <span className="text-gray-900 font-semibold">
-                    {profile?.phone || 'Not specified'}
+                    {profile?.phone || "Not specified"}
                   </span>
                 </div>
-                
+
                 <div className="flex justify-between items-center py-3">
                   <span className="text-gray-600 font-medium">Location</span>
                   <span className="text-gray-900 font-semibold">
-                    {profile?.location || 'Not specified'}
+                    {profile?.location || "Not specified"}
                   </span>
                 </div>
-                
+
                 <div className="pt-6">
                   <button
                     onClick={() => setIsEditing(true)}
@@ -222,10 +223,16 @@ export default function ProfilePage() {
             ) : (
               <div className="space-y-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Role</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Role
+                  </label>
                   <select
-                    value={editForm?.role || ''}
-                    onChange={(e) => setEditForm(prev => prev ? {...prev, role: e.target.value} : null)}
+                    value={editForm?.role || ""}
+                    onChange={(e) =>
+                      setEditForm((prev) =>
+                        prev ? { ...prev, role: e.target.value } : null
+                      )
+                    }
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                   >
                     <option value="">Select role</option>
@@ -233,62 +240,92 @@ export default function ProfilePage() {
                     <option value="trader">Trader</option>
                   </select>
                 </div>
-                
+
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">State</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    State
+                  </label>
                   <input
                     type="text"
-                    value={editForm?.state || ''}
-                    onChange={(e) => setEditForm(prev => prev ? {...prev, state: e.target.value} : null)}
+                    value={editForm?.state || ""}
+                    onChange={(e) =>
+                      setEditForm((prev) =>
+                        prev ? { ...prev, state: e.target.value } : null
+                      )
+                    }
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                     placeholder="Enter your state"
                   />
                 </div>
-                
+
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">District</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    District
+                  </label>
                   <input
                     type="text"
-                    value={editForm?.district || ''}
-                    onChange={(e) => setEditForm(prev => prev ? {...prev, district: e.target.value} : null)}
+                    value={editForm?.district || ""}
+                    onChange={(e) =>
+                      setEditForm((prev) =>
+                        prev ? { ...prev, district: e.target.value } : null
+                      )
+                    }
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                     placeholder="Enter your district"
                   />
                 </div>
-                
+
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Pincode</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Pincode
+                  </label>
                   <input
                     type="text"
-                    value={editForm?.pincode || ''}
-                    onChange={(e) => setEditForm(prev => prev ? {...prev, pincode: e.target.value} : null)}
+                    value={editForm?.pincode || ""}
+                    onChange={(e) =>
+                      setEditForm((prev) =>
+                        prev ? { ...prev, pincode: e.target.value } : null
+                      )
+                    }
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                     placeholder="Enter your pincode"
                   />
                 </div>
-                
+
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Phone
+                  </label>
                   <input
                     type="tel"
-                    value={editForm?.phone || ''}
-                    onChange={(e) => setEditForm(prev => prev ? {...prev, phone: e.target.value} : null)}
+                    value={editForm?.phone || ""}
+                    onChange={(e) =>
+                      setEditForm((prev) =>
+                        prev ? { ...prev, phone: e.target.value } : null
+                      )
+                    }
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                     placeholder="Enter your phone number"
                   />
                 </div>
-                
+
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Location
+                  </label>
                   <input
                     type="text"
-                    value={editForm?.location || ''}
-                    onChange={(e) => setEditForm(prev => prev ? {...prev, location: e.target.value} : null)}
+                    value={editForm?.location || ""}
+                    onChange={(e) =>
+                      setEditForm((prev) =>
+                        prev ? { ...prev, location: e.target.value } : null
+                      )
+                    }
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                     placeholder="Enter your location"
                   />
                 </div>
-                
+
                 <div className="flex gap-3 pt-6">
                   <button
                     onClick={() => setIsEditing(false)}
@@ -301,17 +338,19 @@ export default function ProfilePage() {
                     disabled={saving}
                     className="flex-1 px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold rounded-lg transition-colors"
                   >
-                    {saving ? 'Saving...' : 'Save'}
+                    {saving ? "Saving..." : "Save"}
                   </button>
                 </div>
               </div>
             )}
           </div>
-          
+
           {/* Right Side - Your Listings */}
           <div className="bg-white rounded-2xl p-8 shadow-sm border">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-bold text-gray-900">Your Listings</h2>
+              <h2 className="text-2xl font-bold text-gray-900">
+                Your Listings
+              </h2>
               <Link
                 href="/sell"
                 className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors"
@@ -319,11 +358,14 @@ export default function ProfilePage() {
                 Add New
               </Link>
             </div>
-            
+
             {loadingListings ? (
               <div className="space-y-4">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className="animate-pulse bg-gray-100 rounded-lg h-32"></div>
+                  <div
+                    key={i}
+                    className="animate-pulse bg-gray-100 rounded-lg h-32"
+                  ></div>
                 ))}
               </div>
             ) : listings.length === 0 ? (
@@ -339,7 +381,10 @@ export default function ProfilePage() {
             ) : (
               <div className="space-y-4 max-h-96 overflow-y-auto">
                 {listings.map((listing) => (
-                  <div key={listing.id} className="border border-gray-200 rounded-lg p-4">
+                  <div
+                    key={listing.id}
+                    className="border border-gray-200 rounded-lg p-4"
+                  >
                     <div className="flex gap-4">
                       {/* Product Image */}
                       <div className="flex-shrink-0">
@@ -353,12 +398,14 @@ export default function ProfilePage() {
                             />
                           ) : (
                             <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-                              <span className="text-gray-400 text-xs">No image</span>
+                              <span className="text-gray-400 text-xs">
+                                No image
+                              </span>
                             </div>
                           )}
                         </div>
                       </div>
-                      
+
                       {/* Product Details */}
                       <div className="flex-1 min-w-0">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
@@ -368,66 +415,79 @@ export default function ProfilePage() {
                               {listing.product_name}
                             </span>
                           </div>
-                          
+
                           <div className="flex justify-between">
-                            <span className="text-gray-600">Price Per Unit</span>
+                            <span className="text-gray-600">
+                              Price Per Unit
+                            </span>
                             <span className="font-medium text-black font-medium">
-                              ₹ {listing.price_per_unit}/{listing.unit.toUpperCase()}
+                              ₹ {listing.price_per_unit}/
+                              {listing.unit.toUpperCase()}
                             </span>
                           </div>
-                          
+
                           <div className="flex justify-between">
                             <span className="text-gray-600">Category Tag</span>
-                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                              categoryColors[listing.category] || 'bg-gray-100 text-gray-800'
-                            }`}>
+                            <span
+                              className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                categoryColors[listing.category] ||
+                                "bg-gray-100 text-gray-800"
+                              }`}
+                            >
                               {listing.category.toUpperCase()}
                             </span>
                           </div>
-                          
+
                           <div className="flex justify-between">
-                            <span className="text-gray-600">Minimum Order Qty.</span>
+                            <span className="text-gray-600">
+                              Minimum Order Qty.
+                            </span>
                             <span className="font-medium text-black font-medium">
-                              {listing.minimum_order}{listing.unit}
+                              {listing.minimum_order}
+                              {listing.unit}
                             </span>
                           </div>
-                          
+
                           <div className="flex justify-between md:col-span-2">
                             <span className="text-gray-600">State</span>
-                            <span className="font-medium text-black font-medium">{listing.state || 'Not specified'}</span>
+                            <span className="font-medium text-black font-medium">
+                              {listing.state || "Not specified"}
+                            </span>
                           </div>
                         </div>
-                        
-                        {/* Action Buttons */}
-                        <div className="flex items-center gap-2 mt-4">
-                          <button
-                            onClick={() => handleStatusToggle(listing.id, listing.status)}
-                            className={`px-3 py-1 rounded-md text-sm font-medium ${
-                              listing.status === 'active' 
-                                ? 'bg-green-100 text-green-800 hover:bg-green-200' 
-                                : 'bg-amber-100 text-amber-800 hover:bg-amber-200'
-                            }`}
-                          >
-                            {listing.status === 'active' ? 'Active' : 'Inactive'}
-                          </button>
-                          
-                          <Link
-                            href={`/sell/${listing.category}?edit=${listing.id}`}
-                            className="px-3 py-1 bg-blue-100 text-blue-800 hover:bg-blue-200 rounded-md text-sm font-medium transition-colors flex items-center gap-1"
-                          >
-                            <PencilIcon className="w-3 h-3" />
-                            Edit
-                          </Link>
-                          
-                          <button
-                            onClick={() => handleDelete(listing.id)}
-                            className="px-3 py-1 bg-red-100 text-red-800 hover:bg-red-200 rounded-md text-sm font-medium transition-colors flex items-center gap-1"
-                          >
-                            <TrashIcon className="w-3 h-3" />
-                            Delete
-                          </button>
-                        </div>
                       </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex items-center justify-center gap-4 mt-4">
+                      <button
+                        onClick={() =>
+                          handleStatusToggle(listing.id, listing.status)
+                        }
+                        className={`px-3 py-1 rounded-md text-sm font-medium ${
+                          listing.status === "active"
+                            ? "bg-green-100 text-green-800 hover:bg-green-200"
+                            : "bg-amber-100 text-amber-800 hover:bg-amber-200"
+                        }`}
+                      >
+                        {listing.status === "active" ? "Active" : "Inactive"}
+                      </button>
+
+                      <Link
+                        href={`/sell/${listing.category}?edit=${listing.id}`}
+                        className="px-3 py-1 bg-blue-100 text-blue-800 hover:bg-blue-200 rounded-md text-sm font-medium transition-colors flex items-center gap-1"
+                      >
+                        <PencilIcon className="w-3 h-3" />
+                        Edit
+                      </Link>
+
+                      <button
+                        onClick={() => handleDelete(listing.id)}
+                        className="px-3 py-1 bg-red-100 text-red-800 hover:bg-red-200 rounded-md text-sm font-medium transition-colors flex items-center gap-1"
+                      >
+                        <TrashIcon className="w-3 h-3" />
+                        Delete
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -435,7 +495,7 @@ export default function ProfilePage() {
             )}
           </div>
         </div>
-        
+
         {/* Sign Out Button */}
         <div className="mt-8 text-center">
           <button
