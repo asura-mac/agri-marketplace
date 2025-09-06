@@ -23,6 +23,10 @@ import DairyIcon from "@/components/Icons/DairyIcon";
 import FishIcon from "@/components/Icons/FishIcon";
 import FertilizerIcon from "@/components/Icons/FertilizerIcon";
 import EquipmentIcon from "@/components/Icons/EquipmentIcon";
+import HoneyIcon from "@/components/Icons/HoneyIcon";
+import CattleFoodIcon from "@/components/Icons/CattleFoodIcon";
+import NurseryPlantIcon from "@/components/Icons/NurseryPlantIcon";
+import AyurvedicIcon from "@/components/Icons/AyurvedicIcon";
 
 type Category = {
   key: string;
@@ -115,6 +119,30 @@ const categories: Category[] = [
     label: "Equipment", 
     icon: <EquipmentIcon className="w-8 h-8" />, 
     description: "Farming tools, machinery, and agricultural equipment" 
+  },
+  { 
+    key: "honey", 
+    label: "Honey", 
+    icon: <HoneyIcon className="w-8 h-8" />, 
+    description: "Honey, bee products, and honey-based products" 
+  },
+  { 
+    key: "cattlefeed", 
+    label: "Cattle Feed", 
+    icon: <CattleFoodIcon className="w-8 h-8" />, 
+    description: "Cattle feed, poultry feed, and other animal feed" 
+  },
+  { 
+    key: "nurseryplants", 
+    label: "Nursery Plants", 
+    icon: <NurseryPlantIcon className="w-8 h-8" />, 
+    description: "Nursery plants, seeds, and other nursery products" 
+  },
+  { 
+    key: "ayurvedic", 
+    label: "Ayurvedic", 
+    icon: <AyurvedicIcon className="w-8 h-8" />, 
+    description: "Ayurvedic products, herbs, and other ayurvedic products" 
   },
 ];
 

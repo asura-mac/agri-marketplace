@@ -21,6 +21,10 @@ const categoryIcons: Record<string, string> = {
   fish: "🐟",
   fertilizer: "🧪",
   equipment: "🚜",
+  honey: "🍯",
+  cattlefeed: "🐄",
+  nurseryplants: "🌱",
+  ayurvedic: "🌿",
 };
 
 // Category display names helper
@@ -44,6 +48,10 @@ const categoryColors: Record<string, string> = {
   fish: "bg-cyan-100 text-cyan-800",
   fertilizer: "bg-gray-100 text-gray-800",
   equipment: "bg-gray-100 text-gray-800",
+  honey: "bg-yellow-100 text-yellow-800",
+  cattlefeed: "bg-blue-100 text-blue-800",
+  nurseryplants: "bg-green-100 text-green-800",
+  ayurvedic: "bg-purple-100 text-purple-800",
 };
 
 type ListingCardProps = {
@@ -56,7 +64,7 @@ export default function ListingCard({ listing, onClick, showContact = false }: L
   const { t } = useTranslation();
   const { navigateToListing, isLoading } = useAuthProtection();
   const image = listing.images?.[0] || "/next.svg";
-  const categoryIcon = categoryIcons[listing.category] || "📦";
+  const categoryIcon = categoryIcons[listing.category] || "🌾";
   const categoryName = getCategoryName(listing.category, t);
   const categoryColor = categoryColors[listing.category] || "bg-gray-100 text-gray-800";
 
