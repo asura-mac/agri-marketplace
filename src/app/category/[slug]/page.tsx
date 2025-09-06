@@ -22,7 +22,7 @@ const categoryLabels: Record<string, string> = {
   equipment: "Equipment",
   honey: "Honey",
   cattlefeed: "Cattle Feed",
-  nurseryplants: "Nursery Plants",
+  nurseryplants: "Nursery Pla",
   ayurvedic: "Ayurvedic",
 };
 

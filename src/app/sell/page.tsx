@@ -134,7 +134,7 @@ const categories: Category[] = [
   },
   { 
     key: "nurseryplants", 
-    label: "Nursery Plants", 
+    label: "Nursery", 
     icon: <NurseryPlantIcon className="w-8 h-8" />, 
     description: "Nursery plants, seeds, and other nursery products" 
   },
