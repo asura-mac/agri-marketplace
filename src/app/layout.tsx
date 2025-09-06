@@ -24,6 +24,23 @@ export const metadata: Metadata = {
     shortcut: "/Favicon.png",    
     apple: "/Favicon.png",
   },
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: "https://www.krushimandi.com/",
+    siteName: "Krushi Mandi",
+    title: "Krushi Mandi | Free Digital Agriculture Marketplace by Evool Foundation",
+    description:
+      "Krushi Mandi is a free online mandi in India by Evool Foundation where farmers, buyers, and traders can connect directly for crops, vegetables, fruits, seeds, and more.",
+    images: [
+      {
+        url: "https://www.krushimandi.com/KM-OG.png", // <-- yaha apna OG image ya logo ka URL daalna
+        width: 1200,
+        height: 630,
+        alt: "Krushi Mandi - Agricultural Marketplace",
+      },
+    ],
+  },
   other: {
     "application/ld+json": JSON.stringify([
       {

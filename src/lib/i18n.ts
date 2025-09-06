@@ -29,11 +29,18 @@ const enTranslations = {
     fish: "Fish",
     fertilizer: "Fertilizer",
     equipment: "Equipment",
+    honey: "Honey",
+    cattlefeed: "Cattle Feed",
+    nurseryplants: "Nursery Plants",
+    ayurvedic: "Ayurvedic",
   },
   units: {
     kg: "kg",
     quintal: "quintal",
     ton: "ton",
+    nos: "nos",
+    litre: "litre",
+    dozen: "dozen",
   },
   status: {
     active: "Active",
@@ -84,7 +91,7 @@ const enTranslations = {
     evoolfoundation: "Evool Foundation",
     copyright: "© 2025 KRUSHI MANDI. All rights reserved",
     description:
-      "Evool Foundation Is Dedicated To Leveraging Technology For Social Good, Creating Innovative Solutions That Empower Individuals, Communities, And The Planet.",
+      "Krushi Mandi is a free platform by Evool Foundation, created to connect farmers, buyers and traders while promoting fair prices and farmer empowerment.",
   },
   onboarding: {
     welcomeMessage:
@@ -391,6 +398,10 @@ const hiTranslations = {
     nuts: "सूखे मेवे",
     dairy: "डेयरी",
     fish: "मछली",
+    honey: "शहद",
+    cattlefeed: "गाय का भोजन",
+    nurseryplants: "नर्सरी पौधे",
+    ayurvedic: "आयुर्वेदिक",
     fertilizer: "उर्वरक",
     equipment: "उपकरण",
   },
@@ -398,6 +409,9 @@ const hiTranslations = {
     kg: "किग्रा",
     quintal: "क्विंटल",
     ton: "टन",
+    nos: "संख्या",
+    litre: "लीटर",
+    dozen: "दोहरा",
   },
   status: {
     active: "सक्रिय",
@@ -448,7 +462,7 @@ const hiTranslations = {
     evoolfoundation: "इवूल फाउंडेशन",
     copyright: "© 2025 कृषि मंडी। सभी अधिकार सुरक्षित हैं",
     description:
-      "इवूल फाउंडेशन सामाजिक भलाई के लिए प्रौद्योगिकी का लाभ उठाने, व्यक्तियों, समुदायों और ग्रह को सशक्त बनाने वाले नवाचार समाधान बनाने के लिए समर्पित है।",
+      "कृषि मंडी इवूल फाउंडेशन का निःशुल्क प्लेटफ़ॉर्म है, जो किसानों, खरीदारों और व्यापारियों को जोड़कर उचित दाम और किसानों को सशक्त बनाने का कार्य करता है",
   },
   onboarding: {
     welcomeMessage:
