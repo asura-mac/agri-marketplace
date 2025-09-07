@@ -90,7 +90,7 @@ const enTranslations = {
     contactUs: "Contact Us",
     address: "Address",
     evoolfoundation: "Evool Foundation",
-    copyright: "© 2025 KRUSHI MANDI. All rights reserved",
+    copyright: " KRUSHI MANDI. All rights reserved",
     description:
       "Krushi Mandi is a free platform by Evool Foundation, created to connect farmers, buyers and traders while promoting fair prices and farmer empowerment.",
   },
@@ -478,7 +478,7 @@ const hiTranslations = {
     contactUs: "संपर्क करें",
     address: "पता",
     evoolfoundation: "इवूल फाउंडेशन",
-    copyright: "© 2025 कृषि मंडी। सभी अधिकार सुरक्षित हैं",
+    copyright: " कृषि मंडी । सभी अधिकार सुरक्षित हैं",
     description:
       "कृषि मंडी इवूल फाउंडेशन का निःशुल्क प्लेटफ़ॉर्म है, जो किसानों, खरीदारों और व्यापारियों को जोड़कर उचित दाम और किसानों को सशक्त बनाने का कार्य करता है",
   },

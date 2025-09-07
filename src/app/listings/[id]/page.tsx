@@ -10,7 +10,6 @@ import {
 } from "@heroicons/react/24/outline";
 import { 
   WhatsappIcon,
-  DirectionsIcon,
   CallIcon
 } from "@/components/ContactIcons";
 import { fetchListingById, fetchSellerListings, type ListingWithProfile, type Listing } from "@/lib/listings-utils";
