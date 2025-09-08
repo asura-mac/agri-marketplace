@@ -1,11 +1,11 @@
 "use client";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/app/providers";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import Link from "next/link";
-import { createListing } from "@/lib/listings-utils";
+import { createListing, getListingForEdit, updateListing } from "@/lib/listings-utils";
 import { testAuthAndDatabase } from "@/lib/supabase";
-import type { ListingFormData } from "@/lib/listings-utils";
+import type { ListingFormData, Listing } from "@/lib/listings-utils";
 import Breadcrumb from "@/components/Breadcrumb";
 import ImageUpload from "@/components/ImageUpload";
 import { INDIAN_STATES_AND_UTS } from "@/lib/constants";
@@ -42,11 +42,13 @@ const unitOptions = [
   { value: 'dozen', label: 'Dozen' },
 ] as const;
 
-export default function CategorySellPage() {
+function CategorySellContent() {
   const params = useParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { user, loading } = useAuth();
   const category = params.category as string;
+  const editId = searchParams.get('edit');
   
   const categoryLabel = categoryLabels[category] || "Unknown Category";
 
@@ -69,6 +71,9 @@ export default function CategorySellPage() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [detecting, setDetecting] = useState(false);
   const [locationError, setLocationError] = useState<string | null>(null);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [loadingEditData, setLoadingEditData] = useState(false);
+  const [editListing, setEditListing] = useState<Listing | null>(null);
 
   // Check if user is authenticated
   useEffect(() => {
@@ -76,6 +81,47 @@ export default function CategorySellPage() {
       router.push('/login');
     }
   }, [user, loading, router]);
+
+  // Load existing listing data for editing
+  useEffect(() => {
+    if (editId && user) {
+      setIsEditMode(true);
+      setLoadingEditData(true);
+      
+      getListingForEdit(editId)
+        .then((listing) => {
+          if (listing) {
+            setEditListing(listing);
+            // Pre-populate form with existing data
+            setFormData({
+              productName: listing.product_name,
+              description: listing.product_description,
+              pricePerUnit: listing.price_per_unit,
+              unit: listing.unit,
+              minimumOrder: listing.minimum_order,
+              state: listing.state || '',
+              district: listing.district || '',
+              contactPhone: listing.contact_phone || '',
+              whatsappNumber: listing.whatsapp_number || '',
+              sameAsPhone: listing.contact_phone === listing.whatsapp_number,
+              images: listing.images || []
+            });
+          } else {
+            console.error('Failed to load listing for editing');
+            alert('Could not load listing data. Please try again.');
+            router.push('/profile');
+          }
+        })
+        .catch((error) => {
+          console.error('Error loading listing for edit:', error);
+          alert('Error loading listing data. Please try again.');
+          router.push('/profile');
+        })
+        .finally(() => {
+          setLoadingEditData(false);
+        });
+    }
+  }, [editId, user, router]);
 
   // Load user's location from profile
   useEffect(() => {
@@ -180,20 +226,34 @@ export default function CategorySellPage() {
         category
       };
 
-      console.log('Submitting listing with data:', listingData);
-      const listingId = await createListing(user.id, listingData);
+      if (isEditMode && editListing) {
+        // Update existing listing
+        console.log('Updating listing with data:', listingData);
+        const success = await updateListing(editListing.id, listingData);
 
-      if (listingId) {
-        console.log('Listing created successfully, redirecting to:', `/listings/${listingId}`);
-        // Success - redirect to listing or success page
-        router.push(`/listings/${listingId}`);
+        if (success) {
+          console.log('Listing updated successfully, redirecting to:', `/listings/${editListing.id}`);
+          router.push(`/listings/${editListing.id}`);
+        } else {
+          console.error('Failed to update listing - updateListing returned false');
+          alert('Error updating listing. Please check the browser console for details and try again.');
+        }
       } else {
-        console.error('Failed to create listing - createListing returned null');
-        alert('Error creating listing. Please check the browser console for details and try again.');
+        // Create new listing
+        console.log('Creating listing with data:', listingData);
+        const listingId = await createListing(user.id, listingData);
+
+        if (listingId) {
+          console.log('Listing created successfully, redirecting to:', `/listings/${listingId}`);
+          router.push(`/listings/${listingId}`);
+        } else {
+          console.error('Failed to create listing - createListing returned null');
+          alert('Error creating listing. Please check the browser console for details and try again.');
+        }
       }
     } catch (error) {
       console.error('Unexpected error submitting listing:', error);
-      alert('Unexpected error creating listing. Please check the browser console for details and try again.');
+      alert(`Unexpected error ${isEditMode ? 'updating' : 'creating'} listing. Please check the browser console for details and try again.`);
     } finally {
       setSubmitting(false);
     }
@@ -274,6 +334,18 @@ export default function CategorySellPage() {
     }
   };
 
+  // Show loading state while loading edit data
+  if (loadingEditData) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-blue-700 text-lg mb-2">Loading listing data...</div>
+          <div className="text-gray-500">Please wait while we load the listing for editing.</div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 py-8">
@@ -283,10 +355,13 @@ export default function CategorySellPage() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
-            Create {categoryLabel} Listing
+            {isEditMode ? `Edit ${categoryLabel} Listing` : `Create ${categoryLabel} Listing`}
           </h1>
           <p className="text-lg text-gray-600">
-            Fill in the details below to create your product listing
+            {isEditMode 
+              ? 'Update the details below to modify your product listing'
+              : 'Fill in the details below to create your product listing'
+            }
           </p>
         </div>
 
@@ -629,7 +704,10 @@ export default function CategorySellPage() {
                 disabled={submitting}
                 className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white rounded-md font-medium"
               >
-                {submitting ? 'Creating Listing...' : 'Create Listing'}
+                {submitting 
+                  ? (isEditMode ? 'Updating Listing...' : 'Creating Listing...') 
+                  : (isEditMode ? 'Update Listing' : 'Create Listing')
+                }
               </button>
             </div>
           </div>
@@ -637,5 +715,20 @@ export default function CategorySellPage() {
         </form>
       </div>
     </div>
+  );
+}
+
+export default function CategorySellPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-blue-700 text-lg mb-2">Loading...</div>
+          <div className="text-gray-500">Please wait while we prepare the form.</div>
+        </div>
+      </div>
+    }>
+      <CategorySellContent />
+    </Suspense>
   );
 }

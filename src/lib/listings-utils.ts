@@ -576,6 +576,43 @@ export async function getListingForEdit(listingId: string): Promise<Listing | nu
 }
 
 /**
+ * Update an existing listing
+ */
+export async function updateListing(listingId: string, formData: ListingFormData): Promise<boolean> {
+  if (!supabase) {
+    console.error('Supabase client not available');
+    return false;
+  }
+
+  try {
+    const { data, error } = await supabase.rpc('update_listing', {
+      listing_id: listingId,
+      p_product_name: formData.productName,
+      p_product_description: formData.description,
+      p_price_per_unit: formData.pricePerUnit,
+      p_unit: formData.unit,
+      p_minimum_order: formData.minimumOrder,
+      p_state: formData.state,
+      p_district: formData.district,
+      p_whatsapp_number: formData.whatsappNumber,
+      p_contact_phone: formData.contactPhone,
+      p_images: formData.images
+    });
+
+    if (error) {
+      console.error('Error updating listing:', error);
+      return false;
+    }
+
+    console.log('Listing updated successfully:', data);
+    return true;
+  } catch (error) {
+    console.error('Unexpected error updating listing:', error);
+    return false;
+  }
+}
+
+/**
  * Compress and resize image file
  */
 export function compressImage(file: File, maxWidth: number = 1200, quality: number = 0.8): Promise<File> {
