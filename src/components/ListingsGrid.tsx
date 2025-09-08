@@ -191,7 +191,7 @@ export default function ListingsGrid({ category, itemsPerPage = 12 }: ListingsGr
         
         {/* Sort options - can be expanded later */}
         <div className="text-sm text-gray-500">
-          Sorted by most recent
+          {t("common.sortedBy")}
         </div>
       </div>
 

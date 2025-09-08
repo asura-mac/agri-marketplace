@@ -1,7 +1,8 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import { Contact } from 'lucide-react';
+// import { Contact } from 'lucide-react';
+// import { updateListing } from './listings-utils';
 
 // English translations
 const enTranslations = {
@@ -27,13 +28,33 @@ const enTranslations = {
     tea: "Tea",
     nuts: "Nuts",
     dairy: "Dairy",
-    fish: "Fish",
-    fertilizer: "Fertilizer",
-    equipment: "Equipment",
     honey: "Honey",
     cattlefeed: "Cattle Feed",
     nurseryplants: "Nursery",
     ayurvedic: "Ayurvedic",
+    fish: "Fish",
+    fertilizer: "Fertilizer",
+    equipment: "Equipment",
+  },
+  categoryDescriptions: {
+    grains: "Rice, wheat, corn, barley, and other cereals",
+    pulses: "Lentils, chickpeas, beans, and legumes",
+    fruits: "Fresh fruits, seasonal produce",
+    vegetables: "Fresh vegetables, leafy greens, root vegetables",
+    oilseeds: "Sunflower, mustard, sesame, and other oil seeds",
+    seeds: "Seeds for planting and cultivation",
+    spices: "Turmeric, chili, coriander, and aromatic spices",
+    flowers: "Fresh flowers, garlands, decorative flowers",
+    tea: "Tea leaves, herbal teas, organic varieties",
+    nuts: "Almonds, cashews, walnuts, and dry fruits",
+    dairy: "Milk, cheese, butter, and dairy products",
+    honey: "Honey, bee products, and honey-based products",
+    cattlefeed: "Cattle feed, poultry feed, and other animal feed",
+    nurseryplants: "Nursery plants, seeds, and other nursery products",
+    ayurvedic: "Ayurvedic products, herbs, and other ayurvedic products",
+    fish: "Fresh fish, seafood, aquaculture products",
+    fertilizer: "Organic and chemical fertilizers, soil enhancers",
+    equipment: "Farming tools, machinery, and agricultural equipment",
   },
   units: {
     kg: "kg",
@@ -63,6 +84,9 @@ const enTranslations = {
     moreFromSeller: "More from this seller",
     listingDetails: "Listing Details",
     relatedListings: "Related Listings",
+    categoryProducts: "{{category}} Products",
+    browseCategoryDescription:
+      "Browse fresh {{category}} from verified sellers",
   },
   search: {
     searchResults: 'Search: "{{query}}"',
@@ -118,6 +142,7 @@ const enTranslations = {
   sell: {
     selectCategory: "Select Category",
     createListing: "Create Listing",
+    updateListing: "Update Listing",
     productDetails: "PRODUCT DETAILS",
     productName: "Product Name",
     productNamePlaceholder: "Enter product name",
@@ -151,6 +176,8 @@ const enTranslations = {
     requiredField: "This field is required",
     invalidPrice: "Please enter a valid price",
     invalidPhone: "Please enter a valid phone number",
+    upateDetails: "Update the details below to modify your product listing",
+    createListingForm: "Fill in the details below to create your product listing",
   },
   profile: {
     myProfile: "My Profile",
@@ -208,6 +235,7 @@ const enTranslations = {
     termsConditions: "Terms & Conditions",
     privacyPolicy: "Privacy Policy",
     faq: "FAQ",
+    backToHome: "Back to Home",
   },
   common: {
     loading: "Loading...",
@@ -229,7 +257,7 @@ const enTranslations = {
     yes: "Yes",
     no: "No",
     ok: "OK",
-    showingResults: "Showing {{current}} of {{total}} products",
+    showingResults: "Showing {current} of {total} products",
     loadMore: "Load More ({{remaining}} remaining)",
     endOfListings: "You've reached the end of the listings",
     noDataFound: "No data found",
@@ -241,11 +269,24 @@ const enTranslations = {
     welcome: "Welcome",
     signInBtn: "Continue with Google",
     freshProduct: "Fresh Products Near You",
-    chooseFromCategory: "Choose the category that best describes what you want to sell. This helps buyers find your products more easily.",
+    freshProductDec:
+      "Discover the best agricultural products from verified farmers and traders",
+    chooseFromCategory:
+      "Choose the category that best describes what you want to sell. This helps buyers find your products more easily.",
     chooseACategory: "CHOOSE A CATEGORY",
     needHelp: "Need Help?",
-    helpType: "Can't find the right category? Contact our support team for assistance.",
+    helpType:
+      "Can't find the right category? Contact our support team for assistance.",
     ContactSupport: "Contact Support",
+    categoryNotFound: "Category Not Found",
+    creating: "creating",
+    updating: "updating",
+    backToCat: "Back to Categories",
+    loadingListingData: "Loading listing data",
+    pleaseWaitEditing: "Please wait while we load the listing for editing.",
+    pleaseWaitPrepareForm: "Please wait while we prepare the form.",
+    listing: "Listing",
+    sortedBy: "Sorted by most recent",
   },
   about: {
     heading: "Krushi Mandi – An Evool Foundation Initiative",
@@ -260,7 +301,7 @@ const enTranslations = {
   },
   faqs: {
     heading: "Krushi Mandi – Frequently Asked Questions (FAQ)",
-    
+
     q1: "What is Krushi Mandi?",
     a1: "Krushi Mandi is a digital agriculture marketplace in India by Evool Foundation. It connects farmers directly with buyers and traders without middlemen. Farmers can sell crops online, and buyers can easily find local farmers near me through the Krushi Mandi app.",
 
@@ -387,8 +428,8 @@ const enTranslations = {
   address: {
     line_1: "105, P-17, Omkar CHS Ltd,",
     line_2: "Noopur Nagar Mataji Mandir,",
-    line_3: "Mira Road, Thane, 401107"
-  }
+    line_3: "Mira Road, Thane, 401107",
+  },
 };
 
 // Hindi translations
@@ -423,6 +464,26 @@ const hiTranslations = {
     fertilizer: "उर्वरक",
     equipment: "उपकरण",
   },
+  categoryDescriptions: {
+    grains: "चावल, गेहूं, मक्का, जौ और अन्य अनाज",
+    pulses: "मसूर, चना, सेम और अन्य दलहन",
+    fruits: "ताजे फल, मौसमी उत्पाद",
+    vegetables: "ताजी सब्जियां, हरी पत्तेदार, कंद वाली सब्जियां",
+    oilseeds: "सूरजमुखी, सरसों, तिल और अन्य तिलहन",
+    seeds: "बुवाई और खेती के लिए बीज",
+    spices: "हल्दी, मिर्च, धनिया और अन्य मसाले",
+    flowers: "ताजे फूल, मालाएँ, सजावटी फूल",
+    tea: "चाय की पत्तियां, हर्बल चाय, जैविक किस्में",
+    nuts: "बादाम, काजू, अखरोट और सूखे मेवे",
+    dairy: "दूध, पनीर, मक्खन और डेयरी उत्पाद",
+    honey: "शहद, मधुमक्खी उत्पाद और शहद आधारित उत्पाद",
+    cattlefeed: "पशु चारा, मुर्गी चारा और अन्य पशु आहार",
+    nurseryplants: "नर्सरी पौधे, बीज और अन्य नर्सरी उत्पाद",
+    ayurvedic: "आयुर्वेदिक उत्पाद, जड़ी-बूटियां और अन्य आयुर्वेदिक वस्तुएं",
+    fish: "ताज़ी मछली, समुद्री भोजन, जलीय उत्पाद",
+    fertilizer: "जैविक और रासायनिक खाद, मिट्टी सुधारक",
+    equipment: "खेती के औज़ार, मशीनरी और कृषि उपकरण",
+  },
   units: {
     kg: "किग्रा",
     quintal: "क्विंटल",
@@ -451,6 +512,9 @@ const hiTranslations = {
     moreFromSeller: "इस विक्रेता से और अधिक",
     listingDetails: "लिस्टिंग विवरण",
     relatedListings: "संबंधित लिस्टिंग",
+    categoryProducts: "{{category}} उत्पाद",
+    browseCategoryDescription:
+      "सत्यापित विक्रेताओं से ताजा {{category}} ब्राउज़ करें",
   },
   search: {
     searchResults: 'खोज: "{{query}}"',
@@ -506,6 +570,7 @@ const hiTranslations = {
   sell: {
     selectCategory: "श्रेणी चुनें",
     createListing: "लिस्टिंग बनाएं",
+    updateListing: "सूची अपडेट करें",
     productDetails: "उत्पाद विवरण",
     productName: "उत्पाद का नाम",
     productNamePlaceholder: "उत्पाद का नाम दर्ज करें",
@@ -540,6 +605,8 @@ const hiTranslations = {
     requiredField: "यह फ़ील्ड आवश्यक है",
     invalidPrice: "कृपया एक वैध कीमत दर्ज करें",
     invalidPhone: "कृपया एक वैध फोन नंबर दर्ज करें",
+    upateDetails: "अपने उत्पाद की सूची को संशोधित करने के लिए नीचे दिए गए विवरण अपडेट करें।",
+    createListingForm: "अपनी उत्पाद सूची बनाने के लिए नीचे दिए गए विवरण भरें।",
   },
   profile: {
     myProfile: "मेरी प्रोफ़ाइल",
@@ -597,6 +664,7 @@ const hiTranslations = {
     termsConditions: "नियम और शर्तें",
     privacyPolicy: "गोपनीयता नीति",
     faq: "सामान्य प्रश्न",
+    backToHome: "होम पर वापस जाएं",
   },
   common: {
     loading: "लोड हो रहा है...",
@@ -630,11 +698,22 @@ const hiTranslations = {
     welcome: "स्वागत",
     signInBtn: "Google के साथ जारी रखें",
     freshProduct: "आपके पास ताज़ा उत्पाद",
-    chooseFromCategory: "वह श्रेणी चुनें जो आपके बेचने वाले उत्पाद का सबसे अच्छा वर्णन करती हो। इससे खरीदारों को आपके उत्पाद आसानी से ढूँढने में मदद मिलेगी।",
+    freshProductDec:
+      "प्रमाणित किसानों और व्यापारियों से सर्वश्रेष्ठ कृषि उत्पाद खोजें",
+    chooseFromCategory:
+      "वह श्रेणी चुनें जो आपके बेचने वाले उत्पाद का सबसे अच्छा वर्णन करती हो। इससे खरीदारों को आपके उत्पाद आसानी से ढूँढने में मदद मिलेगी।",
     chooseACategory: "श्रेणी चुनें",
     needHelp: "मदद चाहिए?",
-    helpType: "सही श्रेणी नहीं मिल रही है? सहायता के लिए हमारी सपोर्ट टीम से संपर्क करें।",
+    helpType:
+      "सही श्रेणी नहीं मिल रही है? सहायता के लिए हमारी सपोर्ट टीम से संपर्क करें।",
     ContactSupport: "सपोर्ट से संपर्क करें",
+    categoryNotFound: "श्रेणी नहीं मिली",
+    backToCat: "श्रेणियों पर वापस जाएं",
+    loadingListingData: "लिस्टिंग डेटा लोड हो रहा है",
+    pleaseWaitEditing: "कृपया संपादन के लिए लिस्टिंग लोड होने तक प्रतीक्षा करें।",
+    pleaseWaitPrepareForm: "कृपया प्रतीक्षा करें, जबकि हम फॉर्म तैयार कर रहे हैं।",
+    listing: "सूची",
+    sortedBy: "नवीनतम अनुसार क्रमबद्ध",
   },
   about: {
     heading: "क्रुशी मंडी - एक इवोल फाउंडेशन पहल",
@@ -779,8 +858,8 @@ const hiTranslations = {
   address: {
     line_1: "105, पी-17, ओंकार सीएचएस लिमिटेड,",
     line_2: "नूपुर नगर माताजी मंदिर,",
-    line_3: "मीरा रोड, ठाणे, 401107"
-  }
+    line_3: "मीरा रोड, ठाणे, 401107",
+  },
 };
 
 // Initialize i18next

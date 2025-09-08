@@ -28,6 +28,7 @@ import CattleFoodIcon from "@/components/Icons/CattleFoodIcon";
 import NurseryPlantIcon from "@/components/Icons/NurseryPlantIcon";
 import AyurvedicIcon from "@/components/Icons/AyurvedicIcon";
 
+
 type Category = {
   key: string;
   label: string;
@@ -35,121 +36,35 @@ type Category = {
   description: string;
 };
 
-const categories: Category[] = [
-  { 
-    key: "grains", 
-    label: "Grains", 
-    icon: <GrainsIcon className="w-8 h-8" />, 
-    description: "Rice, wheat, corn, barley, and other cereals" 
-  },
-  { 
-    key: "pulses", 
-    label: "Pulses", 
-    icon: <PulsesIcon className="w-8 h-8" />, 
-    description: "Lentils, chickpeas, beans, and legumes" 
-  },
-  { 
-    key: "fruits", 
-    label: "Fruits", 
-    icon: <FruitsIcon className="w-8 h-8" />, 
-    description: "Fresh fruits, seasonal produce" 
-  },
-  { 
-    key: "vegetables", 
-    label: "Vegetables", 
-    icon: <VegetablesIcon className="w-8 h-8" />, 
-    description: "Fresh vegetables, leafy greens, root vegetables" 
-  },
-  { 
-    key: "oilseeds", 
-    label: "Oilseeds", 
-    icon: <OilseedsIcon className="w-8 h-8" />, 
-    description: "Sunflower, mustard, sesame, and other oil seeds" 
-  },
-  { 
-    key: "seeds", 
-    label: "Seeds", 
-    icon: <SeedsIcon className="w-8 h-8" />, 
-    description: "Seeds for planting and cultivation" 
-  },
-  { 
-    key: "spices", 
-    label: "Spices", 
-    icon: <SpicesIcon className="w-8 h-8" />, 
-    description: "Turmeric, chili, coriander, and aromatic spices" 
-  },
-  { 
-    key: "flowers", 
-    label: "Flowers", 
-    icon: <FlowersIcon className="w-8 h-8" />, 
-    description: "Fresh flowers, garlands, decorative flowers" 
-  },
-  { 
-    key: "tea", 
-    label: "Tea", 
-    icon: <TeaIcon className="w-8 h-8" />, 
-    description: "Tea leaves, herbal teas, organic varieties" 
-  },
-  { 
-    key: "nuts", 
-    label: "Nuts", 
-    icon: <NutsIcon className="w-8 h-8" />, 
-    description: "Almonds, cashews, walnuts, and dry fruits" 
-  },
-  { 
-    key: "dairy", 
-    label: "Dairy", 
-    icon: <DairyIcon className="w-8 h-8" />, 
-    description: "Milk, cheese, butter, and dairy products" 
-  },
-  { 
-    key: "honey", 
-    label: "Honey", 
-    icon: <HoneyIcon className="w-8 h-8" />, 
-    description: "Honey, bee products, and honey-based products" 
-  },
-  { 
-    key: "cattlefeed", 
-    label: "Cattle Feed", 
-    icon: <CattleFoodIcon className="w-8 h-8" />, 
-    description: "Cattle feed, poultry feed, and other animal feed" 
-  },
-  { 
-    key: "nurseryplants", 
-    label: "Nursery", 
-    icon: <NurseryPlantIcon className="w-8 h-8" />, 
-    description: "Nursery plants, seeds, and other nursery products" 
-  },
-  { 
-    key: "ayurvedic", 
-    label: "Ayurvedic", 
-    icon: <AyurvedicIcon className="w-8 h-8" />, 
-    description: "Ayurvedic products, herbs, and other ayurvedic products" 
-  },
-  { 
-    key: "fish", 
-    label: "Fish", 
-    icon: <FishIcon className="w-8 h-8" />, 
-    description: "Fresh fish, seafood, aquaculture products" 
-  },
-  { 
-    key: "fertilizer", 
-    label: "Fertilizer", 
-    icon: <FertilizerIcon className="w-8 h-8" />, 
-    description: "Organic and chemical fertilizers, soil enhancers" 
-  },
-  { 
-    key: "equipment", 
-    label: "Equipment", 
-    icon: <EquipmentIcon className="w-8 h-8" />, 
-    description: "Farming tools, machinery, and agricultural equipment" 
-  },
-];
-
 export default function SellPage() {
   const { t } = useTranslation();
   const { user, loading } = useAuth();
   const router = useRouter();
+
+  const categories: Category[] = [
+    { key: "grains", icon: <GrainsIcon className="w-8 h-8" /> },
+    { key: "pulses", icon: <PulsesIcon className="w-8 h-8" /> },
+    { key: "fruits", icon: <FruitsIcon className="w-8 h-8" /> },
+    { key: "vegetables", icon: <VegetablesIcon className="w-8 h-8" /> },
+    { key: "oilseeds", icon: <OilseedsIcon className="w-8 h-8" /> },
+    { key: "seeds", icon: <SeedsIcon className="w-8 h-8" /> },
+    { key: "spices", icon: <SpicesIcon className="w-8 h-8" /> },
+    { key: "flowers", icon: <FlowersIcon className="w-8 h-8" /> },
+    { key: "tea", icon: <TeaIcon className="w-8 h-8" /> },
+    { key: "nuts", icon: <NutsIcon className="w-8 h-8" /> },
+    { key: "dairy", icon: <DairyIcon className="w-8 h-8" /> },
+    { key: "honey", icon: <HoneyIcon className="w-8 h-8" /> },
+    { key: "cattlefeed", icon: <CattleFoodIcon className="w-8 h-8" /> },
+    { key: "nurseryplants", icon: <NurseryPlantIcon className="w-8 h-8" /> },
+    { key: "ayurvedic", icon: <AyurvedicIcon className="w-8 h-8" /> },
+    { key: "fish", icon: <FishIcon className="w-8 h-8" /> },
+    { key: "fertilizer", icon: <FertilizerIcon className="w-8 h-8" /> },
+    { key: "equipment", icon: <EquipmentIcon className="w-8 h-8" /> },
+  ].map((cat) => ({
+    ...cat,
+    label: t(`categories.${cat.key}`),
+    description: t(`categoryDescriptions.${cat.key}`),
+  }));
 
   // Check if user is authenticated
   useEffect(() => {

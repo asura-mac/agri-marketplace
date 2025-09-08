@@ -10,28 +10,9 @@ import Breadcrumb from "@/components/Breadcrumb";
 import ImageUpload from "@/components/ImageUpload";
 import { INDIAN_STATES_AND_UTS } from "@/lib/constants";
 import { detectUserLocation, extractIndianState } from "@/lib/location-utils";
+import { useTranslation } from "react-i18next";
 
-const categoryLabels: Record<string, string> = {
-  grains: "Grains",
-  pulses: "Pulses", 
-  fruits: "Fruits",
-  vegetables: "Vegetables",
-  oilseeds: "Oilseeds",
-  seeds: "Seeds",
-  spices: "Spices",
-  flowers: "Flowers",
-  tea: "Tea",
-  nuts: "Nuts",
-  dairy: "Dairy",
-  honey: "Honey",
-  cattlefeed: "Cattle Feed",
-  nurseryplants: "Nursery",
-  ayurvedic: "Ayurvedic",  
-  fish: "Fish",
-  fertilizer: "Fertilizer",
-  equipment: "Equipment",
 
-};
 
 const unitOptions = [
   { value: 'kg', label: 'Kilogram (kg)' },
@@ -49,6 +30,28 @@ function CategorySellContent() {
   const { user, loading } = useAuth();
   const category = params.category as string;
   const editId = searchParams.get('edit');
+  const { t } = useTranslation();
+
+  const categoryLabels: Record<string, string> = {
+    grains: t("categories.grains"),
+    pulses: t("categories.pulses"),
+    fruits: t("categories.fruits"),
+    vegetables: t("categories.vegetables"),
+    oilseeds: t("categories.oilseeds"),
+    seeds: t("categories.seeds"),
+    spices: t("categories.spices"),
+    flowers: t("categories.flowers"),
+    tea: t("categories.tea"),
+    nuts: t("categories.nuts"),
+    dairy: t("categories.dairy"),
+    honey: t("categories.honey"),
+    cattlefeed: t("categories.cattlefeed"),
+    nurseryplants: t("categories.nurseryplants"),
+    ayurvedic: t("categories.ayurvedic"),
+    fish: t("categories.fish"),
+    fertilizer: t("categories.fertilizer"),
+    equipment: t("categories.equipment"),
+  };
   
   const categoryLabel = categoryLabels[category] || "Unknown Category";
 
@@ -134,7 +137,7 @@ function CategorySellContent() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-blue-700">Loading...</div>
+        <div className="text-blue-700">{t("common.loading")}</div>
       </div>
     );
   }
@@ -147,9 +150,9 @@ function CategorySellContent() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Category Not Found</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">{t("common.categoryNotFound")}</h1>
           <Link href="/sell" className="text-blue-600 hover:text-blue-700">
-            ← Back to Categories
+            ← {t("common.backToCat")}
           </Link>
         </div>
       </div>
@@ -157,9 +160,9 @@ function CategorySellContent() {
   }
 
   const breadcrumbItems = [
-    { label: 'Categories', href: '/sell' },
+    { label: `${t("navigation.categories")}`, href: '/sell' },
     { label: categoryLabel, href: `/sell/${category}` },
-    { label: 'Create Listing' }
+    { label: `${t("sell.createListing")}` }
   ];
 
   const validateForm = (): boolean => {
@@ -339,8 +342,8 @@ function CategorySellContent() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="text-blue-700 text-lg mb-2">Loading listing data...</div>
-          <div className="text-gray-500">Please wait while we load the listing for editing.</div>
+          <div className="text-blue-700 text-lg mb-2">{t("common.loadingListingData")}...</div>
+          <div className="text-gray-500">{t("common.pleaseWaitEditing")}</div>
         </div>
       </div>
     );
@@ -355,12 +358,12 @@ function CategorySellContent() {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
-            {isEditMode ? `Edit ${categoryLabel} Listing` : `Create ${categoryLabel} Listing`}
+            {isEditMode ? `${t("profile.edit")} ${categoryLabel} ${t("common.listing")}` : `${t("profile.edit")} ${categoryLabel} ${t("common.listing")}`}
           </h1>
           <p className="text-lg text-gray-600">
             {isEditMode 
-              ? 'Update the details below to modify your product listing'
-              : 'Fill in the details below to create your product listing'
+              ? t("sell.upateDetails")
+              : t("sell.createListingForm")
             }
           </p>
         </div>
@@ -697,7 +700,7 @@ function CategorySellContent() {
                 onClick={() => router.back()}
                 className="px-6 py-3 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 font-medium"
               >
-                Cancel
+                {t("common.cancel")}
               </button>
               <button
                 type="submit"
@@ -705,8 +708,8 @@ function CategorySellContent() {
                 className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white rounded-md font-medium"
               >
                 {submitting 
-                  ? (isEditMode ? 'Updating Listing...' : 'Creating Listing...') 
-                  : (isEditMode ? 'Update Listing' : 'Create Listing')
+                  ? (isEditMode ? `${t("sell.updateListing")}...` : `${t("sell.createListing")}...`) 
+                  : (isEditMode ? t("sell.updateListing") : t("sell.createListing"))
                 }
               </button>
             </div>
@@ -719,12 +722,13 @@ function CategorySellContent() {
 }
 
 export default function CategorySellPage() {
+  const { t } = useTranslation();
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="text-blue-700 text-lg mb-2">Loading...</div>
-          <div className="text-gray-500">Please wait while we prepare the form.</div>
+          <div className="text-blue-700 text-lg mb-2">{t("common.loading")}</div>
+          <div className="text-gray-500">{t("common.pleaseWaitPrepareForm")}</div>
         </div>
       </div>
     }>

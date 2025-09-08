@@ -10,18 +10,17 @@ import { INDIAN_STATES_AND_UTS } from "@/lib/constants";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
 import {
+  UserCircleIcon,
+} from "@heroicons/react/20/solid";
+import {
   MagnifyingGlassIcon,
   FunnelIcon,
   XMarkIcon,
   ChevronDownIcon,
-  Bars3Icon,
   MapPinIcon,
-  UserIcon,
 } from "@heroicons/react/24/outline";
 
 export default function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-  const closeMenu = () => setIsMobileMenuOpen(false);
   const { user, loading } = useAuth();
   const router = useRouter();
   const {
@@ -34,7 +33,7 @@ export default function Header() {
   } = useSearch();
   const { t } = useTranslation();
 
-  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  // const mobileMenuRef = useRef<HTMLDivElement>(null);
   const mobileFilterDropdownRef = useRef<HTMLDivElement>(null);
   const desktopFilterDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -95,11 +94,6 @@ export default function Header() {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
 
-      // Close mobile menu if clicking outside
-      if (mobileMenuRef.current && !mobileMenuRef.current.contains(target)) {
-        setIsMobileMenuOpen(false);
-      }
-
       // Close filter dropdowns if clicking outside
       if (
         mobileFilterDropdownRef.current &&
@@ -138,66 +132,37 @@ export default function Header() {
           </Link>
         </div>
 
-        <LanguageSelector />
+        <div className="flex items-center justify-center gap-5">
+          <LanguageSelector />
 
-        <Link
+          <Link
             href="/sell"
-            onClick={closeMenu}
             className="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md text-center"
           >
             {t("header.sell")}
-        </Link>
-
-        {/* Hamburger Button */}
-        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-          {isMobileMenuOpen ? (
-            <XMarkIcon className="w-6 h-6 text-gray-700" />
-          ) : (
-            <Bars3Icon className="w-6 h-6 text-gray-700" />
-          )}
-        </button>
-      </div>
-
-      {/* Mobile Dropdown Menu */}
-
-      {isMobileMenuOpen && (
-        <div
-          className="md:hidden absolute top-14 left-0 w-full bg-white shadow-md flex flex-col gap-3 p-4 z-50"
-          ref={mobileMenuRef}
-        >
-
-          <Link
-            href="/profile"
-            onClick={closeMenu}
-            className="flex items-center text-sm text-blue-700 font-medium truncate"
-          >
-            <MapPinIcon className="transform h-5 w-5 text-blue-700 mr-2" />
-            {locationLabel}
           </Link>
-
           <div>
             {!loading && user ? (
               <Link
                 href="/profile"
-                onClick={closeMenu}
                 className="flex items-center text-sm text-blue-700 font-medium"
               >
-                <UserIcon className="transform h-5 w-5 text-blue-700 mr-2" />
-                {t("header.profile")}
+                <UserCircleIcon className="transform h-7 w-7 text-blue-700 mr-2" />
+                {/* {t("header.profile")} */}
               </Link>
             ) : (
               <Link
                 href="/login"
-                onClick={closeMenu}
                 className="flex items-center text-sm text-blue-700 font-medium"
               >
-                <UserIcon className="transform h-5 w-5 text-blue-700 mr-2" />
-                {t("header.login")}
+                <UserCircleIcon className="transform h-7 w-7 text-blue-700 mr-2" />
+                {/* {t("header.login")} */}
               </Link>
             )}
           </div>
         </div>
-      )}
+
+      </div>
 
       {/* Mobile Search Bar */}
       <div className="md:hidden px-4 pb-3">
@@ -432,7 +397,7 @@ export default function Header() {
                 href="/profile"
                 className="flex items-center text-sm text-blue-700 font-medium"
               >
-                <UserIcon className="transform h-5 w-5 text-blue-700 mr-2" />
+                <UserCircleIcon className="transform h-7 w-7 text-blue-700 mr-2" />
                 {t("header.profile")}
               </Link>
             ) : (
@@ -440,7 +405,7 @@ export default function Header() {
                 href="/login"
                 className="flex items-center text-sm text-blue-700 font-medium"
               >
-                <UserIcon className="transform h-5 w-5 text-blue-700 mr-2" />
+                <UserCircleIcon className="transform h-7 w-7 text-blue-700 mr-2" />
                 {t("header.login")}
               </Link>
             )}

@@ -183,14 +183,14 @@ export default function Footer() {
             >
               <div className="flex items-center gap-2 mt-6">
                 <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                  <img
+                  <Image
                     src="/evool-logo-pfp.jpg"
                     alt="Evool Foundation"
                     className="w-8 h-8 rounded-full object-cover"
                   />
                 </div>
                 <span className="text-gray-800 font-medium">
-                  © {new Date().getFullYear()}{t("footer.evoolfoundation")}
+                  {t("footer.evoolfoundation")}
                 </span>
               </div>
             </a>
@@ -200,7 +200,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="border-t border-gray-300 pt-6">
           <div className="bg-gray-900 text-white text-center py-3 px-4 rounded text-sm">
-            © {new Date().getFullYear()}{t("footer.copyright")}
+             © {new Date().getFullYear()}{t("footer.copyright")}
           </div>
         </div>
       </div>
