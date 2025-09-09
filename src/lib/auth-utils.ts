@@ -36,6 +36,7 @@ export async function completeOnboarding(
   userId: string,
   profileData: {
     role: string;
+    name: string;
     phone: string;
     state: string;
     district: string;
@@ -55,6 +56,7 @@ export async function completeOnboarding(
     const { data, error } = await supabase.rpc('complete_onboarding', {
       user_uuid: userId,
       user_role: profileData.role,
+      user_name: profileData.name,
       user_phone: profileData.phone,
       user_state: profileData.state,
       user_district: profileData.district,
@@ -122,6 +124,7 @@ export async function updateUserProfile(
   userId: string,
   updates: Partial<{
     role: string;
+    name: string;
     phone: string;
     state: string;
     district: string;

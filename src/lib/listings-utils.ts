@@ -39,6 +39,7 @@ export type Listing = {
 export type ListingWithProfile = Listing & {
   user_profiles: {
     role: string;
+    name: string;
     phone: string;
     state: string;
     district: string;
@@ -401,7 +402,7 @@ export async function fetchListingById(listingId: string): Promise<ListingWithPr
     // Then get the user profile
     const { data: profile, error: profileError } = await supabase
       .from('user_profiles')
-      .select('role, phone, state, district')
+      .select('role, name, phone, state, district')
       .eq('user_id', String(listing.user_id))
       .single();
 
@@ -414,6 +415,7 @@ export async function fetchListingById(listingId: string): Promise<ListingWithPr
       ...(listing as Listing),
       user_profiles: profile ? {
         role: String(profile.role || ''),
+        name: String(profile.name || ''),
         phone: String(profile.phone || ''),
         state: String(profile.state || ''),
         district: String(profile.district || '')
@@ -572,43 +574,6 @@ export async function getListingForEdit(listingId: string): Promise<Listing | nu
   } catch (error) {
     console.error('Unexpected error fetching listing for edit:', error);
     return null;
-  }
-}
-
-/**
- * Update an existing listing
- */
-export async function updateListing(listingId: string, formData: ListingFormData): Promise<boolean> {
-  if (!supabase) {
-    console.error('Supabase client not available');
-    return false;
-  }
-
-  try {
-    const { data, error } = await supabase.rpc('update_listing', {
-      listing_id: listingId,
-      p_product_name: formData.productName,
-      p_product_description: formData.description,
-      p_price_per_unit: formData.pricePerUnit,
-      p_unit: formData.unit,
-      p_minimum_order: formData.minimumOrder,
-      p_state: formData.state,
-      p_district: formData.district,
-      p_whatsapp_number: formData.whatsappNumber,
-      p_contact_phone: formData.contactPhone,
-      p_images: formData.images
-    });
-
-    if (error) {
-      console.error('Error updating listing:', error);
-      return false;
-    }
-
-    console.log('Listing updated successfully:', data);
-    return true;
-  } catch (error) {
-    console.error('Unexpected error updating listing:', error);
-    return false;
   }
 }
 

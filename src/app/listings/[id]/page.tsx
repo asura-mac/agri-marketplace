@@ -245,9 +245,7 @@ export default function ListingDetailPage() {
               <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
                 See More Product From{" "}
                 <span className="underline">
-                  {listing.user_profiles?.role === "farmer"
-                    ? "Farmer"
-                    : "Trader"}
+                  {listing.user_profiles?.name || "Farmer"}
                 </span>
               </h2>
               <div className="grid grid-cols-2 gap-6">

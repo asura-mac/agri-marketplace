@@ -11,6 +11,7 @@ export default function OnboardingPage() {
   const { user, loading, hasCompletedOnboarding, refreshOnboardingStatus } = useAuth();
   const [form, setForm] = useState({
     role: "farmer",
+    name: "",
     phone: "",
     state: "",
     district: "",
@@ -118,6 +119,7 @@ export default function OnboardingPage() {
       // Use the auth utility to complete onboarding
       const success = await completeOnboarding(user.id, {
         role: form.role,
+        name: form.name,
         phone: form.phone,
         state: form.state,
         district: form.district,
@@ -175,59 +177,128 @@ export default function OnboardingPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white p-4">
-      <form onSubmit={handleSubmit} className="w-full max-w-xl bg-white p-6 rounded-lg shadow border border-blue-100">
-        <h1 className="text-xl sm:text-2xl font-semibold text-blue-700 mb-4 text-center">Tell us about you</h1>
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-xl bg-white p-6 rounded-lg shadow border border-blue-100"
+      >
+        <h1 className="text-xl sm:text-2xl font-semibold text-blue-700 mb-4 text-center">
+          Tell us about you
+        </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm text-gray-700 mb-1">You are</label>
-            <select name="role" value={form.role} onChange={handleChange} className="w-full h-11 border rounded-md px-3 text-black">
+            <select
+              name="role"
+              value={form.role}
+              onChange={handleChange}
+              className="w-full h-11 border rounded-md px-3 text-black"
+            >
               <option value="farmer">Farmer</option>
               <option value="trader">Trader</option>
             </select>
           </div>
           <div>
-            <label className="block text-sm text-gray-700 mb-1">Contact number</label>
-            <input name="phone" value={form.phone} onChange={handleChange} className="w-full h-11 border rounded-md px-3 text-black" placeholder="10-digit phone" required />
+            <label className="block text-sm text-gray-700 mb-1">
+              Full Name
+            </label>
+            <input
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              className="w-full h-11 border rounded-md px-3 text-black"
+              placeholder="Enter your full name"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm text-gray-700 mb-1">
+              Contact number
+            </label>
+            <input
+              name="phone"
+              value={form.phone}
+              onChange={handleChange}
+              className="w-full h-11 border rounded-md px-3 text-black"
+              placeholder="10-digit phone"
+              required
+            />
           </div>
           <div>
             <label className="block text-sm text-gray-700 mb-1">State/UT</label>
-            <select name="state" value={form.state} onChange={handleChange} className="w-full h-11 border rounded-md px-3 text-black" required>
-              <option value="" disabled>Select state</option>
+            <select
+              name="state"
+              value={form.state}
+              onChange={handleChange}
+              className="w-full h-11 border rounded-md px-3 text-black"
+              required
+            >
+              <option value="" disabled>
+                Select state
+              </option>
               {INDIAN_STATES_AND_UTS.map((s) => (
-                <option key={s} value={s}>{s}</option>
+                <option key={s} value={s}>
+                  {s}
+                </option>
               ))}
             </select>
           </div>
           <div>
             <label className="block text-sm text-gray-700 mb-1">District</label>
-            <input name="district" value={form.district} onChange={handleChange} className="w-full h-11 border rounded-md px-3 text-black" required />
+            <input
+              name="district"
+              value={form.district}
+              onChange={handleChange}
+              className="w-full h-11 border rounded-md px-3 text-black"
+              required
+            />
           </div>
           <div>
             <label className="block text-sm text-gray-700 mb-1">Pincode</label>
-            <input name="pincode" value={form.pincode} onChange={handleChange} className="w-full h-11 border rounded-md px-3 text-black" required />
+            <input
+              name="pincode"
+              value={form.pincode}
+              onChange={handleChange}
+              className="w-full h-11 border rounded-md px-3 text-black"
+              required
+            />
           </div>
           <div className="sm:col-span-2">
             <label className="block text-sm text-gray-700 mb-1">Location</label>
             <div className="space-y-2">
               <div className="flex gap-2">
-                <input 
-                  name="location" 
-                  value={form.location} 
-                  onChange={handleChange} 
-                  className="flex-1 h-11 border rounded-md px-3 text-black" 
-                  placeholder="Enter your location or detect automatically" 
+                <input
+                  name="location"
+                  value={form.location}
+                  onChange={handleChange}
+                  className="flex-1 h-11 border rounded-md px-3 text-black"
+                  placeholder="Enter your location or detect automatically"
                 />
-                <button 
-                  type="button" 
-                  onClick={detectLocation} 
+                <button
+                  type="button"
+                  onClick={detectLocation}
                   disabled={detecting}
                   className="px-4 h-11 rounded-md border text-blue-700 border-blue-300 hover:bg-blue-50 disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed font-medium whitespace-nowrap"
                 >
                   {detecting ? (
                     <span className="flex items-center gap-2">
-                      <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      <svg
+                        className="animate-spin h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
                       </svg>
                       Detecting...
                     </span>
@@ -236,31 +307,40 @@ export default function OnboardingPage() {
                   )}
                 </button>
               </div>
-              
+
               {/* Show detected location */}
               {detectedLocation && (
                 <div className="p-3 bg-green-50 border border-green-200 rounded-md">
                   <div className="flex items-start gap-2">
                     <span className="text-green-600 mt-0.5">✅</span>
                     <div className="flex-1">
-                      <div className="text-sm font-medium text-green-800">Location detected successfully!</div>
-                      <div className="text-sm text-green-700 mt-1">{detectedLocation}</div>
+                      <div className="text-sm font-medium text-green-800">
+                        Location detected successfully!
+                      </div>
+                      <div className="text-sm text-green-700 mt-1">
+                        {detectedLocation}
+                      </div>
                       <div className="text-xs text-green-600 mt-1">
-                        Form fields have been auto-filled. You can edit them if needed.
+                        Form fields have been auto-filled. You can edit them if
+                        needed.
                       </div>
                     </div>
                   </div>
                 </div>
               )}
-              
+
               {/* Show error */}
               {locationError && (
                 <div className="p-3 bg-red-50 border border-red-200 rounded-md">
                   <div className="flex items-start gap-2">
                     <span className="text-red-600 mt-0.5">❌</span>
                     <div className="flex-1">
-                      <div className="text-sm font-medium text-red-800">Location detection failed</div>
-                      <div className="text-sm text-red-700 mt-1">{locationError}</div>
+                      <div className="text-sm font-medium text-red-800">
+                        Location detection failed
+                      </div>
+                      <div className="text-sm text-red-700 mt-1">
+                        {locationError}
+                      </div>
                       <div className="text-xs text-red-600 mt-1">
                         Please enter your location manually or try again.
                       </div>
@@ -268,17 +348,18 @@ export default function OnboardingPage() {
                   </div>
                 </div>
               )}
-              
+
               {/* Help text */}
               {!detecting && !detectedLocation && !locationError && (
                 <div className="text-xs text-gray-500">
-                  Click &ldquo;📍 Detect&rdquo; to automatically fill your location, or enter it manually.
+                  Click &ldquo;📍 Detect&rdquo; to automatically fill your
+                  location, or enter it manually.
                 </div>
               )}
             </div>
           </div>
         </div>
-        
+
         {/* Terms and Conditions Agreement */}
         <div className="mt-6">
           <div className="flex items-start gap-3">
@@ -293,11 +374,14 @@ export default function OnboardingPage() {
                 }
               }}
               className={`mt-1 h-4 w-4 text-blue-600 border-2 rounded focus:ring-blue-500 focus:ring-2 ${
-                termsError ? 'border-red-500' : 'border-gray-300'
+                termsError ? "border-red-500" : "border-gray-300"
               }`}
             />
-            <label htmlFor="terms-agreement" className="text-sm text-gray-700 leading-relaxed">
-              I agree to the{' '}
+            <label
+              htmlFor="terms-agreement"
+              className="text-sm text-gray-700 leading-relaxed"
+            >
+              I agree to the{" "}
               <a
                 href="/terms"
                 target="_blank"
@@ -305,8 +389,8 @@ export default function OnboardingPage() {
                 className="text-blue-600 hover:text-blue-700 underline font-medium"
               >
                 Terms and Conditions
-              </a>
-              {' '}and{' '}
+              </a>{" "}
+              and{" "}
               <a
                 href="/privacy"
                 target="_blank"
@@ -315,10 +399,12 @@ export default function OnboardingPage() {
               >
                 Privacy Policy
               </a>
-              . I understand that by creating an account, I am accepting these terms and the collection and use of my data as described in the Privacy Policy.
+              . I understand that by creating an account, I am accepting these
+              terms and the collection and use of my data as described in the
+              Privacy Policy.
             </label>
           </div>
-          
+
           {/* Terms Error */}
           {termsError && (
             <div className="mt-2 p-2 bg-red-50 border border-red-200 rounded-md">
@@ -331,13 +417,13 @@ export default function OnboardingPage() {
         </div>
 
         <div className="mt-6">
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             disabled={submitting || !agreedToTerms}
             className={`w-full h-11 rounded-md font-medium text-white transition-colors ${
               agreedToTerms && !submitting
-                ? 'bg-blue-600 hover:bg-blue-700'
-                : 'bg-gray-400 cursor-not-allowed'
+                ? "bg-blue-600 hover:bg-blue-700"
+                : "bg-gray-400 cursor-not-allowed"
             }`}
           >
             {submitting ? "Saving..." : "Continue"}
