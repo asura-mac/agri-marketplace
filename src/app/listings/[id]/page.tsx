@@ -222,6 +222,10 @@ export default function ListingDetailPage() {
                 {listing.user_profiles?.role?.toUpperCase() || "TRADER"}
               </span>
             </div>
+            <div className="text-gray-600 mb-1">Name</div>
+            <div className="font-medium text-black">
+              {listing.user_profiles?.name || "Not specified"}
+            </div>
 
             <div className="grid grid-cols-2 gap-6">
               <div>
@@ -245,9 +249,7 @@ export default function ListingDetailPage() {
               <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
                 See More Product From{" "}
                 <span className="underline">
-                  {listing.user_profiles?.role === "farmer"
-                    ? "Farmer"
-                    : "Trader"}
+                  {listing.user_profiles?.name || "Farmer"}
                 </span>
               </h2>
               <div className="grid grid-cols-2 gap-6">
@@ -419,7 +421,10 @@ export default function ListingDetailPage() {
                 {listing.user_profiles?.role?.toUpperCase() || "TRADER"}
               </span>
             </div>
-
+            <div className="text-gray-600 mb-1">Name</div>
+            <div className="font-medium text-black">
+              {listing.user_profiles?.name || "Not specified"}
+            </div>
             <div className="space-y-2">
               <div className="flex justify-between">
                 <span className="text-gray-600">State</span>
@@ -442,9 +447,7 @@ export default function ListingDetailPage() {
               <h2 className="text-lg font-semibold text-gray-900 mb-4">
                 See More Product From{" "}
                 <span className="underline">
-                  {listing.user_profiles?.role === "farmer"
-                    ? "Farmer"
-                    : "Trader"}
+                  {listing.user_profiles?.name || "Farmer"}
                 </span>
               </h2>
               <div className="flex gap-3 overflow-x-auto pb-2">

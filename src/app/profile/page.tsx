@@ -10,6 +10,7 @@ import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 
 type UserProfile = {
   role: string;
+  name: string;
   phone: string;
   state: string;
   district: string;
@@ -53,6 +54,7 @@ export default function ProfilePage() {
     if (profileData) {
       const formattedProfile: UserProfile = {
         role: String(profileData.role || ''),
+        name: String(profileData.name || ''),
         phone: String(profileData.phone || ''),
         state: String(profileData.state || ''),
         district: String(profileData.district || ''),
@@ -175,6 +177,12 @@ export default function ProfilePage() {
                     {profile?.role || "Not specified"}
                   </span>
                 </div>
+                <div className="flex justify-between items-center py-3 border-b border-gray-100">
+                  <span className="text-gray-600 font-medium">Name</span>
+                  <span className="text-gray-900 font-semibold">
+                    {profile?.name || "Not specified"}
+                  </span>
+                </div>
 
                 <div className="flex justify-between items-center py-3 border-b border-gray-100">
                   <span className="text-gray-600 font-medium">State</span>
@@ -239,6 +247,22 @@ export default function ProfilePage() {
                     <option value="farmer">Farmer</option>
                     <option value="trader">Trader</option>
                   </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    value={editForm?.name || ""}
+                    onChange={(e) =>
+                      setEditForm((prev) =>
+                        prev ? { ...prev, name: e.target.value } : null
+                      )
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                    placeholder="Enter your name"
+                  />
                 </div>
 
                 <div>

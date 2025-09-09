@@ -39,6 +39,7 @@ export type Listing = {
 export type ListingWithProfile = Listing & {
   user_profiles: {
     role: string;
+    name: string;
     phone: string;
     state: string;
     district: string;
@@ -401,7 +402,7 @@ export async function fetchListingById(listingId: string): Promise<ListingWithPr
     // Then get the user profile
     const { data: profile, error: profileError } = await supabase
       .from('user_profiles')
-      .select('role, phone, state, district')
+      .select('role, name, phone, state, district')
       .eq('user_id', String(listing.user_id))
       .single();
 
@@ -414,6 +415,7 @@ export async function fetchListingById(listingId: string): Promise<ListingWithPr
       ...(listing as Listing),
       user_profiles: profile ? {
         role: String(profile.role || ''),
+        name: String(profile.name || ''),
         phone: String(profile.phone || ''),
         state: String(profile.state || ''),
         district: String(profile.district || '')

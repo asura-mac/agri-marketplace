@@ -187,6 +187,8 @@ export default function Footer() {
                     src="/evool-logo-pfp.jpg"
                     alt="Evool Foundation"
                     className="w-8 h-8 rounded-full object-cover"
+                    width={32}
+                    height={32}
                   />
                 </div>
                 <span className="text-gray-800 font-medium">

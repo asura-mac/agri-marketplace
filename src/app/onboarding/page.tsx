@@ -11,6 +11,7 @@ export default function OnboardingPage() {
   const { user, loading, hasCompletedOnboarding, refreshOnboardingStatus } = useAuth();
   const [form, setForm] = useState({
     role: "farmer",
+    name: "",
     phone: "",
     state: "",
     district: "",
@@ -118,6 +119,7 @@ export default function OnboardingPage() {
       // Use the auth utility to complete onboarding
       const success = await completeOnboarding(user.id, {
         role: form.role,
+        name: form.name,
         phone: form.phone,
         state: form.state,
         district: form.district,
@@ -184,6 +186,10 @@ export default function OnboardingPage() {
               <option value="farmer">Farmer</option>
               <option value="trader">Trader</option>
             </select>
+          </div>
+          <div>
+            <label className="block text-sm text-gray-700 mb-1">Full Name</label>
+            <input name="name" value={form.name} onChange={handleChange} className="w-full h-11 border rounded-md px-3 text-black" placeholder="Enter your full name" required />
           </div>
           <div>
             <label className="block text-sm text-gray-700 mb-1">Contact number</label>
