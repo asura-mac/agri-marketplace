@@ -185,6 +185,7 @@ export default function OnboardingPage() {
             <select name="role" value={form.role} onChange={handleChange} className="w-full h-11 border rounded-md px-3 text-black">
               <option value="farmer">Farmer</option>
               <option value="trader">Trader</option>
+              <option value="buyer">Buyer</option>
             </select>
           </div>
           <div>

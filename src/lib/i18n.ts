@@ -268,9 +268,9 @@ const enTranslations = {
     signInMessage: "Sign in with Google to continue",
     welcome: "Welcome",
     signInBtn: "Continue with Google",
-    freshProduct: "Fresh Products Near You",
+    freshProduct: "Most Recent Products Near You",
     freshProductDec:
-      "Discover the best agricultural products from verified farmers and traders",
+      "Discover the latest agricultural products from farmers and traders",
     chooseFromCategory:
       "Choose the category that best describes what you want to sell. This helps buyers find your products more easily.",
     chooseACategory: "CHOOSE A CATEGORY",
@@ -697,9 +697,9 @@ const hiTranslations = {
     signInMessage: "जारी रखने के लिए Google से साइन इन करें",
     welcome: "स्वागत",
     signInBtn: "Google के साथ जारी रखें",
-    freshProduct: "आपके पास ताज़ा उत्पाद",
+    freshProduct: "नज़दीकी ताज़ा उत्पाद",
     freshProductDec:
-      "प्रमाणित किसानों और व्यापारियों से सर्वश्रेष्ठ कृषि उत्पाद खोजें",
+      "किसानों और व्यापारियों द्वारा डाले गए नवीनतम कृषि उत्पाद खोजें",
     chooseFromCategory:
       "वह श्रेणी चुनें जो आपके बेचने वाले उत्पाद का सबसे अच्छा वर्णन करती हो। इससे खरीदारों को आपके उत्पाद आसानी से ढूँढने में मदद मिलेगी।",
     chooseACategory: "श्रेणी चुनें",

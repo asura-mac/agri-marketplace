@@ -246,6 +246,7 @@ export default function ProfilePage() {
                     <option value="">Select role</option>
                     <option value="farmer">Farmer</option>
                     <option value="trader">Trader</option>
+                    <option value="buyer">Buyer</option>
                   </select>
                 </div>
                 <div>
