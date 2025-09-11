@@ -684,7 +684,7 @@ function CategorySellContent() {
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             <div className="flex flex-col sm:flex-row gap-4 justify-end">
               {/* Debug test button - remove in production */}
-              <button
+              {/* <button
                 type="button"
                 onClick={() => {
                   console.log('Running debug tests...');
@@ -693,7 +693,7 @@ function CategorySellContent() {
                 className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white text-sm rounded-md font-medium"
               >
                 🐛 Debug Test
-              </button>
+              </button> */}
               
               <button
                 type="button"

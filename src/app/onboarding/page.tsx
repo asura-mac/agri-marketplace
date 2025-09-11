@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/providers";
+import { useOnboardingProtection } from "@/contexts/OnboardingProtectionContext";
 import { completeOnboarding, debugUserProfile } from "@/lib/auth-utils";
 import { detectUserLocation, extractIndianState, formatAddressShort } from "@/lib/location-utils";
 import { INDIAN_STATES_AND_UTS } from "@/lib/constants";
@@ -9,6 +10,7 @@ import { INDIAN_STATES_AND_UTS } from "@/lib/constants";
 export default function OnboardingPage() {
   const router = useRouter();
   const { user, loading, hasCompletedOnboarding, refreshOnboardingStatus } = useAuth();
+  const { setNavigationBlocked } = useOnboardingProtection();
   const [form, setForm] = useState({
     role: "farmer",
     name: "",
@@ -24,6 +26,18 @@ export default function OnboardingPage() {
   const [submitting, setSubmitting] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [termsError, setTermsError] = useState<string | null>(null);
+
+  // Block navigation during onboarding
+  useEffect(() => {
+    if (!loading && user && hasCompletedOnboarding === false) {
+      setNavigationBlocked(true);
+    }
+    
+    return () => {
+      // Unblock navigation when component unmounts (after completion)
+      setNavigationBlocked(false);
+    };
+  }, [loading, user, hasCompletedOnboarding, setNavigationBlocked]);
 
   // Redirect if not authenticated or already completed onboarding
   useEffect(() => {
@@ -141,6 +155,9 @@ export default function OnboardingPage() {
       
       // Debug profile after completion
       await debugUserProfile(user.id);
+      
+      // Unblock navigation before redirect since onboarding is complete
+      setNavigationBlocked(false);
       
       // Check for returnTo in sessionStorage
       const returnTo = typeof window !== 'undefined' ? sessionStorage.getItem('returnTo') : null;
@@ -305,23 +322,27 @@ export default function OnboardingPage() {
             />
             <label htmlFor="terms-agreement" className="text-sm text-gray-700 leading-relaxed">
               I agree to the{' '}
-              <a
-                href="/terms"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-700 underline font-medium"
+              <button
+                type="button"
+                onClick={() => {
+                  // Open in new tab
+                  window.open('/terms', '_blank', 'noopener,noreferrer');
+                }}
+                className="text-blue-600 hover:text-blue-700 underline font-medium cursor-pointer bg-transparent border-none p-0 inline"
               >
                 Terms and Conditions
-              </a>
+              </button>
               {' '}and{' '}
-              <a
-                href="/privacy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:text-blue-700 underline font-medium"
+              <button
+                type="button"
+                onClick={() => {
+                  // Open in new tab
+                  window.open('/privacy', '_blank', 'noopener,noreferrer');
+                }}
+                className="text-blue-600 hover:text-blue-700 underline font-medium cursor-pointer bg-transparent border-none p-0 inline"
               >
                 Privacy Policy
-              </a>
+              </button>
               . I understand that by creating an account, I am accepting these terms and the collection and use of my data as described in the Privacy Policy.
             </label>
           </div>

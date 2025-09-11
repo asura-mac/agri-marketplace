@@ -1,11 +1,11 @@
 "use client";
-import Link from "next/link";
 import Image from "next/image";
 import { useAuth } from "@/app/providers";
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { getUserLocation } from "@/lib/auth-utils";
 import { useSearch } from "@/contexts/SearchContext";
+import { useOnboardingProtection } from "@/contexts/OnboardingProtectionContext";
 import { INDIAN_STATES_AND_UTS } from "@/lib/constants";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
@@ -31,6 +31,7 @@ export default function Header() {
     isSearchActive,
     isFilterActive,
   } = useSearch();
+  const { isNavigationBlocked, attemptNavigation } = useOnboardingProtection();
   const { t } = useTranslation();
 
   // const mobileMenuRef = useRef<HTMLDivElement>(null);
@@ -121,7 +122,11 @@ export default function Header() {
       {/* Mobile */}
       <div className="md:hidden px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Link href="/">
+          <button
+            onClick={() => attemptNavigation("/")}
+            disabled={isNavigationBlocked}
+            className={isNavigationBlocked ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}
+          >
             <Image
               src="/KM-LOGO-FULL.png"
               alt="KrushiMandi Logo"
@@ -129,35 +134,54 @@ export default function Header() {
               height={32}
               className="cursor-pointer"
             />
-          </Link>
+          </button>
         </div>
 
         <div className="flex items-center justify-center gap-5">
           <LanguageSelector />
 
-          <Link
-            href="/sell"
-            className="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md text-center"
+          <button
+            onClick={() => attemptNavigation("/sell")}
+            disabled={isNavigationBlocked}
+            className={`px-3 py-2 text-sm font-medium rounded-md text-center ${
+              isNavigationBlocked 
+                ? 'bg-gray-400 text-gray-600 cursor-not-allowed' 
+                : 'bg-blue-600 hover:bg-blue-700 text-white'
+            }`}
           >
             {t("header.sell")}
-          </Link>
+          </button>
           <div>
             {!loading && user ? (
-              <Link
-                href="/profile"
-                className="flex items-center text-sm text-blue-700 font-medium"
+              <button
+                onClick={() => attemptNavigation("/profile")}
+                disabled={isNavigationBlocked}
+                className={`flex items-center text-sm font-medium ${
+                  isNavigationBlocked 
+                    ? 'text-gray-400 cursor-not-allowed' 
+                    : 'text-blue-700'
+                }`}
               >
-                <UserCircleIcon className="transform h-7 w-7 text-blue-700 mr-2" />
+                <UserCircleIcon className={`transform h-7 w-7 mr-2 ${
+                  isNavigationBlocked ? 'text-gray-400' : 'text-blue-700'
+                }`} />
                 {/* {t("header.profile")} */}
-              </Link>
+              </button>
             ) : (
-              <Link
-                href="/login"
-                className="flex items-center text-sm text-blue-700 font-medium"
+              <button
+                onClick={() => attemptNavigation("/login")}
+                disabled={isNavigationBlocked}
+                className={`flex items-center text-sm font-medium ${
+                  isNavigationBlocked 
+                    ? 'text-gray-400 cursor-not-allowed' 
+                    : 'text-blue-700'
+                }`}
               >
-                <UserCircleIcon className="transform h-7 w-7 text-blue-700 mr-2" />
+                <UserCircleIcon className={`transform h-7 w-7 mr-2 ${
+                  isNavigationBlocked ? 'text-gray-400' : 'text-blue-700'
+                }`} />
                 {/* {t("header.login")} */}
-              </Link>
+              </button>
             )}
           </div>
         </div>
@@ -265,7 +289,11 @@ export default function Header() {
       {/* Desktop */}
       <div className="hidden md:flex items-center gap-4 px-6 py-4">
         <div className="mr-auto flex items-center gap-4">
-          <Link href="/">
+          <button
+            onClick={() => attemptNavigation("/")}
+            disabled={isNavigationBlocked}
+            className={isNavigationBlocked ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}
+          >
             <Image
               src="/KM-LOGO-FULL.png"
               alt="KrushiMandi Logo"
@@ -273,14 +301,21 @@ export default function Header() {
               height={36}
               className="cursor-pointer"
             />
-          </Link>
-          <Link
-            href="/profile"
-            className="flex items-center text-sm text-blue-700 font-medium truncate"
+          </button>
+          <button
+            onClick={() => attemptNavigation("/profile")}
+            disabled={isNavigationBlocked}
+            className={`flex items-center text-sm font-medium truncate ${
+              isNavigationBlocked 
+                ? 'text-gray-400 cursor-not-allowed' 
+                : 'text-blue-700'
+            }`}
           >
-            <MapPinIcon className="transform h-5 w-5 text-blue-700 mr-2" />
+            <MapPinIcon className={`transform h-5 w-5 mr-2 ${
+              isNavigationBlocked ? 'text-gray-400' : 'text-blue-700'
+            }`} />
             {locationLabel}
-          </Link>
+          </button>
           {/* <div className="text-blue-700 font-medium">{locationLabel}</div> */}
         </div>
 
@@ -384,30 +419,49 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-4">
-          <Link
-            href="/sell"
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors"
+          <button
+            onClick={() => attemptNavigation("/sell")}
+            disabled={isNavigationBlocked}
+            className={`px-4 py-2 font-medium rounded-md transition-colors ${
+              isNavigationBlocked 
+                ? 'bg-gray-400 text-gray-600 cursor-not-allowed' 
+                : 'bg-blue-600 hover:bg-blue-700 text-white'
+            }`}
           >
             {t("header.sell")}
-          </Link>
+          </button>
           <LanguageSelector />
           <div>
             {!loading && user ? (
-              <Link
-                href="/profile"
-                className="flex items-center text-sm text-blue-700 font-medium"
+              <button
+                onClick={() => attemptNavigation("/profile")}
+                disabled={isNavigationBlocked}
+                className={`flex items-center text-sm font-medium ${
+                  isNavigationBlocked 
+                    ? 'text-gray-400 cursor-not-allowed' 
+                    : 'text-blue-700'
+                }`}
               >
-                <UserCircleIcon className="transform h-7 w-7 text-blue-700 mr-2" />
+                <UserCircleIcon className={`transform h-7 w-7 mr-2 ${
+                  isNavigationBlocked ? 'text-gray-400' : 'text-blue-700'
+                }`} />
                 {t("header.profile")}
-              </Link>
+              </button>
             ) : (
-              <Link
-                href="/login"
-                className="flex items-center text-sm text-blue-700 font-medium"
+              <button
+                onClick={() => attemptNavigation("/login")}
+                disabled={isNavigationBlocked}
+                className={`flex items-center text-sm font-medium ${
+                  isNavigationBlocked 
+                    ? 'text-gray-400 cursor-not-allowed' 
+                    : 'text-blue-700'
+                }`}
               >
-                <UserCircleIcon className="transform h-7 w-7 text-blue-700 mr-2" />
+                <UserCircleIcon className={`transform h-7 w-7 mr-2 ${
+                  isNavigationBlocked ? 'text-gray-400' : 'text-blue-700'
+                }`} />
                 {t("header.login")}
-              </Link>
+              </button>
             )}
           </div>
         </div>
