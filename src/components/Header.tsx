@@ -129,9 +129,9 @@ export default function Header() {
           >
             <Image
               src="/KM-LOGO-FULL.png"
-              alt="KrushiMandi Logo"
-              width={120}
-              height={32}
+              alt="Kisan Near Me Logo"
+              width={119}
+              height={39.5}
               className="cursor-pointer"
             />
           </button>
@@ -296,7 +296,7 @@ export default function Header() {
           >
             <Image
               src="/KM-LOGO-FULL.png"
-              alt="KrushiMandi Logo"
+              alt="Kisan Near Me Logo"
               width={140}
               height={36}
               className="cursor-pointer"

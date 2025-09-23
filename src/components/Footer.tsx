@@ -20,7 +20,7 @@ export default function Footer() {
               <Link href="/">
                 <Image
                   src="/KM-LOGO-FULL.png"
-                  alt="KrushiMandi Logo"
+                  alt="Kisan Near Me Logo"
                   width={160}
                   height={40}
                   className="cursor-pointer"

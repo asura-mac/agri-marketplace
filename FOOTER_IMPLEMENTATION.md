@@ -206,7 +206,7 @@ const handleBackToTop = () => {
 ```typescript
 <div className="border-t border-gray-300 pt-6">
   <div className="bg-gray-900 text-white text-center py-3 px-4 rounded text-sm">
-    © 2025 KRUSHI MANDI. All rights reserved
+    © 2025 Kisan Near Me. All rights reserved
   </div>
 </div>
 ```

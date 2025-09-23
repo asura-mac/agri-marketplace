@@ -114,13 +114,13 @@ const enTranslations = {
     contactUs: "Contact Us",
     address: "Address",
     evoolfoundation: "Evool Foundation",
-    copyright: " KRUSHI MANDI. All rights reserved",
+    copyright: " Kisan Near Me. All rights reserved",
     description:
-      "Krushi Mandi is a free platform by Evool Foundation, created to connect farmers, buyers and traders while promoting fair prices and farmer empowerment.",
+      "Kisan Near Me is a free platform by Evool Foundation, created to connect farmers, buyers and traders while promoting fair prices and farmer empowerment.",
   },
   onboarding: {
     welcomeMessage:
-      "Welcome to KrushiMandi! Please complete your profile to get started.",
+      "Welcome to Kisan Near Me! Please complete your profile to get started.",
     role: "Role",
     farmer: "Farmer",
     trader: "Trader",
@@ -203,7 +203,7 @@ const enTranslations = {
     statusError: "Error updating status",
   },
   auth: {
-    loginTitle: "Login to KrushiMandi",
+    loginTitle: "Login to Kisan Near Me",
     loginSubtitle: "Connect with farmers and traders across India",
     continueWithGoogle: "Continue with Google",
     signingIn: "Signing in...",
@@ -289,56 +289,56 @@ const enTranslations = {
     sortedBy: "Sorted by most recent",
   },
   about: {
-    heading: "Krushi Mandi – An Evool Foundation Initiative",
+    heading: "Kisan Near Me – An Evool Foundation Initiative",
     para1:
-      "Krushi Mandi is a farmer-first digital platform created to connect farmers directly with traders, buyers, and agricultural businesses. The purpose of this initiative is to remove middlemen, ensure fair pricing, and give farmers better access to genuine buyers.",
+      "Kisan Near Me is a farmer-first digital platform created to connect farmers directly with traders, buyers, and agricultural businesses. The purpose of this initiative is to remove middlemen, ensure fair pricing, and give farmers better access to genuine buyers.",
     para2:
-      "On Krushi Mandi, farmers can sell a wide range of products such as grains, pulses, seeds, oilseeds, fruits, vegetables, nuts, dairy, fish, flowers, tea, and spices. Along with this, agricultural equipment companies and fertilizer suppliers can also list their products and connect with farmers and traders in one place.",
+      "On Kisan Near Me, farmers can sell a wide range of products such as grains, pulses, seeds, oilseeds, fruits, vegetables, nuts, dairy, fish, flowers, tea, and spices. Along with this, agricultural equipment companies and fertilizer suppliers can also list their products and connect with farmers and traders in one place.",
     para3:
       "The process is simple and transparent. Farmers and traders can communicate directly through phone calls or WhatsApp without extra layers or hidden costs. This helps farmers reach more buyers and sell their produce at the right value.",
     para4:
-      "Backed by Evool Foundation’s mission of sustainability and social good, Krushi Mandi is building a digital agriculture marketplace that supports fair trade, empowers farmers, and strengthens the rural economy of India.",
+      "Backed by Evool Foundation’s mission of sustainability and social good, Kisan Near Me is building a digital agriculture marketplace that supports fair trade, empowers farmers, and strengthens the rural economy of India.",
   },
   faqs: {
-    heading: "Krushi Mandi – Frequently Asked Questions (FAQ)",
+    heading: "Kisan Near Me – Frequently Asked Questions (FAQ)",
 
-    q1: "What is Krushi Mandi?",
-    a1: "Krushi Mandi is a digital agriculture marketplace in India by Evool Foundation. It connects farmers directly with buyers and traders without middlemen. Farmers can sell crops online, and buyers can easily find local farmers near me through the Krushi Mandi app.",
+    q1: "What is Kisan Near Me?",
+    a1: "Kisan Near Me is a digital agriculture marketplace in India by Evool Foundation. It connects farmers directly with buyers and traders without middlemen. Farmers can sell crops online, and buyers can easily find local farmers near me through the Kisan Near Me app.",
 
-    q2: "How does Krushi Mandi work for farmers and buyers?",
+    q2: "How does Kisan Near Me work for farmers and buyers?",
     a2: "Farmers can list their products on the online mandi for farmers, and buyers or traders can connect with them directly through phone calls or WhatsApp. This makes it simple to buy vegetables online or purchase wholesale fruits and vegetables near me directly from farmers.",
 
-    q3: "What products can I buy or sell on Krushi Mandi?",
+    q3: "What products can I buy or sell on Kisan Near Me?",
     a3: "The platform supports a wide range of categories including grains, pulses, seeds, oilseeds, fruits, vegetables, dairy, fish, flowers, tea, spices, and nuts. Agricultural equipment companies and fertilizer suppliers can also list their products for farmers.",
 
-    q4: "Can I use Krushi Mandi to find farmers near me?",
-    a4: "Yes, Krushi Mandi allows you to connect with local farmers near me who are ready to sell farm produce directly. This makes it easier for buyers to purchase fresh produce directly from farmers at fair prices.",
+    q4: "Can I use Kisan Near Me to find farmers near me?",
+    a4: "Yes, Kisan Near Me allows you to connect with local farmers near me who are ready to sell farm produce directly. This makes it easier for buyers to purchase fresh produce directly from farmers at fair prices.",
 
-    q5: "Is Krushi Mandi free for farmers?",
-    a5: "Yes, Krushi Mandi app is free for farmers to register and list their crops. The goal is to provide a fair price and give farmers access to more buyers without paying high commissions.",
+    q5: "Is Kisan Near Me free for farmers?",
+    a5: "Yes, Kisan Near Me app is free for farmers to register and list their crops. The goal is to provide a fair price and give farmers access to more buyers without paying high commissions.",
 
-    q6: "Who can buy from Krushi Mandi?",
-    a6: "Anyone including wholesale buyers, retailers, hotels, restaurants, and traders can buy directly from farmers. Businesses searching for wholesale vegetables near me or fruits near me can use the Krushi Mandi platform.",
+    q6: "Who can buy from Kisan Near Me?",
+    a6: "Anyone including wholesale buyers, retailers, hotels, restaurants, and traders can buy directly from farmers. Businesses searching for wholesale vegetables near me or fruits near me can use the Kisan Near Me platform.",
 
     q7: "How do farmers and traders communicate?",
-    a7: "Communication is direct through phone calls or WhatsApp. This makes Krushi Mandi a trusted farmer-to-buyer platform, helping both sides negotiate and close deals quickly.",
+    a7: "Communication is direct through phone calls or WhatsApp. This makes Kisan Near Me a trusted farmer-to-buyer platform, helping both sides negotiate and close deals quickly.",
 
-    q8: "What makes Krushi Mandi different from traditional mandis?",
-    a8: "Unlike traditional mandis with heavy middlemen charges, Krushi Mandi is an online mandi for farmers where crops go straight from farm to market. Buyers get fresh produce and farmers get fair prices without exploitation.",
+    q8: "What makes Kisan Near Me different from traditional mandis?",
+    a8: "Unlike traditional mandis with heavy middlemen charges, Kisan Near Me is an online mandi for farmers where crops go straight from farm to market. Buyers get fresh produce and farmers get fair prices without exploitation.",
 
-    q9: "Can agricultural equipment and fertilizer companies join Krushi Mandi?",
-    a9: "Yes, Krushi Mandi is open to agriculture equipment manufacturers and fertilizer companies who want to showcase their products directly to farmers.",
+    q9: "Can agricultural equipment and fertilizer companies join Kisan Near Me?",
+    a9: "Yes, Kisan Near Me is open to agriculture equipment manufacturers and fertilizer companies who want to showcase their products directly to farmers.",
 
-    q10: "Is Krushi Mandi available across India?",
-    a10: "Yes, Krushi Mandi is accessible across India. Whether you are looking for wholesale fruits and vegetables near me, local farmers near me, or want to use an online mandi for farmers, Krushi Mandi brings everything to one platform.",
+    q10: "Is Kisan Near Me available across India?",
+    a10: "Yes, Kisan Near Me is accessible across India. Whether you are looking for wholesale fruits and vegetables near me, local farmers near me, or want to use an online mandi for farmers, Kisan Near Me brings everything to one platform.",
 
-    q11: "What is the mission of Krushi Mandi?",
-    a11: "The mission of Krushi Mandi is to empower farmers, build a sustainable agriculture marketplace in India, reduce middlemen, and strengthen the rural economy by providing fair trade opportunities.",
+    q11: "What is the mission of Kisan Near Me?",
+    a11: "The mission of Kisan Near Me is to empower farmers, build a sustainable agriculture marketplace in India, reduce middlemen, and strengthen the rural economy by providing fair trade opportunities.",
   },
   privacy: {
     heading: "Privacy Policy",
     intro:
-      "Krushi Mandi, an initiative by Evool Foundation, respects and protects the privacy of our users. This Privacy Policy explains how we collect, store, and use information when you access or use our platform.",
+      "Kisan Near Me, an initiative by Evool Foundation, respects and protects the privacy of our users. This Privacy Policy explains how we collect, store, and use information when you access or use our platform.",
 
     section1_title: "1. Data We Collect",
     section1_points_1:
@@ -371,7 +371,7 @@ const enTranslations = {
 
     section6_title: "6. No Payments on Platform",
     section6_points_1:
-      "Krushi Mandi does not process any kind of payments. All transactions happen directly between farmers and buyers.",
+      "Kisan Near Me does not process any kind of payments. All transactions happen directly between farmers and buyers.",
     section6_points_2:
       "We are not responsible for any pre-payments, fraud, or disputes between buyers and sellers.",
 
@@ -384,11 +384,11 @@ const enTranslations = {
   terms: {
     heading: "Terms and Conditions",
     intro:
-      "Welcome to Krushi Mandi, a platform by Evool Foundation. By accessing or using our platform, you agree to the following Terms and Conditions:",
+      "Welcome to Kisan Near Me, a platform by Evool Foundation. By accessing or using our platform, you agree to the following Terms and Conditions:",
 
     section1_title: "1. Nature of Platform",
     section1_points_1:
-      "Krushi Mandi is a free platform that connects farmers, traders, buyers, and agricultural businesses.",
+      "Kisan Near Me is a free platform that connects farmers, traders, buyers, and agricultural businesses.",
     section1_points_2:
       "We provide listings, product information, and contact details but do not participate in actual trade.",
 
@@ -400,7 +400,7 @@ const enTranslations = {
 
     section3_title: "3. Payments and Transactions",
     section3_points_1:
-      "Krushi Mandi does not provide any payment gateway or escrow service.",
+      "Kisan Near Me does not provide any payment gateway or escrow service.",
     section3_points_2:
       "Any payments made outside the platform are solely between buyer and seller.",
     section3_points_3:
@@ -410,11 +410,11 @@ const enTranslations = {
     section4_points_1:
       "Users retain ownership of the content and product images they upload.",
     section4_points_2:
-      "By uploading content, users grant Krushi Mandi a license to display and share the content publicly on the platform.",
+      "By uploading content, users grant Kisan Near Me a license to display and share the content publicly on the platform.",
 
     section5_title: "5. Limitation of Liability",
     section5_points_1:
-      "Krushi Mandi and Evool Foundation are not liable for any financial loss, fraud, or disputes arising between farmers, traders, buyers, or companies.",
+      "Kisan Near Me and Evool Foundation are not liable for any financial loss, fraud, or disputes arising between farmers, traders, buyers, or companies.",
     section5_points_2: "We only act as a connecting platform.",
 
     section6_title: "6. Termination of Use",
@@ -542,13 +542,13 @@ const hiTranslations = {
     contactUs: "संपर्क करें",
     address: "पता",
     evoolfoundation: "इवूल फाउंडेशन",
-    copyright: " कृषि मंडी । सभी अधिकार सुरक्षित हैं",
+    copyright: " किसान नियर मी । सभी अधिकार सुरक्षित हैं",
     description:
-      "कृषि मंडी इवूल फाउंडेशन का निःशुल्क प्लेटफ़ॉर्म है, जो किसानों, खरीदारों और व्यापारियों को जोड़कर उचित दाम और किसानों को सशक्त बनाने का कार्य करता है",
+      "किसान नियर मी इवूल फाउंडेशन का निःशुल्क प्लेटफ़ॉर्म है, जो किसानों, खरीदारों और व्यापारियों को जोड़कर उचित दाम और किसानों को सशक्त बनाने का कार्य करता है",
   },
   onboarding: {
     welcomeMessage:
-      "कृषि मंडी में आपका स्वागत है! शुरू करने के लिए कृपया अपनी प्रोफ़ाइल पूरी करें।",
+      "किसान नियर मी में आपका स्वागत है! शुरू करने के लिए कृपया अपनी प्रोफ़ाइल पूरी करें।",
     role: "भूमिका",
     farmer: "किसान",
     trader: "व्यापारी",
@@ -632,7 +632,7 @@ const hiTranslations = {
     statusError: "स्थिति अपडेट करने में त्रुटि",
   },
   auth: {
-    loginTitle: "कृषि मंडी में लॉगिन करें",
+    loginTitle: "किसान नियर मी में लॉगिन करें",
     loginSubtitle: "भारत भर के किसानों और व्यापारियों से जुड़ें",
     continueWithGoogle: "Google के साथ जारी रखें",
     signingIn: "साइन इन हो रहा है...",

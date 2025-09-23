@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const BASE_URL = "https://krushimandi.com"; // canonical domain
+const BASE_URL = "https://kisannearme.com"; // canonical domain
 const now = new Date().toISOString();
 
 const urls = [
