@@ -66,7 +66,7 @@ function LoginContent() {
     <div className="min-h-screen flex items-center justify-center bg-white">
       <div className="w-full max-w-md p-8 rounded-lg shadow border border-blue-100">
         <div className="flex items-center justify-center mb-6">
-          <Image src="/KM-LOGO-FULL.png" alt="Logo" width={200} height={50} />
+          <Image src="/KM-LOGO-FULLV2.png" alt="Logo" width={200} height={50} />
         </div>
         <h1 className="text-2xl font-semibold text-center text-blue-700 mb-2">{t("common.welcome")}</h1>
         <p className="text-center text-gray-600 mb-8">{t("common.signInMessage")}</p>
@@ -87,7 +87,7 @@ export default function LoginPage() {
       <div className="min-h-screen flex items-center justify-center bg-white">
         <div className="w-full max-w-md p-8 rounded-lg shadow border border-blue-100">
           <div className="flex items-center justify-center mb-6">
-            <Image src="/KM-LOGO-FULL.png" alt="Logo" width={200} height={50} />
+            <Image src="/KM-LOGO-FULLV2.png" alt="Logo" width={200} height={50} />
           </div>
           <div className="text-center">
             <div className="text-blue-700 text-lg mb-2">Loading...</div>

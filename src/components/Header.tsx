@@ -128,7 +128,7 @@ export default function Header() {
             className={isNavigationBlocked ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}
           >
             <Image
-              src="/KM-LOGO-FULL.png"
+              src="/KM-LOGO-FULLV2.png"
               alt="Kisan Near Me Logo"
               width={119}
               height={39.5}
@@ -295,7 +295,7 @@ export default function Header() {
             className={isNavigationBlocked ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}
           >
             <Image
-              src="/KM-LOGO-FULL.png"
+              src="/KM-LOGO-FULLV2.png"
               alt="Kisan Near Me Logo"
               width={140}
               height={36}

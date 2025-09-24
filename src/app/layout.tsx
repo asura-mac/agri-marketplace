@@ -20,9 +20,9 @@ export const metadata: Metadata = {
   description: "Kisan Near Me is a free digital agriculture platform by Evool Foundation, connecting farmers, buyers and traders to sell crops, vegetables, fruits, seeds and produce fairly.",
   keywords: "sell agriculture, post ad, farming products, agricultural marketplace",
   icons: {
-    icon: "/Favicon.png",
-    shortcut: "/Favicon.png",    
-    apple: "/Favicon.png",
+    icon: "/FaviconV2.png",
+    shortcut: "/FaviconV2.png",    
+    apple: "/FaviconV2.png",
   },
   openGraph: {
     type: "website",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
       "Kisan Near Me is a free online mandi in India by Evool Foundation where farmers, buyers, and traders can connect directly for crops, vegetables, fruits, seeds, and more.",
     images: [
       {
-        url: "https://www.kisannearme.com/KM-OG.png", // <-- yaha apna OG image ya logo ka URL daalna
+        url: "https://www.kisannearme.com/KM-OGV2.png", // <-- yaha apna OG image ya logo ka URL daalna
         width: 1200,
         height: 630,
         alt: "Kisan Near Me - Agricultural Marketplace",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
           "url": "https://www.evoolfoundation.org",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://www.kisannearme.com/KM-LOGO-FULL.png"
+            "url": "https://www.kisannearme.com/KM-LOGO-FULLV2.png"
           }
         },
         "potentialAction": {
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
         "@type": "Organization",
         "name": "Evool Foundation",
         "url": "https://www.evoolfoundation.org",
-        "logo": "https://www.kisannearme.com/KM-LOGO-FULL.png",
+        "logo": "https://www.kisannearme.com/KM-LOGO-FULLV2.png",
         "sameAs": [
           "https://www.facebook.com/people/Evool-Foundation/61575736152884/",
           "https://x.com/evoolfoundation/",

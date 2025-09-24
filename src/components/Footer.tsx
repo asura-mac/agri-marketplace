@@ -19,7 +19,7 @@ export default function Footer() {
             <div className="flex items-center gap-2">
               <Link href="/">
                 <Image
-                  src="/KM-LOGO-FULL.png"
+                  src="/KM-LOGO-FULLV2.png"
                   alt="Kisan Near Me Logo"
                   width={160}
                   height={40}
