@@ -11,23 +11,23 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-sky-200 pt-16 pb-8">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+    <footer className="bg-sky-200 pt-20 pb-10">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-10">
           {/* Brand Section */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
+          <div className="space-y-6">
+            <div className="flex items-center gap-3">
               <Link href="/">
                 <Image
                   src="/KM-LOGO-FULLV2.png"
                   alt="Kisan Near Me Logo"
-                  width={160}
-                  height={40}
+                  width={180}
+                  height={45}
                   className="cursor-pointer"
                 />
               </Link>
             </div>
-            <p className="text-gray-700 text-sm leading-relaxed max-w-xs">
+            <p className="text-gray-700 text-base leading-relaxed max-w-xs">
               {t("footer.description")}
             </p>
 
@@ -159,6 +159,12 @@ export default function Footer() {
               >
                 {t("footer.contactUs")}
               </a>
+              <Link 
+                href="/blogs"
+                className="block text-gray-700 hover:text-blue-600 transition-colors"
+              >
+                {t("footer.blogs")}
+              </Link>
             </nav>
           </div>
 

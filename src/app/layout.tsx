@@ -1,18 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
+  variable: '--font-inter',
 });
 
 export const metadata: Metadata = {
@@ -97,7 +93,7 @@ export const metadata: Metadata = {
           { "@type": "ListItem", "position": 7, "name": "Nuts", "url": "https://www.kisannearme.com/categories/nuts" },
           { "@type": "ListItem", "position": 8, "name": "Spices", "url": "https://www.kisannearme.com/categories/spices" },
           { "@type": "ListItem", "position": 9, "name": "Flowers", "url": "https://www.kisannearme.com/categories/flowers" },
-          { "@type": "ListItem", "position": 10, "name": "Tea", "url": "https://www.kisannearme.com/categories/tea" },
+          { "@type": "ListItem", "position": 10, "name": "Cash Crops", "url": "https://www.kisannearme.com/categories/tea" },
           { "@type": "ListItem", "position": 11, "name": "Dairy", "url": "https://www.kisannearme.com/categories/dairy" },
           { "@type": "ListItem", "position": 12, "name": "Fish", "url": "https://www.kisannearme.com/categories/fish" },
           { "@type": "ListItem", "position": 13, "name": "Fertilizer", "url": "https://www.kisannearme.com/categories/fertilizer" },
@@ -120,7 +116,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${inter.className} antialiased`}>
         <Providers>
           <Header />
           <main className="min-h-screen">

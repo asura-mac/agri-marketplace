@@ -69,4 +69,17 @@ export async function testAuthAndDatabase(): Promise<void> {
   }
 }
 
+export type UserProfileRow = {
+  id: string;
+  user_uuid: string;
+  name?: string;
+  phone?: string;
+  state?: string;
+  district?: string;
+  pincode?: string;
+  location?: string;
+  role?: string;
+  updated_at?: string;
+};
+
 export { supabase };

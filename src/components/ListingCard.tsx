@@ -93,7 +93,11 @@ export default function ListingCard({ listing, onClick, showContact = false }: L
               {listing.product_name}
             </h3>
             <div className="text-lg font-bold text-gray-900">
-              ₹ {listing.price_per_unit}/{t(`units.${listing.unit}`)}
+              {listing.ask_for_price ? (
+                <span className="text-blue-700">Ask for price</span>
+              ) : (
+                <>₹ {listing.price_per_unit}/{t(`units.${listing.unit}`)}</>
+              )}
             </div>
           </div>
         </div>

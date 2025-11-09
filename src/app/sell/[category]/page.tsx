@@ -4,7 +4,6 @@ import { useAuth } from "@/app/providers";
 import { useEffect, useState, Suspense } from "react";
 import Link from "next/link";
 import { createListing, getListingForEdit, updateListing } from "@/lib/listings-utils";
-import { testAuthAndDatabase } from "@/lib/supabase";
 import type { ListingFormData, Listing } from "@/lib/listings-utils";
 import Breadcrumb from "@/components/Breadcrumb";
 import ImageUpload from "@/components/ImageUpload";
@@ -67,7 +66,8 @@ function CategorySellContent() {
     contactPhone: '',
     whatsappNumber: '',
     sameAsPhone: false,
-    images: []
+    images: [],
+    askForPrice: false
   });
 
   const [submitting, setSubmitting] = useState(false);
@@ -99,15 +99,16 @@ function CategorySellContent() {
             setFormData({
               productName: listing.product_name,
               description: listing.product_description,
-              pricePerUnit: listing.price_per_unit,
+              pricePerUnit: listing.price_per_unit ?? 0,
               unit: listing.unit,
-              minimumOrder: listing.minimum_order,
+              minimumOrder: listing.minimum_order ?? 0,
               state: listing.state || '',
               district: listing.district || '',
               contactPhone: listing.contact_phone || '',
               whatsappNumber: listing.whatsapp_number || '',
               sameAsPhone: listing.contact_phone === listing.whatsapp_number,
-              images: listing.images || []
+              images: listing.images || [],
+              askForPrice: listing.ask_for_price || false
             });
           } else {
             console.error('Failed to load listing for editing');
@@ -180,12 +181,14 @@ function CategorySellContent() {
       newErrors.description = 'Description must be 500 characters or less';
     }
 
-    if (!formData.pricePerUnit || formData.pricePerUnit <= 0) {
-      newErrors.pricePerUnit = 'Price per unit must be greater than 0';
-    }
+    if (!formData.askForPrice) {
+      if (!formData.pricePerUnit || formData.pricePerUnit <= 0) {
+        newErrors.pricePerUnit = 'Price per unit must be greater than 0';
+      }
 
-    if (!formData.minimumOrder || formData.minimumOrder <= 0) {
-      newErrors.minimumOrder = 'Minimum order must be greater than 0';
+      if (!formData.minimumOrder || formData.minimumOrder <= 0) {
+        newErrors.minimumOrder = 'Minimum order must be greater than 0';
+      }
     }
 
     if (!formData.state.trim()) {
@@ -265,25 +268,27 @@ function CategorySellContent() {
   const handleInputChange = (field: keyof typeof formData, value: string | number | string[] | boolean) => {
     setFormData(prev => {
       const updated = { ...prev, [field]: value };
-      
       // Auto-sync WhatsApp when sameAsPhone is checked and phone changes
       if (field === 'contactPhone' && prev.sameAsPhone) {
         updated.whatsappNumber = value as string;
       }
-      
       // When sameAsPhone is toggled
       if (field === 'sameAsPhone' && value) {
         updated.whatsappNumber = prev.contactPhone;
       }
-      
+      // If askForPrice is toggled, clear price and minimumOrder if checked
+      if (field === 'askForPrice') {
+        if (value) {
+          updated.pricePerUnit = 0;
+          updated.minimumOrder = 0;
+        }
+      }
       return updated;
     });
-    
     // Clear error when user starts typing
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }));
     }
-    
     // Clear location error when user types in state or district
     if ((field === 'state' || field === 'district') && locationError) {
       setLocationError(null);
@@ -450,6 +455,7 @@ function CategorySellContent() {
                       errors.pricePerUnit ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder="0.00"
+                    disabled={formData.askForPrice}
                   />
                 </div>
                 {errors.pricePerUnit && (
@@ -466,6 +472,7 @@ function CategorySellContent() {
                   value={formData.unit}
                   onChange={(e) => handleInputChange('unit', e.target.value as 'kg' | 'quintal' | 'ton' | 'nos' | 'litre' | 'dozen')}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                  disabled={formData.askForPrice}
                 >
                   {unitOptions.map(option => (
                     <option key={option.value} value={option.value}>
@@ -491,6 +498,7 @@ function CategorySellContent() {
                       errors.minimumOrder ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder="0.00"
+                    disabled={formData.askForPrice}
                   />
                   <span className="px-3 py-2 bg-gray-100 border border-l-0 border-gray-300 rounded-r-md text-gray-700">
                     {formData.unit}
@@ -500,6 +508,20 @@ function CategorySellContent() {
                   <p className="mt-1 text-sm text-red-600">{errors.minimumOrder}</p>
                 )}
               </div>
+            </div>
+
+            {/* Ask for Price Checkbox */}
+            <div className="mt-6">
+              <label className="inline-flex items-center">
+                <input
+                  type="checkbox"
+                  checked={formData.askForPrice}
+                  onChange={e => handleInputChange('askForPrice', e.target.checked)}
+                  className="form-checkbox h-5 w-5 text-blue-600"
+                />
+                  <span className="ml-2 text-gray-900 font-medium">Ask for price</span>
+              </label>
+                <p className="text-sm text-gray-500 mt-1">If checked, buyers will see &apos;Ask for price&apos; instead of a price for this product.</p>
             </div>
           </div>
 

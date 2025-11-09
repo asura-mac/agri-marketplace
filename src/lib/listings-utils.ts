@@ -12,9 +12,10 @@ export type ListingFormData = {
   state: string;
   district: string;
   contactPhone: string;
-  whatsappNumber: string;  // Add this
+  whatsappNumber: string;
   sameAsPhone: boolean;
   images: string[];
+  askForPrice: boolean;
 };
 
 export type Listing = {
@@ -23,9 +24,9 @@ export type Listing = {
   category: string;
   product_name: string;
   product_description: string;
-  price_per_unit: number;
+  price_per_unit: number | null;
   unit: 'kg' | 'quintal' | 'ton' | 'nos' | 'litre' | 'dozen';
-  minimum_order: number;
+  minimum_order: number | null;
   state: string | null;
   district: string | null;
   contact_phone: string;
@@ -34,6 +35,7 @@ export type Listing = {
   status: 'active' | 'sold' | 'inactive';
   created_at: string;
   updated_at: string;
+  ask_for_price?: boolean;
 };
 
 export type ListingWithProfile = Listing & {
@@ -161,14 +163,16 @@ export async function createListing(
       listing_district: listingData.district,
       listing_contact_phone: listingData.contactPhone,
       listing_whatsapp_number: listingData.whatsappNumber,
-      listing_images: listingData.images || []
+      listing_images: listingData.images || [],
+      listing_ask_for_price: listingData.askForPrice || false
     };
 
     console.log('RPC parameters:', rpcParams);
 
     // First try the debug function to get detailed error information
     console.log('Trying debug function first...');
-    const { data: debugData, error: debugError } = await supabase.rpc('create_listing_debug', rpcParams);
+    // Add 'as any' to the rpcParams
+    const { data: debugData, error: debugError } = await supabase.rpc('create_listing_debug', rpcParams as any);
     
     console.log('Debug RPC response:', { debugData, debugError });
     
@@ -177,20 +181,24 @@ export async function createListing(
     }
     
     if (debugData && typeof debugData === 'string') {
-      if (debugData.startsWith('SUCCESS:')) {
+      // Cast to string after check to satisfy linter
+      const debugString = debugData as string;
+
+      if (debugString.startsWith('SUCCESS:')) {
         // Extract the UUID from the success message
-        const listingId = debugData.replace('SUCCESS: ', '');
+        const listingId = debugString.replace('SUCCESS: ', '');
         console.log('Debug function succeeded, listing ID:', listingId);
         return listingId;
       } else {
-        console.error('Debug function returned error:', debugData);
+        console.error('Debug function returned error:', debugString);
         return null;
       }
     }
 
     // Fallback to original function for comparison
     console.log('Trying original create_listing function...');
-    const { data, error } = await supabase.rpc('create_listing', rpcParams);
+    // Add 'as any' to the rpcParams here as well
+    const { data, error } = await supabase.rpc('create_listing', rpcParams as any);
 
     console.log('Original RPC response:', { data, error });
 
@@ -387,8 +395,8 @@ export async function fetchListingById(listingId: string): Promise<ListingWithPr
 
   try {
     // First get the listing
-    const { data: listing, error: listingError } = await supabase
-      .from('agricultural_listings')
+    const { data: listing, error: listingError } = await (supabase // <-- FIX: Cast the chain to any
+      .from('agricultural_listings') as any)
       .select('*')
       .eq('id', listingId)
       .eq('status', 'active')
@@ -400,10 +408,10 @@ export async function fetchListingById(listingId: string): Promise<ListingWithPr
     }
 
     // Then get the user profile
-    const { data: profile, error: profileError } = await supabase
-      .from('user_profiles')
+    const { data: profile, error: profileError } = await (supabase // <-- FIX: Cast the chain to any
+      .from('user_profiles') as any)
       .select('role, name, phone, state, district')
-      .eq('user_id', String(listing.user_id))
+      .eq('user_id', String(listing.user_id)) // Now this is safe
       .single();
 
     if (profileError) {
@@ -439,8 +447,7 @@ export async function fetchSellerListings(userId: string, excludeListingId?: str
   }
 
   try {
-    let query = supabase
-      .from('agricultural_listings')
+    let query = (supabase.from('agricultural_listings') as any) // <-- FIX: Cast the chain to any
       .select('*')
       .eq('user_id', userId)
       .eq('status', 'active')
@@ -475,8 +482,8 @@ export async function fetchUserListings(userId: string): Promise<Listing[]> {
   }
 
   try {
-    const { data, error } = await supabase
-      .from('agricultural_listings')
+    const { data, error } = await (supabase // <-- FIX: Cast the chain to any
+      .from('agricultural_listings') as any)
       .select('*')
       .eq('user_id', userId)
       .order('created_at', { ascending: false });
@@ -509,7 +516,7 @@ export async function updateListingStatus(
     const { data, error } = await supabase.rpc('update_listing_status', {
       listing_id: listingId,
       new_status: status
-    });
+    } as any); // <-- FIX: Cast RPC args to any
 
     if (error) {
       console.error('Error updating listing status:', error);
@@ -536,7 +543,7 @@ export async function deleteListing(listingId: string): Promise<boolean> {
   try {
     const { data, error } = await supabase.rpc('delete_listing', {
       listing_id: listingId
-    });
+    } as any); // <-- FIX: Cast RPC args to any
 
     if (error) {
       console.error('Error deleting listing:', error);
@@ -563,14 +570,21 @@ export async function getListingForEdit(listingId: string): Promise<Listing | nu
   try {
     const { data, error } = await supabase.rpc('get_listing_for_edit', {
       listing_id: listingId
-    });
+    } as any); // <-- FIX: Cast RPC args to any
 
     if (error) {
       console.error('Error fetching listing for edit:', error);
       return null;
     }
 
-    return Array.isArray(data) && data.length > 0 ? (data[0] as Listing) : null;
+    // Cast to 'unknown' first, then check if it's an array
+    const resultData = data as unknown;
+
+    if (Array.isArray(resultData) && resultData.length > 0) {
+      return resultData[0] as Listing;
+    }
+    
+    return null; // Return null if data is not an array or is empty
   } catch (error) {
     console.error('Unexpected error fetching listing for edit:', error);
     return null;
@@ -589,17 +603,18 @@ export async function updateListing(listingId: string, formData: ListingFormData
   try {
     const { data, error } = await supabase.rpc('update_listing', {
       listing_id: listingId,
-      p_product_name: formData.productName,
-      p_product_description: formData.description,
-      p_price_per_unit: formData.pricePerUnit,
-      p_unit: formData.unit,
-      p_minimum_order: formData.minimumOrder,
-      p_state: formData.state,
-      p_district: formData.district,
-      p_whatsapp_number: formData.whatsappNumber,
-      p_contact_phone: formData.contactPhone,
-      p_images: formData.images
-    });
+      listing_product_name: formData.productName,
+      listing_description: formData.description,
+      listing_price: formData.pricePerUnit,
+      listing_unit: formData.unit,
+      listing_min_order: formData.minimumOrder,
+      listing_state: formData.state,
+      listing_district: formData.district,
+      listing_whatsapp_number: formData.whatsappNumber,
+      listing_contact_phone: formData.contactPhone,
+      listing_images: formData.images,
+      listing_ask_for_price: formData.askForPrice || false
+    } as any); // <-- FIX: Cast RPC args to any
 
     if (error) {
       console.error('Error updating listing:', error);

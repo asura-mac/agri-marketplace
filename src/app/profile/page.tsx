@@ -1,12 +1,20 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/app/providers";
+import { useTranslation } from 'react-i18next';
 import { getUserProfile, updateUserProfile } from "@/lib/auth-utils";
 import { fetchUserListings, updateListingStatus, deleteListing, type Listing } from "@/lib/listings-utils";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
+
+interface ProfileData {
+  role?: string;
+  name?: string;
+  phone?: string;
+  state?: string;
+}
 
 type UserProfile = {
   role: string;
@@ -17,6 +25,7 @@ type UserProfile = {
   pincode: string;
   location: string;
 };
+
 
 // Category colors for listing cards
 const categoryColors: Record<string, string> = {
@@ -45,11 +54,25 @@ export default function ProfilePage() {
   const [editForm, setEditForm] = useState<UserProfile | null>(null);
   const [saving, setSaving] = useState(false);
   const [loadingListings, setLoadingListings] = useState(true);
+  const { t } = useTranslation();
 
   const fetchProfile = useCallback(async () => {
     if (!user) return;
 
-    const profileData = await getUserProfile(user.id);
+    interface ProfileData {
+      role?: string;
+      name?: string;
+      phone?: string;
+      state?: string;
+      district?: string;
+      pincode?: string;
+      location?: string;
+    }
+
+    const result = await getUserProfile(user.id);
+    if (!result) return;
+
+    const profileData: ProfileData = result;
     
     if (profileData) {
       const formattedProfile: UserProfile = {
@@ -459,7 +482,7 @@ export default function ProfilePage() {
                                 "bg-gray-100 text-gray-800"
                               }`}
                             >
-                              {listing.category.toUpperCase()}
+                              {t(`categories.${listing.category}`, { defaultValue: listing.category }).toUpperCase()}
                             </span>
                           </div>
 

@@ -13,10 +13,12 @@ import {
   CallIcon
 } from "@/components/ContactIcons";
 import { fetchListingById, fetchSellerListings, type ListingWithProfile, type Listing } from "@/lib/listings-utils";
+import { useTranslation } from 'react-i18next';
 
 export default function ListingDetailPage() {
   const params = useParams();
   const listingId = params.id as string;
+  const { t } = useTranslation();
 
   const [listing, setListing] = useState<ListingWithProfile | null>(null);
   const [relatedListings, setRelatedListings] = useState<Listing[]>([]);
@@ -125,22 +127,28 @@ export default function ListingDetailPage() {
                   {listing.product_name}
                 </h1>
                 <div className="text-2xl font-bold text-gray-900">
-                  ₹ {listing.price_per_unit}/{listing.unit}
+                  {listing.ask_for_price ? (
+                    <span className="text-blue-700">Ask for price</span>
+                  ) : (
+                    <>₹ {listing.price_per_unit}/{listing.unit}</>
+                  )}
                 </div>
               </div>
 
               {/* Minimum Order */}
-              <div className="mb-6">
-                <div className="bg-gray-50 rounded-lg p-4 border">
-                  <div className="text-sm text-gray-800 mb-1">
-                    Minimum Order Quantity
-                  </div>
-                  <div className="font-medium text-black">
-                    {listing.minimum_order}
-                    {listing.unit}
+              {!listing.ask_for_price && (
+                <div className="mb-6">
+                  <div className="bg-gray-50 rounded-lg p-4 border">
+                    <div className="text-sm text-gray-800 mb-1">
+                      Minimum Order Quantity
+                    </div>
+                    <div className="font-medium text-black">
+                      {listing.minimum_order}
+                      {listing.unit}
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
               {/* State and District */}
               <div className="mb-6 flex items-center gap-2">
@@ -304,7 +312,7 @@ export default function ListingDetailPage() {
                               : "bg-gray-100 text-gray-800"
                           }`}
                         >
-                          {relatedListing.category.toUpperCase()}
+                          {t(`categories.${relatedListing.category}`, { defaultValue: relatedListing.category }).toUpperCase()}
                         </span>
                       </div>
 
@@ -364,18 +372,24 @@ export default function ListingDetailPage() {
               {listing.product_name}
             </h1>
             <div className="text-lg font-semibold text-gray-900">
-              ₹ {listing.price_per_unit}/{listing.unit}
+              {listing.ask_for_price ? (
+                <span className="text-blue-700">Ask for price</span>
+              ) : (
+                <>₹ {listing.price_per_unit}/{listing.unit}</>
+              )}
             </div>
           </div>
 
           {/* Minimum Order */}
-          <div className="p-4 border-b">
-            <div className="text-sm text-gray-600">Minimum Order Quantity</div>
-            <div className="font-medium text-black">
-              {listing.minimum_order}
-              {listing.unit}
+          {!listing.ask_for_price && (
+            <div className="p-4 border-b">
+              <div className="text-sm text-gray-600">Minimum Order Quantity</div>
+              <div className="font-medium text-black">
+                {listing.minimum_order}
+                {listing.unit}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Location */}
           <div className="p-4 border-b flex items-center gap-2">
@@ -497,7 +511,7 @@ export default function ListingDetailPage() {
                             : "bg-gray-100 text-gray-800"
                         }`}
                       >
-                        {relatedListing.category.toUpperCase()}
+                        {t(`categories.${relatedListing.category}`, { defaultValue: relatedListing.category }).toUpperCase()}
                       </span>
 
                       <div className="flex items-center gap-1 text-xs text-gray-500">
