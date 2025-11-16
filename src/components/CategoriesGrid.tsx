@@ -68,7 +68,7 @@ export default function CategoriesGrid() {
             className="group flex flex-col items-center justify-center gap-2 rounded-lg border border-blue-100 bg-white p-4 hover:border-blue-300 hover:shadow transition-all duration-200"
           >
             <div className="text-blue-700">{c.icon}</div>
-            <div className="text-xs md:text-sm font-medium text-blue-900 group-hover:text-blue-700">{c.label}</div>
+            <div className="text-xs md:text-sm font-medium text-blue-900 group-hover:text-blue-700 text-center">{c.label}</div>
           </Link>
         ))}
       </div>

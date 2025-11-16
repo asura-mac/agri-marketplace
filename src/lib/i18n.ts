@@ -2,33 +2,30 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { enTranslations, hiTranslations } from '@/lib/translations';
-// import { Contact } from 'lucide-react';
-// import { updateListing } from './listings-utils';
+import { enBlogTranslations, hiBlogTranslations } from '@/lib/blog.translations';
 
-// English translations
-
-
-// Hindi translations
-
-
-// Initialize i18next
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources: {
       en: {
-        translation: enTranslations, // Use the imported object
+        // This 'translation' key is the default. Everything must go inside it.
+        translation: {
+          ...enTranslations,       // <--- Spreads all your UI keys (header, footer, etc.)
+          blogs: enBlogTranslations // <--- Adds the 'blogs' object *inside* translation
+        }
       },
       hi: {
-        translation: hiTranslations, // Use the imported object
+        // Do the same for Hindi
+        translation: {
+          ...hiTranslations,
+          blogs: hiBlogTranslations
+        }
       },
     },
     lng: 'en', // default language
     // ... (rest of your init config) ...
   });
 
-
-  export default i18n;
-
-
+export default i18n;

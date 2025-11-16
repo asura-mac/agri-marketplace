@@ -197,7 +197,13 @@ export default function ListingDetailPage() {
                 </div>
               ) : (
                 <div className="h-full min-h-96 bg-gray-100 flex items-center justify-center">
-                  <span className="text-gray-600">No images available</span>
+                  {/* <span className="text-gray-600">No images available</span> */}
+                  <Image
+                    src='/default-image.png'
+                    alt='No image'
+                    fill
+                    className="object-cover"
+                  />
                 </div>
               )}
             </div>
@@ -280,11 +286,17 @@ export default function ListingDetailPage() {
                             className="object-cover"
                           />
                         ) : (
-                          <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-                            <span className="text-gray-400 text-sm">
-                              No image
-                            </span>
-                          </div>
+                          // <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                          //   <span className="text-gray-400 text-sm">
+                          //     No image
+                          //   </span>
+                          // </div>
+                          <Image
+                            src='/default-image.png'
+                            alt='No image'
+                            fill
+                            className="object-cover"
+                          />
                         )}
                       </div>
                     </Link>
@@ -361,8 +373,14 @@ export default function ListingDetailPage() {
               </div>
             ) : (
               <div className="aspect-square bg-gray-100 flex items-center justify-center">
-                <span className="text-gray-400">No images available</span>
-              </div>
+                {/* <span className="text-gray-400">No images available</span> */}
+                <Image
+                  src='/default-image.png'
+                  alt='No image'
+                  fill
+                  className="object-cover"
+                />
+              </div>           
             )}
           </div>
 
@@ -480,11 +498,17 @@ export default function ListingDetailPage() {
                           className="object-cover"
                         />
                       ) : (
-                        <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-                          <span className="text-gray-400 text-xs">
-                            No image
-                          </span>
-                        </div>
+                        // <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                        //   <span className="text-gray-400 text-xs">
+                        //     No image
+                        //   </span>
+                        // </div>
+                        <Image
+                          src='/default-image.png'
+                          alt='No image'
+                          fill
+                          className="object-cover"
+                        />
                       )}
                     </div>
 

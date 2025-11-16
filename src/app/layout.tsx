@@ -12,6 +12,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.kisannearme.com"),
   title: "Kisan Near Me | Free Digital Agriculture Marketplace by Evool Foundation",
   description: "Kisan Near Me is a free digital agriculture platform by Evool Foundation, connecting farmers, buyers and traders to sell crops, vegetables, fruits, seeds and produce fairly.",
   keywords: "sell agriculture, post ad, farming products, agricultural marketplace",
